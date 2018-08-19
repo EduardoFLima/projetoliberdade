@@ -1,0 +1,50 @@
+{
+  "name": "projeto-liberdade",
+  "version": "1.0.0",
+  "description": "Projeto Liberdade website",
+  "main": "index.js",
+  "repository": "git@github.com:EduardoFLima/projetoliberdade",
+  "scripts": {
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.1.18",
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "jquery": "^2.2.1",
+    "jsdom": "^8.1.0",
+    "mocha": "^2.4.5",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "dependencies": {
+    "babel-preset-stage-1": "^6.1.18",
+    "bootstrap": "^4.0.0",
+    "firebase": "^5.0.4",
+    "font-awesome": "^4.7.0",
+    "lodash": "^3.10.1",
+    "react": "^16.3.2",
+    "react-css-transition-replace": "^3.0.3",
+    "react-dom": "16.3.2",
+    "react-error-overlay": "^4.0.0",
+    "react-global-configuration": "^1.3.0",
+    "react-images": "^0.5.19",
+    "react-photo-gallery": "^6.1.2",
+    "react-promise": "^2.0.3",
+    "react-redux": "5.0.7",
+    "react-responsive-carousel": "^3.1.41",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-spinners": "^0.3.2",
+    "redux": "4.0.0",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0"
+  }
+}
