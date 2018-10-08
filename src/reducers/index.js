@@ -4,8 +4,10 @@ import ContatoReducer from './contatoReducer';
 import FotosReducer from './fotosReducer';
 import VideosReducer from './videosReducer';
 import HomePageReducer from './homeReducer';
+import HeaderReducer from './headerReducer';
 
 const rootReducer = combineReducers({
+  header : HeaderReducer,
   page : PageReducer,
   contatoPage : ContatoReducer,
   fotosPage : FotosReducer,

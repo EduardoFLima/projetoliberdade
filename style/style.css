@@ -1,272 +1,34 @@
-body {
-    background-color: aliceblue;
+/* GLOBAL */
+
+.block {
+    min-height: 90vh;
 }
 
-.container-header {
-    text-align: center;
+.anchor {
+    display: block;
     position: relative;
-    min-height: 50px;
-    padding-top: 10px;
+    top: -80px;
+    visibility: hidden;
 }
 
-.menu-group {
-    margin: auto;
-    padding-top: 10px;
-    display: inline-block;
+.title, .subtitle {
+    color: #3A3985;
 }
 
-.menu-item {
-    margin-left: 20px;
-    margin-right: 20px;
-    color: aliceblue;
-    background-color:#00AA5A;
-    border-color:#00AA5A;
-}
-
-.menu-group .btn-success:hover, .menu-group .btn-success:focus {
-    background-color:#3A3985;
+.under-title {
     border-color:#3A3985;
 }
 
-.container-header hr, .container-footer hr {
-    width: 75%;
-}
-
-.content {
-    margin: auto;
-    width: 75%;
-    display: block;
-    min-height: 390px; 
-}
-
-.content h4, .content h5 {
-    color: #3A3985;
-    font-weight: bold;
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.inner-content {
-    width: 100%;
-    display: inline-flex
-}
-
-.right-inner-content {
-    margin: 0;
-    padding-left: 10px;
-    overflow-wrap: break-word;
-    text-align: justify;
+p {
     text-indent: 50px;
-    display: block;
-    width:100%
 }
 
-.right-inner-content img {
-    border-radius: 10px;
-    box-shadow: #3A3985 3px 3px 6px;
-    border: 0.5px #3A3985 solid
+/* GLOBAL END */
+
+/* HEADER */
+
+.headerNavbar{
+    background-color: #00AA5A;
 }
 
-.right-inner-content .img-dir {
-    float: right;
-    margin-left: 15px;
-}
-
-.right-inner-content .img-esq {
-    float: left;
-    margin-right: 10px;
-}
-
-.container-footer {
-    text-align: center;
-}
-
-.spinner {
-    height: 390px;
-    display: flex;
-}
-
-.moon-loader {
-    margin: auto;
-}
-
-/* HOMEPAGE */
-
-
-.homeCarousel .slide {
-    background-color:  aliceblue;
-    min-width: 100%;
-    margin: 0;
-    position: relative;
-    text-align: center;
-}
-
-.carousel .control-prev.control-arrow:before{
-    border-right: 8px solid #3A3985;
-}
-
-.carousel .control-next.control-arrow:before{
-    border-left: 8px solid #3A3985;
-}
-
-.homeCarousel {
-    height: 390px;
-    width: 60%;
-    margin: auto;
-}
-
-.homeCarouselImageDiv {
-    height: 390px;    
-    margin:auto;
-}
-
-.carousel .slide img {
-    width: auto;
-    vertical-align: top;
-    border: 0;
-}
-
-.carousel img {
-    width: auto;
-    display: inline-block;
-    pointer-events: none;
-}
-
-/* END HOME PAGE */
-
-/* SIDEBARS */
-.sidebar {
-    width: 25%;
-    margin: 0;
-    text-align: center;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-.sidebar .list-group-item{
-    padding :  12px 10px 12px 10px ;
-    color: #00AA5A;
-    border-color: #00AA5A;
-    background-color: aliceblue;
-}
-
-.sidebar .list-group-item:hover{
-    color: #3A3985;
-}
-
-.sidebar .list-group-item-active{
-    color: aliceblue;
-    background-color: #3A3985;
-}
-
-.sidebar .list-group-item:first-of-type{
-    border-top-left-radius : 10px;
-    border-top-right-radius : 10px;
-}
-
-.sidebar .list-group-item:last-of-type{
-    border-bottom-left-radius : 10px;
-    border-bottom-right-radius : 10px;
-}
-
-/* END SIDEBARS */
-
-/* FOTOS */
-
-/* END FOTOS */
-
-/* VIDEOS */
-
-.video-carousel{
-    margin: auto;
-    width: 596px;
-}
-
-.carousel .slide iframe {
-    width: 100%;
-    height: 100%;
-    margin-left: 0px;
-}
-
-/* END VIDEOS */
-
-/* CONTATO */
-.contato-left-inner-content, .contato-right-inner-content {
-    width: 50%;
-    padding-top: 10px;
-}
-
-.contato-left-inner-content h5, .contato-right-inner-content h5 {
-    text-align: left;
-}
-
-.contato-right-inner-content .map {
-    width: 557px;
-    height: 244px;
-}
-
-.contato-left-inner-content .phone-group {
-    height: 40%;
-}
-
-.contato-left-inner-content .email-group {
-    height: 30%;
-}
-
-.telefone-img {
-    margin-left: 30px;
-}
-
-.telefone-img a {
-    height: 30px;
-}
-
-.telefone-img img {
-    margin-left: 10px;
-}
-
-.telefone-contato {
-    margin-bottom: 10px;
-}
-
-.glyphicon-phone {
-    color:#3A3985;
-    font-size: 30px;
-    position: relative;
-    top: 8px;
-}
-
-.social-icons {
-    padding-top:5px;
-    display: inline-flex;
-}
-
-.social-icons div {
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-/* ENDO CONTATO */
-
-/* ANIMATION */
-
-.contentanimation-enter{
-    opacity: 0;
-}
-
-.contentanimation-enter-active{
-    opacity: 1.0;
-    transition: opacity 0.5s linear;
-}
-
-.contentanimation-leave{
-    opacity: 1.0;
-}
-
-.contentanimation-leave-active{
-    opacity: 0;
-    transition: opacity 0.5s linear;
-}
-
-/* END ANIMATION */
+/* HEADER END */

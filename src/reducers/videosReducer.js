@@ -9,7 +9,7 @@ export default ( state = INITIAL_STATE, action ) => {
 
 switch (action.type){
     case FETCH_VIDEOS:
-        return {...state, ["loading"]:false, ["videos"]: action.payload };
+        return {...state, ["loading"]:false, ["videos"]: action.payload, ["currentPage"]: action.payload.titulo };
     case LOADING:
         return {...state, ["loading"] : true };
     default:

@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import { FETCH_HOME_PAGE,
+import { FETCH_HEADER,
+         FETCH_HOME_PAGE,
          FETCH_CONTATO,
          FETCH_PAGE, 
          LOADING,
@@ -14,22 +15,17 @@ const dispatchLoading = (dispatch) => {
     });
 }
 
-export const fetchPageInfo = (page, id) => {
+export const fetchPageInfo = (page) => {
 
-    const url = `/website/${page}`;    
-
+    const url = `/website/${page}`;   
+    
     return (dispatch) => {
 
         dispatchLoading(dispatch);
 
         firebase.database().ref(url)
-                .once('value', snapshot => {
-                    if (!id || snapshot.hasChild(id)){
-                    //console.log("snapshot", snapshot.val());
-                        dispatch( { type: FETCH_PAGE, payload: snapshot.val() });
-                    }
-                    else 
-                        dispatch( { type: HOME_PAGE, payload: '' });                    
+                .on('value', snapshot => {                    
+                    dispatch( { type: FETCH_PAGE, payload: { 'snapshot' : snapshot.val(), 'currentPage': page } });
             });
     };
 }
@@ -87,6 +83,20 @@ export const fetchHomePageInfo = () => {
         firebase.database().ref(url)
                 .on('value', snapshot => {
                     dispatch( { type: FETCH_HOME_PAGE, payload: snapshot.val() });
+            });
+    };
+}
+
+export const fetchHeaderInfo = () => {
+    const url = `/website/`;
+
+    return (dispatch) => {
+
+        dispatchLoading(dispatch);
+
+        firebase.database().ref(url)
+                .on('value', snapshot => {
+                    dispatch( { type: FETCH_HEADER, payload: snapshot.val() });
             });
     };
 }

@@ -22,7 +22,7 @@ class GoogleMap extends Component {
     }
 
     render(){
-        return <div className="map" ref="map" />;
+        return <div className="map border" style={ this.props.style ? {...this.props.style} : null } ref="map" />;
     }
 }
 

@@ -5,8 +5,6 @@ import Spinner from './common/spinner';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
 import _ from 'lodash';
-import { isIE } from '../util/util.js';
-import ReactDOM from 'react-dom';
 import ImageDarkening from './common/ImageDarkening';
 
 class Fotos extends Component {
