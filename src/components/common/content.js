@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Spinner from './spinner';
 import Sidebar from './sidebar';
-import { renderTitle, renderSubTitleRow} from './util';
+import { renderTitle, renderSubTitleRow } from './util';
 
 
 class Content extends Component {
@@ -11,7 +11,7 @@ class Content extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { loading: true, pageInfo : null };
+    this.state = { loading: true, pageInfo: null };
 
     const pageInfoIsEmpty = Object.keys(this.props.pageInfo).length === 0 && this.props.pageInfo.constructor === Object;
 
@@ -26,7 +26,7 @@ class Content extends Component {
   componentDidUpdate() {
     this.scrollTo();
   }
-  
+
 
   scrollTo() {
 
@@ -53,7 +53,7 @@ class Content extends Component {
     return _.map(_.sortBy(filteredPageInfo, (i) => i.order), (value, objKey) => {
 
       //console.log('value', value.subtitulo);
-      return <div className="block" key={objKey} >
+      return <div className="block mt-3" key={objKey} >
 
         <div className="anchor" id={value.page ? value.page : ''} />
 
@@ -77,33 +77,39 @@ class Content extends Component {
 
       if (objKey == 'menuText' || objKey == 'order' || objKey == 'subtitulo' || objKey == 'titulo')
         return null;
+                
+        return <section key={objKey}>
 
-      return <div className="row mt-3" key={objKey}>
+        {value.subtitulo ? renderSubTitleRow(value.subtitulo) : null}
 
-        {(value.img_esq) ? <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center"><img className="img-esq" src={`/src/resources/images/${value.img_esq.src}`} style={{ width: value.img_esq.largura, height: value.img_esq.altura }} /></div> : null}
+        <div className="row my-5">
 
-        {this.renderText(value)}
+          {(value.img_esq) ? <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center"><img className="img-esq" src={`/src/resources/images/${value.img_esq.src}`} style={{ width: value.img_esq.largura, height: value.img_esq.altura }} /></div> : null}
 
-        {objKey == `video` ? this.renderVideo(value.url) : null }
+          {this.renderText(value)}
 
-        {(value.img_dir) ? <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center"><img className="img-dir" src={`/src/resources/images/${value.img_dir.src}`} style={{ width: value.img_dir.largura, height: value.img_dir.altura }} /></div> : null}
-      </div>
+          {objKey == `video` ? this.renderVideo(value.url) : null}
+
+          {(value.img_dir) ? <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center"><img className="img-dir" src={`/src/resources/images/${value.img_dir.src}`} style={{ width: value.img_dir.largura, height: value.img_dir.altura }} /></div> : null}
+        </div>
+      </section>
     });
 
   }
 
   renderText(value) {
 
+    //console.log("value", value);
+
     if (!value.txts)
       return null;
 
     return <div className={`text-center ${value.img_esq || value.img_dir ? "col-lg-6 col-md-12" : "col-12"}`}>
-      
+
       {_.map(value.txts, (txt, txtKey) => {
 
-        if (txtKey == "ul") {
-          return <ul key={txtKey} className="text-left" >{_.map(txt, (liTxt, liKey) => <li key={liKey}>{liTxt}</li>)}</ul>
-        }
+        if (txtKey == "ul")
+          return <ul key={txtKey} className="text-left" >{_.map(txt, (liTxt, liKey) => <li key={liKey}>{liTxt}</li>)}</ul>;
 
         return <p key={txtKey} className="text-justify" >{txt}</p>;
       })}
@@ -118,10 +124,10 @@ class Content extends Component {
       return null;
 
     return <div className="col-12">
-            <div className="w-75 m-auto embed-responsive embed-responsive-16by9" >
-              <iframe className="embed-responsive-item" src={url} />
-            </div>
-          </div>;
+      <div className="embed-video m-auto embed-responsive embed-responsive-16by9" >
+        <iframe className="embed-responsive-item" src={url} />
+      </div>
+    </div>;
   }
 
   renderSidebar() {
@@ -132,8 +138,8 @@ class Content extends Component {
 
   render() {
 
-    console.log(this.props);
-    
+    //console.log(this.props);
+
     if (this.props.loading)
       return <Spinner />
 
@@ -148,14 +154,12 @@ class Content extends Component {
 
 const mapStateToProps = ({ page }, ownProps) => {
 
-  console.log('page', page);
+  //console.log('page', page);
 
   if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
     return { pageInfo: {}, loading: true };
 
   const { pageInfo, loading } = page;
-
-  console.log('aqui');
 
   return {
     page: ownProps.location.hash ? ownProps.location.hash.substring(1) : ownProps.page,

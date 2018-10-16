@@ -16,7 +16,7 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
-        <Header/>
+        <Header />
         <App />
         <Footer/>
       </div>

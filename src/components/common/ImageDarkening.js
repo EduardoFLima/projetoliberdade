@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import { isMobile } from 'react-device-detect';
 
 class SelectedImage extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = { showOverlay: false };
+        this.state = { showOverlay: isMobile ? true : false };
     }
 
     showOverlay() {
@@ -13,7 +14,8 @@ class SelectedImage extends Component {
     }
 
     hideOverlay() {
-        this.setState({ showOverlay: false });
+        if (!isMobile)
+            this.setState({ showOverlay: false });
     }
 
     render() {
@@ -32,7 +34,7 @@ class SelectedImage extends Component {
         const overlayTextStyle = {
             position: 'absolute',
             color: 'white',
-            fontSize : '30px',
+            fontSize: '30px',
             margin: '0',
             marginRight: '-50%',
             top: '50%',
@@ -49,7 +51,9 @@ class SelectedImage extends Component {
                 onMouseEnter={this.showOverlay.bind(this)}
                 onMouseLeave={this.hideOverlay.bind(this)}
                 onClick={e => onClick(e, { index, photo })}
-            ><span style={{...overlayTextStyle}} >{this.state.showOverlay ? photo.titulo : ''}</span></div>
+            >
+                <span style={{ ...overlayTextStyle }} >{this.state.showOverlay ? photo.titulo : ''}</span>
+            </div>
             <img
                 src={photo.src}
                 className="dkImage"

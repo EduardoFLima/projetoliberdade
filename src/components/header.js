@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarNav, NavbarToggler, Collapse, NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'mdbreact';
 import { connect } from 'react-redux';
-import { fetchHeaderInfo } from '../actions/index';
+import { fetchHeaderInfo, fetchPageInfo } from '../actions/index';
 import _ from 'lodash';
 
 import firebase from 'firebase';
@@ -20,6 +20,9 @@ class Header extends Component {
 
     constructor(props) {
         super(props);
+
+        //console.log("header constructor");
+
         this.state = {
             collapse: false,
             isWideEnough: false,
@@ -77,7 +80,7 @@ class Header extends Component {
 
                 return (
                     <NavItem key={key} className={active} >
-                        <NavLink to={value.href}>{value.menuText}</NavLink>
+                        <NavLink to={value.href} onClick={this.onNavbarTogglerClick} >{value.menuText}</NavLink>
                     </NavItem>
                 );
 
@@ -100,7 +103,7 @@ class Header extends Component {
             const last = arr[arr.length - 1];
             const href = arr.length <= 2 ? `${value.href}#${last}` : `${value.href.substring(0, value.href.lastIndexOf(last)-1)}#${last}`;
 
-            return <DropdownItem key={key} href={href} >{value.menuText}</DropdownItem>;
+            return <DropdownItem key={key} href={href} onClick={this.onNavbarTogglerClick} >{value.menuText}</DropdownItem>;
 
         }));
 
@@ -109,7 +112,7 @@ class Header extends Component {
 
     render() {
 
-        //console.log(this.props);
+        //console.log("header render", this.state.collapse);
 
         if (!this.props.menu)
             return <div />;
@@ -134,49 +137,11 @@ class Header extends Component {
         );
     }
 
-    render2() {
-        return (
-            <header className="container-header clearfix" >
-                <div className="logo">
-                    <Link to="/"><img src="/src/resources/images/logo_proj_liberdade.png" />
-                    </Link>
-                </div>
-                <div className="menu-group">
-                    <Link to="/historia" className="btn btn-success menu-item">
-                        HISTÓRIA
-                    </Link>
-                    <Link to="/servicos" className="btn btn-success menu-item">
-                        SERVIÇOS
-                    </Link>
-                    <Link to="/missao" className="btn btn-success menu-item">
-                        MISSÃO
-                    </Link>
-                    <Link to="/equipe" className="btn btn-success menu-item">
-                        EQUIPE
-                    </Link>
-                    <Link to="/hippussuit" className="btn btn-success menu-item">
-                        HIPPUSSUIT
-                    </Link>
-                    <Link to="/fotos" className="btn btn-success menu-item">
-                        FOTOS
-                    </Link>
-                    <Link to="/videos" className="btn btn-success menu-item">
-                        VÍDEOS
-                    </Link>
-                    <Link to="/contato" className="btn btn-success menu-item">
-                        CONTATO
-                    </Link>
-                </div>
-                <hr />
-            </header>
-        );
-    }
-
 }
 
 const MapStateToProps = (state) => {
 
-    //console.log('state', state);
+    //console.log('header mapStateToProps', state);
 
     const { header } = state;
     const headerValues = { menu: {}, currentPage: '' };

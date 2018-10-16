@@ -3,22 +3,25 @@ import { connect } from 'react-redux';
 import { fetchFotosPageInfo } from '../actions/index';
 import Spinner from './common/spinner';
 import Gallery from 'react-photo-gallery';
+import Measure from 'react-measure';
 import Lightbox from 'react-images';
 import _ from 'lodash';
 import ImageDarkening from './common/ImageDarkening';
+import { renderTitle } from './common/util';
 
 class Fotos extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = { currentImage: 0, currentAlbum: '' };
+        this.state = { currentImage: 0, currentAlbum: '', width: -1 };
         this.closeLightbox = this.closeLightbox.bind(this);
         this.openLightbox = this.openLightbox.bind(this);
         this.gotoNext = this.gotoNext.bind(this);
         this.gotoPrevious = this.gotoPrevious.bind(this);
 
-        this.props.fetchFotosPageInfo();
+        if (this.props.loading)
+            this.props.fetchMethod(this.props.page);
     }
 
     openLightbox(event, obj) {
@@ -52,13 +55,35 @@ class Fotos extends Component {
     renderFotos() {
 
         const { albumList } = this.props;
+        const width = this.state.width;
         let i = -1;
-
 
         //console.log("renderFotos", albumList);
 
         return <div>
-            <Gallery ref='test' photos={albumList} onClick={this.openLightbox} ImageComponent={ImageDarkening} />
+
+            <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width })}>
+                {
+                    ({ measureRef }) => {
+                        if (width < 1) {
+                            return <div ref={measureRef}></div>;
+                        }
+                        let columns = 1;
+                        if (width >= 480) {
+                            columns = 2;
+                        }
+                        if (width >= 1024) {
+                            columns = 3;
+                        }
+                        if (width >= 1824) {
+                            columns = 4;
+                        }
+                        return <div ref={measureRef}>
+                            <Gallery photos={albumList} columns={columns} onClick={this.openLightbox} ImageComponent={ImageDarkening} />
+                        </div>
+                    }
+                }
+            </Measure>
 
             {albumList.map((a) => {
                 i++;
@@ -71,6 +96,7 @@ class Fotos extends Component {
                     key={i}
                 />
             })}
+
         </div>;
 
     }
@@ -85,31 +111,31 @@ class Fotos extends Component {
         const { titulo } = this.props;
 
         return (
-            <div className="content" >
-                <h4>{titulo}</h4>
-                <div className="inner-content-fotos">
-                    {this.renderFotos()}
-                </div>
+            <div className="container mt-4">
+                {renderTitle(titulo)}
+                {this.renderFotos()}
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ fotosPage, loading }) => {
+const mapStateToProps = ({ page }, ownProps) => {
 
-    //console.log('fotos  mapStateToProps', fotosPage);
+    //console.log('fotos  mapStateToProps', page);
 
-    const { fotos } = fotosPage;
-
-    if (!fotosPage || loading || !fotos)
+    if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
         return { loading: true };
 
-    const { titulo } = fotos;
+    const { albumList } = page.pageInfo;
 
-    if (!fotos.albumList || !titulo)
+    if (!albumList)
         return { loading: true };
 
-    const albumList = _.values(_.mapValues(fotos.albumList, (o) => {
+    const { titulo } = albumList;
+
+    const filteredAlbumList = _.values(_.mapValues(_.pickBy(albumList, (p) => typeof p == 'object'), (o) => {
+
+        //console.log('fotos  mapStateToProps O', page);
 
         const src = "/src/resources/images/" + o.capa.src;
         const width = Number(o.capa.width.replace("px", ""));
@@ -122,9 +148,9 @@ const mapStateToProps = ({ fotosPage, loading }) => {
         return { src, width, height, fotos, titulo: o.capa.titulo };
     }));
 
-    return { loading, titulo, albumList };
+    return { loading: page.loading, titulo, albumList: filteredAlbumList };
 }
 
 
 
-export default connect(mapStateToProps, { fetchFotosPageInfo })(Fotos)
+export default connect(mapStateToProps)(Fotos)

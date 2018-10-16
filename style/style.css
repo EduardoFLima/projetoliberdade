@@ -1,5 +1,13 @@
 /* GLOBAL */
 
+html {
+    scroll-behavior: smooth
+}
+
+body {
+    background-color: aliceblue;
+}
+
 .block {
     min-height: 90vh;
 }
@@ -32,3 +40,56 @@ p {
 }
 
 /* HEADER END */
+
+/* HOME */
+
+.homeCarousel .slide {
+    background-color:  aliceblue;
+    margin: auto;
+}
+
+.carousel .control-prev.control-arrow:before{
+    border-right: 20px solid #3A3985;
+}
+
+.carousel .control-next.control-arrow:before{
+    border-left: 20px solid #3A3985;
+}
+
+.carousel .control-arrow:before, .carousel.carousel-slider .control-arrow:before{
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent
+}
+
+@media screen and (max-width: 720px){
+    .carousel.carousel-slider button.control-arrow{
+        display: none
+    }
+}
+
+/* END HOME */
+
+/* FOTOS */
+
+@media screen and (max-width: 720px){
+    .overlay{
+        position: 'absolute';
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* FOTOS END */
+
+/* VIDEOS */
+
+.embed-video{
+    width: 75%;
+}
+
+@media screen and (max-width: 720px){
+    .embed-video{
+        width: 100%;
+    }
+}
+
+/* VIDEOS END */

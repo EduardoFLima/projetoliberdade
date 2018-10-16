@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from './common/spinner';
 import { connect } from 'react-redux';
-import { fetchHomePageInfo } from '../actions';
 import { Carousel } from 'react-responsive-carousel';
 import _ from 'lodash';
 
@@ -10,7 +9,10 @@ class Home extends Component {
     constructor(props) {
         super(props);
 
-        this.props.fetchHomePageInfo();
+        //console.log("constructor home");
+
+        if (this.props.loading)
+            this.props.fetchMethod(this.props.page);
     }
 
     renderHomeCarousel() {
@@ -26,19 +28,30 @@ class Home extends Component {
             autoPlay: true,
             useKeyboardArrows: true,
             interval: 5000,
-            showStatus : false
+            showStatus: false
         };
 
+        const styles = {
+            "imgStyle": {
+                maxWidth: "100%",
+                maxHeight: "500px",
+                width: "auto",
+                height: "auto",
+            }
+        }
+
         return (
-            <Carousel className="homeCarousel" {...carouselProps} >
-
-                {_.map(home, (value, key) => {
-                    return <div className="homeCarouselImageDiv" key={key} >
-                        <img className="homeCarouselImage" src={`/src/resources/images/${value.src}`} />
-                    </div>
-                })}
-
-            </Carousel>
+            <div className="row pt-5">
+                <div className="col-12 px-0">
+                    <Carousel className="homeCarousel" {...carouselProps} >
+                        {_.map(_.pickBy(home, (h) => typeof h == "object"), (value, key) => {
+                            return <div key={key} >
+                                <img style={styles.imgStyle} src={`/src/resources/images/${value.src}`} />
+                            </div>
+                        })}
+                    </Carousel>
+                </div>
+            </div>
         );
     }
 
@@ -50,7 +63,7 @@ class Home extends Component {
         const { titulo } = this.props.home;
 
         return (
-            <div className="content" >
+            <div className="container-fluid" >
                 {this.renderHomeCarousel()}
             </div>
 
@@ -59,12 +72,15 @@ class Home extends Component {
 
 }
 
-const mapStateToProps = ({ homePage }) => {
+const mapStateToProps = ({ page }, ownProps) => {
 
-    const { loading, home } = homePage;
+    //console.log("homeMapStateToProps", page);
 
-    return { loading, home };
+    if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
+        return { loading: true };
+
+    return { loading: page.loading, home: page.pageInfo };
 
 }
 
-export default connect(mapStateToProps, { fetchHomePageInfo })(Home);
+export default connect(mapStateToProps)(Home);
