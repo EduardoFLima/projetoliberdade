@@ -42,7 +42,7 @@ class Contato extends Component {
         <div className="container-fluid px-0">
           <div className="row">
             <div className="col-12 px-0">
-              <GoogleMap {...map} style={{ width: '100vw', height: '35vh' }} />
+              <GoogleMap {...map} style={{ width: '100vw', height: '35vh', border: '0' }} />
             </div>
           </div>
         </div>
