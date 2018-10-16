@@ -11,8 +11,8 @@ import configuration from '../resources/config/config';
 import config from 'react-global-configuration';
 
 import {
-    FIREBASE_API_KEY,
-    GOOGLE_MAPS_API_KEY
+    FIREBASE_API_KEY
+    //GOOGLE_MAPS_API_KEY
 } from './common/constants';
 
 
@@ -38,9 +38,9 @@ class Header extends Component {
 
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         appendScriptTag(`https://maps.googleapis.com/maps/api/js?key=${config.get(GOOGLE_MAPS_API_KEY)}`);
-    }
+    }*/
 
     onNavbarTogglerClick() {
         this.setState({
@@ -103,7 +103,7 @@ class Header extends Component {
             const last = arr[arr.length - 1];
             const href = arr.length <= 2 ? `${value.href}#${last}` : `${value.href.substring(0, value.href.lastIndexOf(last)-1)}#${last}`;
 
-            return <DropdownItem key={key} href={href} onClick={this.onNavbarTogglerClick} >{value.menuText}</DropdownItem>;
+            return <DropdownItem key={key} href={href} onClick={this.onNavbarTogglerClick}  >{value.menuText}</DropdownItem>;
 
         }));
 
