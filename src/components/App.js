@@ -14,10 +14,10 @@ class App extends Component {
 
   constructor(props){
     super(props);
-
   }
 
   render() {
+
     return (
       <Switch>
 
@@ -27,7 +27,7 @@ class App extends Component {
             transitionEnterTimeout={500}
             transitionLeaveTimeout={500}
           >
-            <div className="aqui" key={location.pathname}>
+            <div key={location.pathname}>
               <Switch location={location}>
                 <Route path="/missao" render={(props)=><Content {...props} fetchMethod={this.props.fetchPageInfo} page="missao" />}/>
                 <Route path="/equipe" render={(props)=><Content {...props} fetchMethod={this.props.fetchPageInfo} page="equipe" />}/>

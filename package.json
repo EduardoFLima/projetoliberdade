@@ -5,7 +5,9 @@
   "main": "index.js",
   "repository": "git@github.com:EduardoFLima/projetoliberdade",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "oldStart": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
@@ -18,19 +20,27 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "css-loader": "^1.0.1",
+    "file-loader": "^2.0.0",
     "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
     "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "webpack-dev-server": "^1.14.0",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
     "babel-preset-stage-1": "^6.1.18",
     "bootstrap": "^4.0.0",
+    "clean-webpack-plugin": "^0.1.19",
     "firebase": "^5.0.4",
     "font-awesome": "^4.7.0",
+    "i": "^0.3.6",
     "lodash": "4.17.10",
     "mdbreact": "^4.7.0",
+    "npm": "^6.4.1",
     "react": "^16.3.2",
     "react-css-transition-replace": "^3.0.3",
     "react-device-detect": "^1.6.1",
@@ -49,6 +59,7 @@
     "react-spinners": "^0.3.2",
     "redux": "4.0.0",
     "redux-promise": "^0.6.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "uglifyjs-webpack-plugin": "^2.0.1"
   }
 }

@@ -101,7 +101,8 @@ class Header extends Component {
 
             const arr = value.href.split('/');
             const last = arr[arr.length - 1];
-            const href = arr.length <= 2 ? `${value.href}#${last}` : `${value.href.substring(0, value.href.lastIndexOf(last)-1)}#${last}`;
+            
+            const href = arr.length <= 2 ? `#${value.href}#${last}` : `#${value.href.substring(0, value.href.lastIndexOf(last)-1)}#${last}`;
 
             return <DropdownItem key={key} href={href} onClick={this.onNavbarTogglerClick}  >{value.menuText}</DropdownItem>;
 

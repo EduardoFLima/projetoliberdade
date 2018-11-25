@@ -20,23 +20,26 @@ class Content extends Component {
   }
 
   componentDidMount() {
-    this.scrollTo();
+    //console.log('componentDidMount');
+    //this.scrollTo();
   }
 
   componentDidUpdate() {
-    this.scrollTo();
+    //console.log('componentDidUpdate');
+    //this.scrollTo();
   }
 
 
   scrollTo() {
 
-    if (this.props.page) {
+    if (!this.props.loading && this.props.page) {
       const element = document.getElementById(this.props.page);
 
-      if (element)
-        element.scrollIntoView(true);
+      if (element){
+        //console.log('scrollIntoView - ' + this.props.page);
+        console.log(element.scrollIntoView(true));
+      }
     }
-
   }
 
   renderPageInfo() {
@@ -138,7 +141,7 @@ class Content extends Component {
 
   render() {
 
-    //console.log(this.props);
+    //console.log('render - ' + this.props.page + ' - ' + new Date().getMilliseconds() );
 
     if (this.props.loading)
       return <Spinner />
@@ -154,7 +157,7 @@ class Content extends Component {
 
 const mapStateToProps = ({ page }, ownProps) => {
 
-  //console.log('page', page);
+  //console.log('mapStateToProps - ' + ownProps.page + ' - ' + page.currentPage );
 
   if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
     return { pageInfo: {}, loading: true };
