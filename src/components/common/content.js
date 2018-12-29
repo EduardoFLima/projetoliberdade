@@ -17,7 +17,7 @@ class Content extends Component {
 
     if (pageInfoIsEmpty || !this.props.pageInfo[this.props.page])
       this.props.fetchMethod(this.props.page);
-  }
+  } 
 
   componentDidMount() {
     //console.log('componentDidMount');
@@ -26,9 +26,8 @@ class Content extends Component {
 
   componentDidUpdate() {
     //console.log('componentDidUpdate');
-    //this.scrollTo();
+    this.scrollTo();
   }
-
 
   scrollTo() {
 
@@ -36,8 +35,9 @@ class Content extends Component {
       const element = document.getElementById(this.props.page);
 
       if (element){
-        //console.log('scrollIntoView - ' + this.props.page);
-        console.log(element.scrollIntoView(true));
+        setTimeout(() => {
+          element.scrollIntoView(true);
+         }, 500);
       }
     }
   }
@@ -146,6 +146,7 @@ class Content extends Component {
     if (this.props.loading)
       return <Spinner />
 
+    //console.log('render', this.props.pageInfo)
 
     return (
       <section className="container mt-4">
@@ -161,7 +162,7 @@ const mapStateToProps = ({ page }, ownProps) => {
 
   if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
     return { pageInfo: {}, loading: true };
-
+  
   const { pageInfo, loading } = page;
 
   return {

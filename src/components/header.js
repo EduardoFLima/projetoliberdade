@@ -44,7 +44,7 @@ class Header extends Component {
 
     onNavbarTogglerClick() {
         this.setState({
-            collapse: !this.state.collapse,
+            collapse: !this.state.collapse
         });
     }
 
