@@ -31,6 +31,12 @@ p {
     text-indent: 50px;
 }
 
+@media screen and (max-width: 720px){
+    p {
+        text-indent: 25px;
+    }
+}
+
 /* GLOBAL END */
 
 /* HEADER */
