@@ -33,7 +33,7 @@ p {
 
 @media screen and (max-width: 720px){
     p {
-        text-indent: 25px;
+        text-indent: 10px;
     }
 }
 
