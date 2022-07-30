@@ -11,7 +11,7 @@ import configuration from '../resources/config/config';
 import config from 'react-global-configuration';
 
 import {
-    FIREBASE_API_KEY
+    FIREBASE_CONFIG
     //GOOGLE_MAPS_API_KEY
 } from './common/constants';
 
@@ -30,7 +30,7 @@ class Header extends Component {
 
         config.set(configuration);
 
-        firebase.initializeApp(config.get(FIREBASE_API_KEY));
+        firebase.initializeApp(config.get(FIREBASE_CONFIG));
 
         this.onNavbarTogglerClick = this.onNavbarTogglerClick.bind(this);
 
@@ -60,11 +60,11 @@ class Header extends Component {
                 return <div key={key} />;
 
             if (value.hasSubMenu) {
-                
+
                 const active = value.subMenu[currentPage] ? 'active' : '';
-                
+
                 //console.log('key/value', key, value);
-                
+
                 return (<NavItem key={key} className={active}>
                     <Dropdown>
                         <DropdownToggle nav caret>{value.menuText}</DropdownToggle>
@@ -75,7 +75,7 @@ class Header extends Component {
                 </NavItem>);
             }
             else {
-                
+
                 const active = currentPage != '' && value.href.indexOf(currentPage) > -1 ? 'active' : '';
 
                 return (
@@ -101,7 +101,7 @@ class Header extends Component {
 
             const arr = value.href.split('/');
             const last = arr[arr.length - 1];
-            
+
             const href = arr.length <= 2 ? `#${value.href}#${last}` : `#${value.href.substring(0, value.href.lastIndexOf(last)-1)}#${last}`;
 
             return <DropdownItem key={key} href={href} onClick={this.onNavbarTogglerClick}  >{value.menuText}</DropdownItem>;
@@ -149,7 +149,7 @@ const MapStateToProps = (state) => {
 
     const pageLoading = _.filter(state, (v) => { return !v.loading && !v.headerInfo });
 
-    
+
     if (pageLoading && pageLoading.length > 0 && pageLoading[0].currentPage)
         headerValues['currentPage'] = pageLoading[0].currentPage;
 
