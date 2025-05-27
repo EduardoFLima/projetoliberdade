@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import Content from './common/content';
 import Fotos from './fotos';
-import Contato from './contato';
+import Contato from './contato/contatoPage';
 import Home from './home';
 
 import { fetchPageInfo } from '../actions/index';
