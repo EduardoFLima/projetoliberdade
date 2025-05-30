@@ -33,7 +33,7 @@ class Contato extends Component {
     if (!this.props.contato || (Object.keys(this.props.contato).length === 0 && this.props.contato.constructor === Object))
       return <div />;
 
-    const { enderecos, titulo, email, telefone, map, social } = this.props.contato;
+    const { enderecos, titulo, email, map, social } = this.props.contato;
 
     return (
       <section className="container-fluid block mt-4" >
