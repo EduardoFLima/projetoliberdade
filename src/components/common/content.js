@@ -56,7 +56,7 @@ class Content extends Component {
     return _.map(_.sortBy(filteredPageInfo, (i) => i.order), (value, objKey) => {
 
       //console.log('value', value.subtitulo);
-      return <div className="block mt-3 d-flex flex-column" key={objKey} >
+      return <div className="block mt-3" key={objKey} >
 
         <div className="anchor" id={value.page ? value.page : ''} />
 
@@ -81,7 +81,7 @@ class Content extends Component {
       if (objKey == 'menuText' || objKey == 'order' || objKey == 'subtitulo' || objKey == 'titulo')
         return null;
                 
-        return <div className="d-flex flex-fill align-items-center" style={{ flex: 1 }} key={objKey}>
+        return <section key={objKey}>
 
         {value.subtitulo ? renderSubTitleRow(value.subtitulo) : null}
 
@@ -95,7 +95,7 @@ class Content extends Component {
 
           {(value.img_dir) ? <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center"><img className="img-dir" src={`/src/resources/images/${value.img_dir.src}`} style={{ width: value.img_dir.largura, height: value.img_dir.altura }} /></div> : null}
         </div>
-      </div>
+      </section>
     });
 
   }
