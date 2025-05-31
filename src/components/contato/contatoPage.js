@@ -18,13 +18,10 @@ class Contato extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log('componentWillReceiveProps', nextProps);
     this.setState({ loading: true, pageInfo: null });
   }
 
   render() {
-
-    //console.log('this.props', this.props);
 
     if (this.props.loading)
       return <Spinner />;
@@ -42,8 +39,8 @@ class Contato extends Component {
           <div className="row">
             {
               enderecos ? enderecos.map(endereco => {
-                return <div className="col-sm-6 col-12 mt-5">
-                  <Address key={endereco.subtitulo} address={endereco} />
+                return <div key={endereco.nome} className="col-sm-6 col-12 mt-5">
+                  <Address address={endereco} />
                 </div>
               }) : null
             }
@@ -87,8 +84,6 @@ class Contato extends Component {
 }
 
 const mapStateToProps = ({ page }, ownProps) => {
-
-  //console.log('mapStateToProps contatoPage', page, ownProps);
 
   if (page.loading || !page.pageInfo || ownProps.page != page.currentPage)
     return { loading: true };
