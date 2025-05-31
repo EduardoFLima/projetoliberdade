@@ -112,9 +112,9 @@ class Content extends Component {
       {_.map(value.txts, (txt, txtKey) => {
 
         if (txtKey == "ul")
-          return <ul key={txtKey} className="text-left" >{_.map(txt, (liTxt, liKey) => <li key={liKey}>{liTxt}</li>)}</ul>;
+          return <ul key={txtKey} className="text-left" >{_.map(txt, (liTxt, liKey) => <li key={liKey} style={{ fontSize: '1.5rem' }}>{liTxt}</li>)}</ul>;
 
-        return <p key={txtKey} className="text-justify" >{txt}</p>;
+        return <p key={txtKey} className="text-justify" style={{ fontSize: '1.5rem' }} >{txt}</p>;
       })}
 
     </div>
