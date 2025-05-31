@@ -3,7 +3,6 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { IoLogoFacebook, IoLogoInstagram } from 'react-icons/io';
 
-import GoogleMap from '../common/google_map';
 import Spinner from '../common/spinner';
 import { renderTitle, renderSubTitle } from '../common/util';
 
@@ -33,19 +32,12 @@ class Contato extends Component {
     if (!this.props.contato || (Object.keys(this.props.contato).length === 0 && this.props.contato.constructor === Object))
       return <div />;
 
-    const { enderecos, titulo, email, map, social } = this.props.contato;
+    const { enderecos, titulo, email, social } = this.props.contato;
 
     return (
       <section className="container-fluid block mt-4" >
         {renderTitle(titulo)}
 
-        <div className="container-fluid px-0">
-          <div className="row">
-            <div className="col-12 px-0">
-              <GoogleMap {...map} style={{ width: '100vw', height: '35vh', border: '0' }} />
-            </div>
-          </div>
-        </div>
         <div className="container">
           <div className="row">
             {
