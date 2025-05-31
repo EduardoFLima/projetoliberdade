@@ -45,7 +45,7 @@ export const renderSubTitleRow = (value) => {
     return null;
 
 
-  return <div className="row">
+  return <div className="row pt-5">
     <div className="col-12">
       {renderSubTitle(value)}
     </div>
