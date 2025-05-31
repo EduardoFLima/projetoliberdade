@@ -23,7 +23,7 @@ export const renderTitle = (value) => {
 }
 
 export const renderTitleText = (value) => {
-  return <div className="row text-center mt-5">
+  return <div className="row text-center">
     <div className="col-12">
       <h2 className="title" ><b>{value}</b></h2>
     </div>
