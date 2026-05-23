@@ -1,3 +1,6 @@
+# IDEs
 .idea
+.vscode
+
+# NPM
 node_modules
-src/resources/config/config.js
