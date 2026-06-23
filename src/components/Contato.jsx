@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 function UnitCard({ unit }) {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     unit.mapa?.searchParameter || `${unit.localidade}, ${unit.cidade}`
@@ -31,101 +29,11 @@ function UnitCard({ unit }) {
   )
 }
 
-function ContactForm() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [errors, setErrors] = useState({})
-  const [submitted, setSubmitted] = useState(false)
-
-  const validate = () => {
-    const newErrors = {}
-    if (!formData.name.trim()) newErrors.name = 'Nome é obrigatório'
-    if (!formData.email.trim()) newErrors.email = 'E-mail é obrigatório'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'E-mail inválido'
-    if (!formData.message.trim()) newErrors.message = 'Mensagem é obrigatória'
-    return newErrors
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const newErrors = validate()
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      return
-    }
-    setErrors({})
-    setSubmitted(true)
-  }
-
-  if (submitted) {
-    return (
-      <div className="bg-primary-50 rounded-[var(--radius-card)] p-8 text-center" role="alert">
-        <p className="text-primary-700 font-medium text-lg">Mensagem enviada com sucesso!</p>
-        <p className="text-neutral-600 mt-2">Entraremos em contato em breve.</p>
-      </div>
-    )
-  }
-
-  return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4">
-      <div>
-        <label htmlFor="contact-name" className="block text-sm font-medium text-neutral-700 mb-1">
-          Nome
-        </label>
-        <input
-          id="contact-name"
-          type="text"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? 'name-error' : undefined}
-          className="w-full px-4 py-2 border border-neutral-300 rounded-[var(--radius-button)] focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
-        />
-        {errors.name && <p id="name-error" className="text-red-600 text-sm mt-1" role="alert">{errors.name}</p>}
-      </div>
-      <div>
-        <label htmlFor="contact-email" className="block text-sm font-medium text-neutral-700 mb-1">
-          E-mail
-        </label>
-        <input
-          id="contact-email"
-          type="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-          className="w-full px-4 py-2 border border-neutral-300 rounded-[var(--radius-button)] focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
-        />
-        {errors.email && <p id="email-error" className="text-red-600 text-sm mt-1" role="alert">{errors.email}</p>}
-      </div>
-      <div>
-        <label htmlFor="contact-message" className="block text-sm font-medium text-neutral-700 mb-1">
-          Mensagem
-        </label>
-        <textarea
-          id="contact-message"
-          rows={4}
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          aria-invalid={!!errors.message}
-          aria-describedby={errors.message ? 'message-error' : undefined}
-          className="w-full px-4 py-2 border border-neutral-300 rounded-[var(--radius-button)] focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none resize-y"
-        />
-        {errors.message && <p id="message-error" className="text-red-600 text-sm mt-1" role="alert">{errors.message}</p>}
-      </div>
-      <button
-        type="submit"
-        className="w-full px-6 py-3 bg-primary-600 text-white rounded-[var(--radius-button)] font-medium hover:bg-primary-700 transition-colors"
-      >
-        Enviar Mensagem
-      </button>
-    </form>
-  )
-}
 
 export default function Contato({ data }) {
   if (!data) return null
 
-  const { telefone, email, enderecos } = data
+  const { telefone, email, enderecos, social } = data
   const contacts = telefone?.contatos ? Object.values(telefone.contatos) : []
 
   return (
@@ -176,11 +84,38 @@ export default function Contato({ data }) {
             </div>
           )}
 
-          {/* Contact form */}
-          <div className="bg-neutral-50 rounded-[var(--radius-card)] p-6">
-            <h3 className="text-lg font-semibold text-neutral-900 mb-4">Envie uma mensagem</h3>
-            <ContactForm />
-          </div>
+          {/* Social media */}
+          {social && (
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-neutral-900 mb-4">
+                {social.subtitulo || 'Redes Sociais'}
+              </h3>
+              <div className="space-y-3">
+                {social.fb?.url && (
+                  <a
+                    href={social.fb.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors no-underline"
+                  >
+                    <img src={`/${social.fb.img?.src}`} alt="Facebook" className="w-8 h-8" />
+                    <span className="font-medium text-neutral-800">Facebook</span>
+                  </a>
+                )}
+                {social.insta?.url && (
+                  <a
+                    href={social.insta.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 p-3 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition-colors no-underline"
+                  >
+                    <img src={`/${social.insta.img?.src}`} alt="Instagram" className="w-8 h-8" />
+                    <span className="font-medium text-neutral-800">Instagram</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Units */}
