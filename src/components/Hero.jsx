@@ -1,11 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import logo from '../assets/logo.png'
-
-const FIREBASE_STORAGE_BASE = 'https://firebasestorage.googleapis.com/v0/b/projetoliberdade-afe28.appspot.com/o/'
-
-function getImageUrl(path) {
-  return `${FIREBASE_STORAGE_BASE}${encodeURIComponent(path)}?alt=media`
-}
+import { getImageUrl } from '../utils/imageUrl'
 
 export default function Hero({ data }) {
   const [currentSlide, setCurrentSlide] = useState(0)

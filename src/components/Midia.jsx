@@ -1,10 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-
-const FIREBASE_STORAGE_BASE = 'https://firebasestorage.googleapis.com/v0/b/projetoliberdade-afe28.appspot.com/o/'
-
-function getImageUrl(path) {
-  return `${FIREBASE_STORAGE_BASE}${encodeURIComponent(path)}?alt=media`
-}
+import { getImageUrl } from '../utils/imageUrl'
 
 function Lightbox({ images, currentIndex, onClose, onNext, onPrev }) {
   const dialogRef = useRef(null)
