@@ -102,7 +102,7 @@ function PhotoAlbum({ album }) {
       <h4 className="text-lg font-semibold text-neutral-800 mb-3">
         {album.capa?.titulo || 'Álbum'}
       </h4>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {photos.map((src, index) => (
           <button
             key={src}
@@ -160,7 +160,9 @@ export default function Midia({ fotos, videos }) {
   const [activeTab, setActiveTab] = useState(0)
 
   const albums = fotos?.albumList
-    ? Object.values(fotos.albumList)
+    ? Object.entries(fotos.albumList)
+        .filter(([key]) => key.startsWith('album'))
+        .map(([, value]) => value)
     : []
 
   const videoList = videos
