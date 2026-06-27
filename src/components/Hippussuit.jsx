@@ -83,7 +83,7 @@ export default function Hippussuit({ data }) {
           </div>
           <div className="flex-1 space-y-4">
             {paragraphs(hippussuit.p1).map((text, index) => (
-              <p key={index} className="text-neutral-600 leading-relaxed text-lg">{text}</p>
+              <p key={index} className="text-neutral-600 leading-relaxed text-lg text-justify">{text}</p>
             ))}
           </div>
         </div>
@@ -95,9 +95,9 @@ export default function Hippussuit({ data }) {
         </div>
 
         {/* Conclusion */}
-        <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div className="max-w-3xl mx-auto space-y-4 mb-16">
           {paragraphs(hippussuit.p4).map((text, index) => (
-            <p key={index} className="text-neutral-600 leading-relaxed text-lg">{text}</p>
+            <p key={index} className="text-neutral-600 leading-relaxed text-lg text-justify">{text}</p>
           ))}
         </div>
 
