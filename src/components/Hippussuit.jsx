@@ -72,7 +72,7 @@ export default function Hippussuit({ data }) {
         </h2>
 
         {/* Intro + feature image */}
-        <div className="flex flex-col md:flex-row items-start gap-8 mb-16">
+        <div className="flex flex-col md:flex-row items-center gap-8 mb-16">
           <div className="w-full md:w-1/3 flex-shrink-0">
             <img
               src={hippussuitImage}
