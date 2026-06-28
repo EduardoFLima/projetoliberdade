@@ -2,49 +2,38 @@
 
 @theme {
   /* Brand Colors - Projeto Liberdade (Equotherapy) */
-  --color-primary-50: #f0fdf4;
-  --color-primary-100: #dcfce7;
-  --color-primary-200: #bbf7d0;
-  --color-primary-300: #86efac;
-  --color-primary-400: #4ade80;
-  --color-primary-500: #22c55e;
-  --color-primary-600: #16a34a;
-  --color-primary-700: #15803d;
-  --color-primary-800: #166534;
-  --color-primary-900: #14532d;
+  --color-primary-50: #e8f8f0;
+  --color-primary-100: #c5edd8;
+  --color-primary-200: #8fdcb4;
+  --color-primary-300: #4ec888;
+  --color-primary-400: #14b56a;
+  --color-primary-500: #00aa5a;
+  --color-primary-600: #009350;
+  --color-primary-700: #007a43;
+  --color-primary-800: #066138;
+  --color-primary-900: #07502f;
 
-  --color-secondary-50: #fefce8;
-  --color-secondary-100: #fef9c3;
-  --color-secondary-200: #fef08a;
-  --color-secondary-300: #fde047;
-  --color-secondary-400: #facc15;
-  --color-secondary-500: #eab308;
-  --color-secondary-600: #ca8a04;
-  --color-secondary-700: #a16207;
-  --color-secondary-800: #854d0e;
-  --color-secondary-900: #713f12;
+  --color-secondary-50: #eeeef6;
+  --color-secondary-100: #d6d6ec;
+  --color-secondary-200: #b3b2d8;
+  --color-secondary-300: #8b8ac0;
+  --color-secondary-400: #6361a4;
+  --color-secondary-500: #4b4a93;
+  --color-secondary-600: #41408b;
+  --color-secondary-700: #3a3985;
+  --color-secondary-800: #302f6b;
+  --color-secondary-900: #262550;
 
-  --color-accent-50: #eff6ff;
-  --color-accent-100: #dbeafe;
-  --color-accent-200: #bfdbfe;
-  --color-accent-300: #93c5fd;
-  --color-accent-400: #60a5fa;
-  --color-accent-500: #3b82f6;
-  --color-accent-600: #2563eb;
-  --color-accent-700: #1d4ed8;
-  --color-accent-800: #1e40af;
-  --color-accent-900: #1e3a8a;
-
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
+  --color-neutral-50: #f8f8fb;
+  --color-neutral-100: #f1f1f6;
+  --color-neutral-200: #e3e3ec;
+  --color-neutral-300: #cfcfdb;
+  --color-neutral-400: #9d9dae;
+  --color-neutral-500: #6e6e80;
+  --color-neutral-600: #545465;
+  --color-neutral-700: #3f3f4c;
+  --color-neutral-800: #2a2a33;
+  --color-neutral-900: #18181f;
 
   /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
