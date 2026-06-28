@@ -59,9 +59,9 @@ export default function Contato({ data }) {
                   href={`https://wa.me/55${contact.numero.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors no-underline"
+                  className="flex items-center gap-3 p-3 bg-primary-50 rounded-lg hover:bg-primary-100 transition-colors no-underline"
                 >
-                  <span className="text-green-600 text-xl" aria-hidden="true">📱</span>
+                  <span className="text-primary-600 text-xl" aria-hidden="true">📱</span>
                   <div>
                     <p className="font-medium text-neutral-800">{contact.nome}</p>
                     <p className="text-sm text-neutral-600">{contact.numero}</p>

@@ -30,7 +30,7 @@ export default function Header() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors no-underline"
+                className="text-sm font-medium text-neutral-700 hover:text-secondary-700 transition-colors no-underline"
               >
                 {link.label}
               </a>
@@ -71,7 +71,7 @@ export default function Header() {
                 <a
                   href={link.href}
                   role="menuitem"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-primary-50 hover:text-primary-700 no-underline"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-secondary-50 hover:text-secondary-700 no-underline"
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}

@@ -42,7 +42,7 @@ export default function Hero({ data }) {
             />
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-secondary-900/60 via-black/30 to-primary-900/60" />
       </div>
 
       {/* Content */}
@@ -67,7 +67,7 @@ export default function Hero({ data }) {
           </a>
           <a
             href="#contato"
-            className="px-6 py-3 bg-white/20 text-white border border-white/40 rounded-[var(--radius-button)] font-medium hover:bg-white/30 transition-colors no-underline backdrop-blur-sm"
+            className="px-6 py-3 bg-secondary-700/80 text-white border border-white/30 rounded-[var(--radius-button)] font-medium hover:bg-secondary-700 transition-colors no-underline backdrop-blur-sm shadow-lg"
           >
             Entre em Contato
           </a>
