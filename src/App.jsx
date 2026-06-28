@@ -40,7 +40,7 @@ function App() {
         <Midia fotos={data?.fotos} videos={data?.videos} />
         <Contato data={data?.contato} />
       </main>
-      <footer className="bg-neutral-900 text-neutral-400 text-center py-8 px-4">
+      <footer className="bg-secondary-900 text-secondary-200 text-center py-8 px-4">
         <p className="text-sm">
           © {new Date().getFullYear()} Projeto Liberdade - Reabilitação e Equoterapia. Todos os direitos reservados.
         </p>
