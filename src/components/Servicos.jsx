@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SectionHeading from './SectionHeading'
 
 function extractServiceText(service) {
   return Object.entries(service)
@@ -62,9 +63,7 @@ export default function Servicos({ data }) {
 
   return (
     <section id="servicos" className="py-(--spacing-section) px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-6 font-[var(--font-heading)]">
-        Nossos Serviços
-      </h2>
+      <SectionHeading className="mb-6">Nossos Serviços</SectionHeading>
       {introParagraphs.length > 0 && (
         <p className="text-neutral-600 leading-relaxed text-center max-w-3xl mx-auto mb-12">
           {introParagraphs.join(' ')}

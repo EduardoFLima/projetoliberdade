@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SectionHeading from './SectionHeading'
 
 function extractParagraphs(section) {
   if (!section) return []
@@ -22,9 +23,7 @@ export default function MissaoVisaoValores({ data }) {
   return (
     <section id="missao" className="py-(--spacing-section) px-4 sm:px-6 lg:px-8 bg-primary-50">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-10 font-[var(--font-heading)]">
-          Missão, Visão e Valores
-        </h2>
+        <SectionHeading className="mb-10">Missão, Visão e Valores</SectionHeading>
 
         {/* Tab list */}
         <div

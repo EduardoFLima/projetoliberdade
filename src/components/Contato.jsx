@@ -1,3 +1,5 @@
+import SectionHeading from './SectionHeading'
+
 function UnitCard({ unit }) {
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     unit.mapa?.searchParameter || `${unit.localidade}, ${unit.cidade}`
@@ -38,9 +40,9 @@ export default function Contato({ data }) {
 
   return (
     <section id="contato" className="py-(--spacing-section) px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-12 font-[var(--font-heading)]">
+      <SectionHeading className="mb-12">
         {data.titulo || 'Contato'}
-      </h2>
+      </SectionHeading>
 
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Contact info and form */}

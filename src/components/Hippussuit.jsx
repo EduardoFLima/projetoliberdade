@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import hippussuitImage from '../assets/hippussuit.png'
+import SectionHeading from './SectionHeading'
 
 const COLLAPSE_THRESHOLD = 5
 
@@ -67,9 +68,9 @@ export default function Hippussuit({ data }) {
   return (
     <section id="hippussuit" className="py-(--spacing-section) px-4 sm:px-6 lg:px-8 bg-neutral-50">
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-12 font-[var(--font-heading)]">
+        <SectionHeading className="mb-12">
           {hippussuit.titulo || 'Hippussuit'}
-        </h2>
+        </SectionHeading>
 
         {/* Intro + feature image */}
         <div className="flex flex-col md:flex-row items-center gap-8 mb-16">

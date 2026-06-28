@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { getImageUrl } from '../utils/imageUrl'
+import SectionHeading from './SectionHeading'
 
 function Lightbox({ images, currentIndex, onClose, onNext, onPrev }) {
   const dialogRef = useRef(null)
@@ -179,9 +180,7 @@ export default function Midia({ fotos, videos }) {
 
   return (
     <section id="midia" className="py-(--spacing-section) px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <h2 className="text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-10 font-[var(--font-heading)]">
-        Mídia
-      </h2>
+      <SectionHeading className="mb-10">Mídia</SectionHeading>
 
       <div
         role="tablist"
