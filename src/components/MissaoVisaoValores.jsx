@@ -42,7 +42,7 @@ export default function MissaoVisaoValores({ data }) {
               tabIndex={activeTab === index ? 0 : -1}
               className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                 activeTab === index
-                  ? 'bg-primary-600 text-white shadow-sm'
+                  ? 'bg-primary-700 text-white shadow-sm'
                   : 'text-neutral-600 hover:text-primary-700 hover:bg-primary-50'
               }`}
               onClick={() => setActiveTab(index)}

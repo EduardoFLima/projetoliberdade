@@ -61,7 +61,7 @@ export default function Hero({ data }) {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="#servicos"
-            className="px-6 py-3 bg-primary-600 text-white rounded-[var(--radius-button)] font-medium hover:bg-primary-700 transition-colors no-underline shadow-lg"
+            className="px-6 py-3 bg-primary-700 text-white rounded-[var(--radius-button)] font-medium hover:bg-primary-800 transition-colors no-underline shadow-lg"
           >
             Nossos Serviços
           </a>
