@@ -516,6 +516,59 @@
         }
       ]
     },
-    "contato": {}
+    "contato": {
+      "slug": "contato",
+      "title": "Contato",
+      "email": "contato@projetoliberdade.com.br",
+      "phones": [
+        {
+          "name": "Karina",
+          "number": "(11) 94191-7707",
+          "whatsapp": true
+        },
+        {
+          "name": "André",
+          "number": "(11) 95059-6727",
+          "whatsapp": true
+        }
+      ],
+      "units": [
+        {
+          "slug": "serra",
+          "name": "Haras Liberdade - Serra",
+          "label": "Unidade 1 - Serra",
+          "address": {
+            "street": "R. Flôr da Penha, 916",
+            "district": "Bela Vista",
+            "city": "Mairiporã",
+            "state": "SP",
+            "postalCode": "07612-852"
+          },
+          "phone": "11 94191-7707",
+          "map": {
+            "query": "Projeto Liberdade Reabilitação e Equoterapia"
+          }
+        },
+        {
+          "slug": "sao-paulo",
+          "name": "Unidade - São Paulo",
+          "label": "Unidade 2 - São Paulo",
+          "address": {
+            "street": "Av. Nova Cantareira. 4775",
+            "district": "Tremembé",
+            "city": "São Paulo",
+            "state": "SP",
+            "postalCode": "02341-002"
+          },
+          "phone": "11 92069-2909",
+          "map": {
+            "coordinates": {
+              "lat": -23.458892,
+              "lng": -46.615464
+            }
+          }
+        }
+      ]
+    }
   }
 }

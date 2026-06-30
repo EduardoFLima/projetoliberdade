@@ -247,6 +247,32 @@ def check_momentos(data):
             fail("momentos.videos: url must not contain 'autoplay'")
 
 
+@check("contato")
+def check_contato(data):
+    p = page(data, "contato")
+    if "@" not in str(need(p, "email", "contato")):
+        fail("contato.email invalid")
+    phones = need(p, "phones", "contato")
+    names = {ph["name"] for ph in phones}
+    if names != {"Karina", "André"}:
+        fail(f"contato.phones names {names} unexpected")
+    if not all(ph.get("whatsapp") for ph in phones):
+        fail("contato.phones: all must be whatsapp")
+    units = {u["slug"]: u for u in need(p, "units", "contato")}
+    if set(units) != {"serra", "sao-paulo"}:
+        fail(f"contato.units {set(units)} unexpected")
+    for slug, u in units.items():
+        addr = need(u, "address", f"unit[{slug}]")
+        for f in ("street", "district", "city", "state", "postalCode"):
+            need(addr, f, f"unit[{slug}].address")
+        need(u, "phone", f"unit[{slug}]")
+    if "query" not in units["serra"]["map"]:
+        fail("unit[serra].map must use 'query'")
+    coords = units["sao-paulo"]["map"].get("coordinates", {})
+    if not isinstance(coords.get("lat"), (int, float)) or not isinstance(coords.get("lng"), (int, float)):
+        fail("unit[sao-paulo].map.coordinates must have numeric lat/lng")
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
