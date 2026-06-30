@@ -225,6 +225,28 @@ def check_hippussuit(data):
         fail(f"hippussuit lists {list_lens} != [14, 5, 4]")
 
 
+@check("momentos")
+def check_momentos(data):
+    p = page(data, "momentos")
+    if p.get("title") != "Momentos":
+        fail("momentos: title must be 'Momentos'")
+    albums = need(need(p, "photos", "momentos"), "albums", "momentos.photos")
+    slugs = [a["slug"] for a in albums]
+    if slugs != ["reabilitacao", "liberdade", "desenvolvimento"]:
+        fail(f"momentos albums {slugs} unexpected")
+    for a in albums:
+        here = f"momentos.album[{a['slug']}]"
+        need(need(a, "cover", here), "src", here + ".cover")
+        if len(need(a, "photos", here)) != 3:
+            fail(f"{here}: expected 3 photos")
+    videos = need(p, "videos", "momentos")
+    if len(videos) != 2:
+        fail(f"momentos.videos: expected 2, got {len(videos)}")
+    for v in videos:
+        if "autoplay" in need(v, "url", "momentos.video"):
+            fail("momentos.videos: url must not contain 'autoplay'")
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
