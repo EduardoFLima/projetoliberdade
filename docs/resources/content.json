@@ -3,28 +3,97 @@
     "name": "Projeto Liberdade",
     "logo": "logo.png",
     "social": [
-      { "network": "facebook", "url": "http://www.facebook.com.br/projetoliberdade" },
-      { "network": "instagram", "url": "https://www.instagram.com/projetoliberdadereabilitacao" }
+      {
+        "network": "facebook",
+        "url": "http://www.facebook.com.br/projetoliberdade"
+      },
+      {
+        "network": "instagram",
+        "url": "https://www.instagram.com/projetoliberdadereabilitacao"
+      }
     ]
   },
   "navigation": [
-    { "slug": "home", "label": "Home", "order": 0 },
-    { "slug": "historia", "label": "História", "order": 1 },
-    { "slug": "servicos", "label": "Serviços", "order": 2, "submenu": [
-      { "slug": "equoterapia", "label": "Equoterapia", "order": 1 },
-      { "slug": "equitacao-classica", "label": "Equitação Clássica", "order": 2 },
-      { "slug": "equitacao-ludica", "label": "Equitação Lúdica", "order": 3 },
-      { "slug": "equitacao-adaptada", "label": "Equitação Adaptada", "order": 4 },
-      { "slug": "pet-terapia", "label": "Pet Terapia", "order": 5 },
-      { "slug": "hidroterapia", "label": "Hidroterapia", "order": 6 },
-      { "slug": "reabilitacao-neurofuncional", "label": "Reabilitação Neurofuncional", "order": 7 },
-      { "slug": "hippussuit", "label": "Hippussuit", "order": 9, "featured": true }
-    ]},
-    { "slug": "momentos", "label": "Momentos", "order": 3, "submenu": [
-      { "slug": "fotos", "label": "Fotos", "order": 1 },
-      { "slug": "videos", "label": "Vídeos", "order": 2 }
-    ]},
-    { "slug": "contato", "label": "Contato", "order": 4 }
+    {
+      "slug": "home",
+      "label": "Home",
+      "order": 0
+    },
+    {
+      "slug": "historia",
+      "label": "História",
+      "order": 1
+    },
+    {
+      "slug": "servicos",
+      "label": "Serviços",
+      "order": 2,
+      "submenu": [
+        {
+          "slug": "equoterapia",
+          "label": "Equoterapia",
+          "order": 1
+        },
+        {
+          "slug": "equitacao-classica",
+          "label": "Equitação Clássica",
+          "order": 2
+        },
+        {
+          "slug": "equitacao-ludica",
+          "label": "Equitação Lúdica",
+          "order": 3
+        },
+        {
+          "slug": "equitacao-adaptada",
+          "label": "Equitação Adaptada",
+          "order": 4
+        },
+        {
+          "slug": "pet-terapia",
+          "label": "Pet Terapia",
+          "order": 5
+        },
+        {
+          "slug": "hidroterapia",
+          "label": "Hidroterapia",
+          "order": 6
+        },
+        {
+          "slug": "reabilitacao-neurofuncional",
+          "label": "Reabilitação Neurofuncional",
+          "order": 7
+        },
+        {
+          "slug": "hippussuit",
+          "label": "Hippussuit",
+          "order": 9,
+          "featured": true
+        }
+      ]
+    },
+    {
+      "slug": "momentos",
+      "label": "Momentos",
+      "order": 3,
+      "submenu": [
+        {
+          "slug": "fotos",
+          "label": "Fotos",
+          "order": 1
+        },
+        {
+          "slug": "videos",
+          "label": "Vídeos",
+          "order": 2
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "label": "Contato",
+      "order": 4
+    }
   ],
   "pages": {
     "home": {
@@ -32,24 +101,136 @@
       "title": "Home",
       "hero": {
         "images": [
-          { "src": "hero/FB_IMG_1526579537656.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579797013.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579813114.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579880959.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579932897.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579963187.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579991299.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526580011702.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526580019545.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526580085053.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526580223761.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526580449757.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526579791775.jpg", "alt": "" },
-          { "src": "hero/FB_IMG_1526583032060.jpg", "alt": "" }
+          {
+            "src": "hero/FB_IMG_1526579537656.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579797013.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579813114.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579880959.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579932897.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579963187.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579991299.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526580011702.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526580019545.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526580085053.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526580223761.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526580449757.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526579791775.jpg",
+            "alt": ""
+          },
+          {
+            "src": "hero/FB_IMG_1526583032060.jpg",
+            "alt": ""
+          }
         ]
       }
     },
-    "historia": {},
+    "historia": {
+      "slug": "historia",
+      "title": "História",
+      "body": [
+        {
+          "type": "image",
+          "src": "fotos/historia/FB_IMG_1526587620052.jpg",
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "text": "O Projeto Liberdade foi fundado no dia 29 de setembro de 2006 pelo Educador Físico André Amaral e a Fisioterapeuta Karina Hollatz; ambos tinham como objetivo promover a reabilitação de forma lúdica. No início, o casal promovia atividades de recreação, passeios e atividades direcionadas para a pessoa com deficiência, sempre pensando na promoção da qualidade de vida e na reabilitação de forma prazerosa."
+        },
+        {
+          "type": "paragraph",
+          "text": "Com o passar dos anos, passaram a se dedicar também, a Terapia Assistida por Animais, onde cavalo, cachorro, coelho, tartaruga estavam presentes durante as atividades e atendimentos realizados. Em Outubro (12/10) do ano seguinte, se instalaram na zona Norte de São Paulo e abriram o Centro de Equoterapia Projeto Liberdade, onde através da intervenção de terapeutas e do cavalo, passaram a oferecer atendimentos diários para pessoas com deficiências física, intelectual, auditiva, visual e múltipla."
+        },
+        {
+          "type": "paragraph",
+          "text": "A proposta inicial do Projeto Liberdade sempre foi promover o atendimento terapêutico de forma diferenciada, onde a intervenção não acontecesse somente dentro de consultório, instituição, clínica... Desejava-se que o aprendizado e a evolução fossem consequência de atividades lúdicas e ao ar livre."
+        },
+        {
+          "type": "paragraph",
+          "text": "Em 2008 se tornaram uma empresa privada sem fins lucrativos, contrataram mais profissionais para integrar a equipe, e começaram a ser mais atuantes no meio da reabilitação assistida por animais. Participaram de feiras como a Reatech, Feira Internacional de Tecnologias em Reabilitação, Inclusão e Acessibilidade; Foram premiados pelo Governo do Estado de São Paulo no prêmio Ações Inclusivas no ano de 2010; Deram palestras, entrevistas em rádio e televisão; Desenvolveram uma vestimenta para uso na Equoterapia; Promoveram Festivais de Equoterapia e nunca mais pararam!!!"
+        },
+        {
+          "type": "quote",
+          "text": "“São 16 anos de dedicação, de busca de conhecimentos, de gratidão pela nossa história... Hoje somos reconhecidos pelo nosso trabalho e queremos cada vez mais estar atuantes no meio da Habilitação e Reabilitação de Pessoas com Deficiência, um trabalho que nos motiva diariamente” diz André Amaral e Karina Hollatz."
+        }
+      ],
+      "sections": [
+        {
+          "slug": "missao-visao-valores",
+          "title": "Missão, Visão e Valores",
+          "order": 1,
+          "featured": true,
+          "body": [
+            {
+              "type": "heading",
+              "text": "Missão"
+            },
+            {
+              "type": "paragraph",
+              "text": "Oferecer a pessoa com deficiência a oportunidade de lazer, recreação e reabilitação, com profissionais qualificados, contribuindo para o desenvolvimento biopsicossocial, proporcionando melhora da qualidade de vida."
+            },
+            {
+              "type": "heading",
+              "text": "Visão"
+            },
+            {
+              "type": "paragraph",
+              "text": "Ser reconhecido como um trabalho inovador através da reabilitação lúdica e atuante no atendimento especializado à pessoa com deficiência."
+            },
+            {
+              "type": "heading",
+              "text": "Valores"
+            },
+            {
+              "type": "list",
+              "items": [
+                "Valorização da pessoa com deficiência",
+                "Comprometimento",
+                "Ética e Transparência",
+                "Responsabilidade",
+                "Satisfação"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "servicos": {},
     "momentos": {},
     "contato": {}

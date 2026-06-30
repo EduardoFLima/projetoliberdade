@@ -153,6 +153,34 @@ def check_home(data):
         need(img, "alt", here)
 
 
+@check("historia")
+def check_historia(data):
+    p = page(data, "historia")
+    if p.get("title") != "História":
+        fail("historia: title must be 'História'")
+    body = need(p, "body", "historia")
+    check_blocks(body, "historia.body")
+    if not types(body, "image"):
+        fail("historia.body: missing image block")
+    if not types(body, "quote"):
+        fail("historia.body: missing quote block")
+    if len(types(body, "paragraph")) < 4:
+        fail("historia.body: expected >=4 paragraphs")
+    secs = need(p, "sections", "historia")
+    mvv = next((s for s in secs if s.get("slug") == "missao-visao-valores"), None)
+    if mvv is None:
+        fail("historia.sections: missing 'missao-visao-valores'")
+    if not mvv.get("featured"):
+        fail("missao-visao-valores: must be featured")
+    sb = need(mvv, "body", "missao-visao-valores")
+    check_blocks(sb, "missao-visao-valores.body")
+    if len(types(sb, "heading")) != 3:
+        fail("missao-visao-valores: expected 3 headings")
+    lists = types(sb, "list")
+    if not lists or len(lists[0]["items"]) != 5:
+        fail("missao-visao-valores: Valores list must have 5 items")
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
