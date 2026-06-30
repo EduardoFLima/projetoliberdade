@@ -206,6 +206,25 @@ def check_servicos(data):
         fail("equoterapia: expected >=2 paragraphs")
 
 
+@check("hippussuit")
+def check_hippussuit(data):
+    secs = {s["slug"]: s for s in page(data, "servicos").get("sections", [])}
+    h = secs.get("hippussuit")
+    if h is None:
+        fail("servicos.sections: missing 'hippussuit'")
+    if not h.get("featured"):
+        fail("hippussuit: must be featured")
+    body = need(h, "body", "hippussuit")
+    check_blocks(body, "hippussuit.body")
+    if not types(body, "image"):
+        fail("hippussuit.body: missing image block")
+    if len(types(body, "paragraph")) < 6:
+        fail("hippussuit.body: expected >=6 paragraphs")
+    list_lens = [len(b["items"]) for b in types(body, "list")]
+    if list_lens != [14, 5, 4]:
+        fail(f"hippussuit lists {list_lens} != [14, 5, 4]")
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
