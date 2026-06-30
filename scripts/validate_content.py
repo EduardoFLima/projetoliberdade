@@ -181,6 +181,31 @@ def check_historia(data):
         fail("missao-visao-valores: Valores list must have 5 items")
 
 
+SERVICE_SLUGS = [
+    "equoterapia", "equitacao-classica", "equitacao-ludica",
+    "equitacao-adaptada", "pet-terapia", "hidroterapia",
+    "reabilitacao-neurofuncional",
+]
+
+
+@check("servicos")
+def check_servicos(data):
+    p = page(data, "servicos")
+    if p.get("title") != "Serviços":
+        fail("servicos: title must be 'Serviços'")
+    if len(types(need(p, "body", "servicos"), "paragraph")) < 1:
+        fail("servicos.body: expected an intro paragraph")
+    secs = {s["slug"]: s for s in need(p, "sections", "servicos")}
+    for slug in SERVICE_SLUGS:
+        if slug not in secs:
+            fail(f"servicos.sections: missing '{slug}'")
+        check_blocks(need(secs[slug], "body", slug), f"servicos.{slug}.body")
+    if len(types(secs["hidroterapia"]["body"], "paragraph")) < 4:
+        fail("hidroterapia: expected >=4 paragraphs")
+    if len(types(secs["equoterapia"]["body"], "paragraph")) < 2:
+        fail("equoterapia: expected >=2 paragraphs")
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
