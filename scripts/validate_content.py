@@ -138,6 +138,21 @@ def check_preservation(data):
         fail(f"{len(missing)} legacy string(s) lost:\n{lines}")
 
 
+@check("home")
+def check_home(data):
+    p = page(data, "home")
+    if p.get("title") != "Home":
+        fail("home: title must be 'Home'")
+    images = need(p, "hero", "home")["images"]
+    if len(images) != 14:
+        fail(f"home.hero.images: expected 14, got {len(images)}")
+    for i, img in enumerate(images):
+        here = f"home.hero.images[{i}]"
+        if not str(need(img, "src", here)).startswith("hero/"):
+            fail(f"{here}: src must start with 'hero/'")
+        need(img, "alt", here)
+
+
 def main():
     data = load(CONTENT)
     targets = sys.argv[1:] or list(CHECKS)
