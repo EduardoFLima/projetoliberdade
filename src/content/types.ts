@@ -46,3 +46,16 @@ export interface Video {
   order: number
   url: string
 }
+
+export interface Photo {
+  src: string
+  alt: string
+  caption?: string
+}
+
+export interface Album {
+  slug: string
+  title: string
+  cover: Photo
+  photos: Photo[]
+}
