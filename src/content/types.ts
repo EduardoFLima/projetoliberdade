@@ -39,3 +39,10 @@ export type Block =
   | { type: 'list'; items: string[] }
   | { type: 'image'; src: string; alt: string }
   | { type: 'quote'; text: string; author?: string }
+
+export interface Video {
+  slug: string
+  title: string
+  order: number
+  url: string
+}
