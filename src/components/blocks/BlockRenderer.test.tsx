@@ -21,7 +21,9 @@ describe('BlockRenderer', () => {
       'src',
       '/img/x.jpg',
     )
-    expect(screen.getByText('São 16 anos.').closest('blockquote')).not.toBeNull()
+    expect(
+      screen.getByText('São 16 anos.').closest('blockquote'),
+    ).not.toBeNull()
     expect(screen.getByText('André')).toBeInTheDocument()
   })
 })

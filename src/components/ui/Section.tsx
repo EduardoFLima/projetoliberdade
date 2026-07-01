@@ -7,7 +7,11 @@ interface SectionProps {
   children: ReactNode
 }
 
-export function Section({ tone = 'surface', className, children }: SectionProps) {
+export function Section({
+  tone = 'surface',
+  className,
+  children,
+}: SectionProps) {
   const toneClass = tone === 'muted' ? 'bg-surface-container-low' : 'bg-surface'
   return (
     <section className={cn('py-12 md:py-20', toneClass, className)}>

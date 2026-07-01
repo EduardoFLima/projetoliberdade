@@ -20,6 +20,8 @@ describe('layout primitives', () => {
 
   it('Section supports the muted tone', () => {
     render(<Section tone="muted">m</Section>)
-    expect(screen.getByText('m').className).toContain('bg-surface-container-low')
+    expect(screen.getByText('m').className).toContain(
+      'bg-surface-container-low',
+    )
   })
 })
