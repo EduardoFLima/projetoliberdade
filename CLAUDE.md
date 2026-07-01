@@ -14,6 +14,21 @@ with the JSON as fallback.
 - Vitest + Testing Library (unit), Playwright (E2E)
 - pnpm, ESLint flat config + Prettier (no semicolons, single quotes, trailing commas)
 
+## Design system ("Organic Freedom")
+
+- Tokens live in `src/index.css` as a Tailwind v4 `@theme` block — the single
+  source of truth. Reference: `docs/design/organic-freedom/DESIGN.md`.
+- **Hybrid palette:** the full MD3 color set is imported verbatim; the brand
+  layer adds `--color-cta` (#00aa5a vibrant, CTA fill), `--color-cta-hover` /
+  `--color-cta-strong` / `--color-link` (#006d38 for hover, compact buttons, and
+  small green text).
+- **Primary buttons** use `#00aa5a` with a white label at `text-button`
+  (≥18.66px/700) so white-on-green meets WCAG AA (large text, 3:1); compact
+  buttons use `#006d38`.
+- Fonts: Plus Jakarta Sans + Work Sans, self-hosted via `@fontsource` and
+  imported in `src/main.tsx`.
+- Components are viewable at the dev route **`/estilo`**.
+
 ## Commands
 
 ```bash
@@ -39,9 +54,13 @@ src/
     useContent.ts             # hook used by the UI
     content.json              # snapshot copied from docs/resources
   features/     # one folder per page (deferred)
-  components/   # shared UI + blocks/ renderers (deferred)
+  components/   # shared, prop-driven UI
+    ui/                       # Button, Chip, Card, Container, Section
+    blocks/                   # BlockRenderer + one renderer per Block.type
+    Header.tsx Nav.tsx Footer.tsx SocialLinks.tsx Gallery.tsx Lightbox.tsx VideoEmbed.tsx
+  styleguide/   # StyleGuide.tsx (dev-only, route /estilo)
   layouts/      # SiteLayout shell
-  lib/          # small utils (deferred)
+  lib/          # cn() and small utils
   routes.tsx    # router config
   main.tsx      # SPA entry
   index.css     # @import "tailwindcss";
@@ -50,9 +69,9 @@ tests/e2e/      # Playwright specs
 
 ## The dependency rule (non-negotiable)
 
-`features`, `components`, and `layouts` access content **only** through
-`useContent` / `ContentRepository`. Never import `content.json` directly in UI;
-never reference Firebase outside `src/content`.
+`features`, `components`, and `layouts` never import `content.json` or reference
+Firebase. Containers (the routed `SiteLayout` and, later, page components) call
+`useContent`; presentational components receive content via props only.
 
 ## Swapping to Firebase RTDB (later)
 
@@ -89,13 +108,15 @@ behavior.
 
 This repo is currently **scaffold only**. Deferred work, in order:
 
-1. **Design tokens / Tailwind theme** — colors, typography, spacing.
-2. **Shared components** — Header, Footer, Nav, Gallery; `blocks/` renderers
-   per `Block.type`. Flesh out full content types in `src/content/types.ts`
-   and add runtime validation (mirror `scripts/validate_content.py`).
+1. ~~**Design tokens / Tailwind theme** — colors, typography, spacing.~~ Done —
+   see the "Design system" section above.
+2. ~~**Shared components** — Header, Footer, Nav, Gallery; `blocks/` renderers
+   per `Block.type`.~~ Done — see `src/components/` and `/estilo`.
 3. **Pages / content** — real routes for home, historia, servicos
    (+ `/servicos/:slug`), momentos, contato; migrate images from
-   `docs/resources/` into the app.
+   `docs/resources/` into the app. Deferred pending page sketches. Flesh out
+   full content types in `src/content/types.ts` and add runtime validation
+   (mirror `scripts/validate_content.py`) as part of this phase.
 4. **SEO prerender** — add `vite-react-ssg` for static HTML per route +
    per-page `<title>` / Open Graph tags.
 5. **Firebase RTDB** — `RtdbContentRepository` + runtime fetch with fallback.
