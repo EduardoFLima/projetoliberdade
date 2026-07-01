@@ -1,22 +1,30 @@
 import { Outlet } from 'react-router'
+import { useContent } from '../content/useContent'
+import { Header } from '../components/Header'
+import { Footer } from '../components/Footer'
 
 /**
- * Shell layout: placeholder header + routed content + placeholder footer. Real
- * Header / Nav / Footer components are built in a later phase.
+ * Container for the site chrome: calls useContent once and passes site +
+ * navigation down as props. Presentational components never call the hook.
  */
 export function SiteLayout() {
+  const { content, loading, error } = useContent()
+
   return (
-    <div className="flex min-h-screen flex-col">
-      <header data-testid="site-header" className="border-b p-4">
-        {/* TODO: real Header + Nav (later phase) */}
-        <span className="font-semibold">Projeto Liberdade</span>
-      </header>
-      <main className="flex-1 p-4">
+    <div className="flex min-h-screen flex-col bg-surface text-on-surface">
+      {content ? (
+        <Header site={content.site} navigation={content.navigation} />
+      ) : null}
+      <main className="flex-1">
+        {loading ? <p className="p-4">Carregando…</p> : null}
+        {error ? (
+          <p role="alert" className="p-4 text-error">
+            Erro: {error.message}
+          </p>
+        ) : null}
         <Outlet />
       </main>
-      <footer data-testid="site-footer" className="border-t p-4">
-        {/* TODO: real Footer + social links (later phase) */}
-      </footer>
+      {content ? <Footer site={content.site} /> : null}
     </div>
   )
 }
