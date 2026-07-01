@@ -25,5 +25,13 @@ describe('SiteLayout', () => {
     )
     expect(screen.getByTestId('site-footer')).toBeInTheDocument()
     expect(screen.getByText('página')).toBeInTheDocument()
+
+    expect(
+      screen.getByRole('navigation', { name: 'Principal' }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getAllByRole('link', { name: 'História' }).length,
+    ).toBeGreaterThan(0)
+    expect(screen.getByRole('link', { name: 'Facebook' })).toBeInTheDocument()
   })
 })
