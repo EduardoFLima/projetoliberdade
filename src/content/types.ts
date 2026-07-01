@@ -32,3 +32,10 @@ export interface SiteContent {
   navigation: NavItem[]
   pages: Record<string, Page>
 }
+
+export type Block =
+  | { type: 'paragraph'; text: string }
+  | { type: 'heading'; text: string; level?: 2 | 3 }
+  | { type: 'list'; items: string[] }
+  | { type: 'image'; src: string; alt: string }
+  | { type: 'quote'; text: string; author?: string }
