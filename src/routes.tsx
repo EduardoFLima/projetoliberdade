@@ -3,6 +3,7 @@
 import { createBrowserRouter } from 'react-router'
 import { SiteLayout } from './layouts/SiteLayout'
 import { PlaceholderPage } from './PlaceholderPage'
+import { StyleGuide } from './styleguide/StyleGuide'
 
 function NotFound() {
   return <p>404 — página não encontrada</p>
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
     Component: SiteLayout,
     children: [
       { index: true, Component: PlaceholderPage },
+      { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },
     ],
   },
