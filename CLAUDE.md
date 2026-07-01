@@ -70,6 +70,15 @@ English keys, Portuguese content values, slugs double as URL paths
 (`/servicos/equoterapia`). `body` is an ordered array of typed blocks
 (discriminator `type`). 5 pages: home, historia, servicos, momentos, contato.
 
+## Tooling (MCP)
+
+- **Always use Context7** to check coding documentation before relying on memory
+  for any library, framework, SDK, or API (React, Vite, Tailwind, React Router,
+  Firebase, etc.) — training data may be stale.
+- **Use the Playwright MCP server** whenever browser automation is required
+  (driving the app, inspecting the DOM, taking screenshots, verifying page
+  behavior).
+
 ## Code style
 
 Small, single-responsibility files. Typed content. No prop-drilling of the data
