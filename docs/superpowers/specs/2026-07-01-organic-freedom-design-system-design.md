@@ -208,8 +208,10 @@ or on error).
 
 - **`Header` + `Nav`** — props: `site: Site`, `navigation: NavItem[]`. Desktop:
   horizontal menu with dropdowns for the `servicos` and `momentos` submenus. Mobile:
-  hamburger → drawer. A11y: `<nav>` landmark, `aria-expanded` on submenu triggers,
-  keyboard navigation, focus trap in the mobile drawer.
+  hamburger → drawer. A11y: `<nav aria-label="Principal">` landmark,
+  `aria-expanded` on submenu triggers, keyboard navigation, and Escape-to-close on
+  the mobile drawer. (A full focus trap / focus-return and keyboard dismissal of the
+  desktop submenu are a deferred a11y follow-up — see §9.)
 - **`Footer`** — props: `site: Site`. Site name, `SocialLinks`, minimal contact
   summary.
 - **`SocialLinks`** — props: `links: SocialLink[]`. Maps `network`
@@ -234,7 +236,9 @@ or on error).
 - **`Gallery` / `AlbumGrid`** — props: `albums: Album[]` (or a single album's
   `photos: Photo[]`). Responsive thumbnail grid; click opens the lightbox.
 - **`Lightbox`** — full-screen photo viewer with prev/next, keyboard (arrows/esc),
-  and `caption` when present. A11y: dialog role, focus trap, `esc` to close.
+  and `caption` when present. A11y: `role="dialog"` + `aria-modal`, Escape to close,
+  arrow-key navigation. (Moving focus into the dialog on open and trapping it there
+  is a deferred a11y follow-up — see §9.)
 - **`VideoEmbed`** — props: `video: Video`. Responsive 16:9 YouTube iframe from
   `video.url` with an accessible title.
 
@@ -279,7 +283,7 @@ Vitest + Testing Library, colocated `*.test.tsx`:
 - **`Nav`** — renders items from a `navigation` prop (no hook mocking), submenu
   toggle + `aria-expanded`, mobile drawer open/close and focus behavior.
 - **`SocialLinks`** — maps each `network` to the right icon + external link.
-- **`Lightbox`** — opens/closes, keyboard nav, focus trap.
+- **`Lightbox`** — opens/closes, keyboard nav (arrows/esc).
 
 Token/visual verification is manual via `/estilo` (jsdom does not compute Tailwind);
 Playwright visual specs stay deferred to the pages phase.
@@ -310,3 +314,17 @@ Playwright visual specs stay deferred to the pages phase.
 6. `docs/design/organic-freedom/DESIGN.md`.
 7. Updated `CLAUDE.md`.
 8. Green `pnpm build`, `pnpm lint`, `pnpm test`.
+
+## 9. Deferred a11y follow-ups
+
+Delivered now: landmarks, `aria-*` state, `role="dialog"`/`aria-modal`, and
+keyboard handling (Escape-to-close, arrow navigation). Deferred to a dedicated
+a11y pass (these components are not yet mounted on a public route — only `/estilo`):
+
+- **Nav keyboard dismissal** — Escape currently closes the mobile drawer but not an
+  open desktop submenu, and the submenu has no blur/focus-out close for keyboard
+  users. Add Escape + focus-out dismissal for the desktop submenu.
+- **Focus management** — move focus into the `Lightbox` dialog on open and trap it
+  there (with focus-return on close); add a focus trap to the mobile drawer.
+- Extract the duplicated desktop/mobile nav markup into a shared helper when the
+  real pages land.
