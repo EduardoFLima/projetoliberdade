@@ -1,4 +1,3 @@
-import { Link } from 'react-router'
 import { Button } from '../ui/Button'
 
 interface HeroCta {
@@ -14,7 +13,6 @@ interface HeroProps {
   logo: string
   logoAlt: string
   primaryCta: HeroCta
-  secondaryCta: HeroCta
 }
 
 export function Hero({
@@ -25,7 +23,6 @@ export function Hero({
   logo,
   logoAlt,
   primaryCta,
-  secondaryCta,
 }: HeroProps) {
   return (
     <header className="relative flex min-h-[65vh] items-center justify-center overflow-hidden pt-20">
@@ -56,16 +53,10 @@ export function Hero({
         <p className="mb-8 max-w-xl font-sans text-body-lg text-on-primary/90">
           {subtitle}
         </p>
-        <div className="flex w-full flex-col justify-center gap-4 sm:w-auto sm:flex-row">
+        <div className="flex justify-center">
           <Button to={primaryCta.to} pill>
             {primaryCta.label}
           </Button>
-          <Link
-            to={secondaryCta.to}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-on-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-on-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary"
-          >
-            {secondaryCta.label}
-          </Link>
         </div>
       </div>
     </header>

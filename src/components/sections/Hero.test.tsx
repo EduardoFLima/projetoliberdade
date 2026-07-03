@@ -11,7 +11,6 @@ const props = {
   logo: '/images/logo.png',
   logoAlt: 'Projeto Liberdade',
   primaryCta: { label: 'Nossos Serviços', to: '/servicos' },
-  secondaryCta: { label: 'Entre em Contato', to: '/contato' },
 }
 
 describe('Hero', () => {
@@ -36,13 +35,17 @@ describe('Hero', () => {
     ).toBeInTheDocument()
   })
 
-  it('links both CTAs to their routes', () => {
+  it('links the primary CTA to its route', () => {
     renderWithRouter(<Hero {...props} />)
     expect(
       screen.getByRole('link', { name: 'Nossos Serviços' }),
     ).toHaveAttribute('href', '/servicos')
+  })
+
+  it('does not render a secondary contact CTA', () => {
+    renderWithRouter(<Hero {...props} />)
     expect(
-      screen.getByRole('link', { name: 'Entre em Contato' }),
-    ).toHaveAttribute('href', '/contato')
+      screen.queryByRole('link', { name: /Entre em Contato/i }),
+    ).not.toBeInTheDocument()
   })
 })

@@ -28,7 +28,6 @@ export function HomePage() {
         logo={content.site.logo}
         logoAlt={content.site.name}
         primaryCta={{ label: 'Nossos Serviços', to: '/servicos' }}
-        secondaryCta={{ label: 'Entre em Contato', to: '/contato' }}
       />
       <HistoriaSection
         tone="surface"
