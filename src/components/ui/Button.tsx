@@ -8,13 +8,14 @@ interface ButtonProps extends Omit<
 > {
   variant?: 'primary' | 'secondary'
   compact?: boolean
+  pill?: boolean
   to?: string
   className?: string
   children: ReactNode
 }
 
 const base =
-  'inline-flex items-center justify-center rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta'
+  'inline-flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta'
 
 function variantClasses(
   variant: 'primary' | 'secondary',
@@ -29,13 +30,19 @@ function variantClasses(
 export function Button({
   variant = 'primary',
   compact = false,
+  pill = false,
   to,
   className,
   children,
   type = 'button',
   ...rest
 }: ButtonProps) {
-  const classes = cn(base, variantClasses(variant, compact), className)
+  const classes = cn(
+    base,
+    pill ? 'rounded-full' : 'rounded-md',
+    variantClasses(variant, compact),
+    className,
+  )
   if (to) {
     return (
       <Link to={to} className={classes}>
