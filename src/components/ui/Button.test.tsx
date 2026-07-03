@@ -31,4 +31,11 @@ describe('Button', () => {
     const link = screen.getByRole('link', { name: 'Contato' })
     expect(link).toHaveAttribute('href', '/contato')
   })
+
+  it('renders a rounded-full pill when pill is set', () => {
+    render(<Button pill>Contato</Button>)
+    const btn = screen.getByRole('button', { name: 'Contato' })
+    expect(btn.className).toContain('rounded-full')
+    expect(btn.className).not.toContain('rounded-md')
+  })
 })

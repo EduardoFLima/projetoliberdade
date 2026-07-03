@@ -54,9 +54,11 @@ src/
     useContent.ts             # hook used by the UI
     content.json              # snapshot copied from docs/resources
   features/     # one folder per page (deferred)
+    home/       # HomePage container + homeSelectors
   components/   # shared, prop-driven UI
     ui/                       # Button, Chip, Card, Container, Section
     blocks/                   # BlockRenderer + one renderer per Block.type
+    sections/                 # reusable, prop-driven page sections (Hero, Historia, MVV, Services)
     Header.tsx Nav.tsx Footer.tsx SocialLinks.tsx Gallery.tsx Lightbox.tsx VideoEmbed.tsx
   styleguide/   # StyleGuide.tsx (dev-only, route /estilo)
   layouts/      # SiteLayout shell
@@ -72,6 +74,9 @@ tests/e2e/      # Playwright specs
 `features`, `components`, and `layouts` never import `content.json` or reference
 Firebase. Containers (the routed `SiteLayout` and, later, page components) call
 `useContent`; presentational components receive content via props only.
+
+Container content flows to pages via the router `Outlet` context (`SiteLayout`
+provides it; page containers read it with `useOutletContext`).
 
 ## Swapping to Firebase RTDB (later)
 
@@ -112,11 +117,11 @@ This repo is currently **scaffold only**. Deferred work, in order:
    see the "Design system" section above.
 2. ~~**Shared components** — Header, Footer, Nav, Gallery; `blocks/` renderers
    per `Block.type`.~~ Done — see `src/components/` and `/estilo`.
-3. **Pages / content** — real routes for home, historia, servicos
-   (+ `/servicos/:slug`), momentos, contato; migrate images from
-   `docs/resources/` into the app. Deferred pending page sketches. Flesh out
-   full content types in `src/content/types.ts` and add runtime validation
-   (mirror `scripts/validate_content.py`) as part of this phase.
+3. **Pages / content** — home page **done** (redesign implemented: Hero,
+   História, Missão/Visão/Valores, featured Serviços; reusable section
+   components in `src/components/sections/`). Remaining: historia, servicos
+   (+ `/servicos/:slug`), momentos, contato; bulk image migration; full
+   content types + runtime validation.
 4. **SEO prerender** — add `vite-react-ssg` for static HTML per route +
    per-page `<title>` / Open Graph tags.
 5. **Firebase RTDB** — `RtdbContentRepository` + runtime fetch with fallback.

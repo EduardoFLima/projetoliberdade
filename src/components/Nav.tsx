@@ -22,7 +22,7 @@ function Submenu({ item }: { item: NavItem }) {
         aria-haspopup="true"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="text-on-surface hover:text-primary"
+        className="rounded-sm text-on-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
       >
         {item.label}
       </button>
@@ -33,7 +33,7 @@ function Submenu({ item }: { item: NavItem }) {
               <Link
                 to={subHref(item, child)}
                 onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2 text-on-surface hover:bg-surface-container hover:text-primary"
+                className="block rounded-md px-3 py-2 text-on-surface hover:bg-surface-container hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
               >
                 {child.label}
               </Link>
@@ -68,7 +68,7 @@ export function Nav({ items }: { items: NavItem[] }) {
             ) : (
               <Link
                 to={topHref(item)}
-                className="text-on-surface hover:text-primary"
+                className="rounded-sm text-on-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
               >
                 {item.label}
               </Link>
@@ -97,7 +97,7 @@ export function Nav({ items }: { items: NavItem[] }) {
               <Link
                 to={topHref(item)}
                 onClick={() => setOpen(false)}
-                className="text-on-surface hover:text-primary"
+                className="rounded-sm text-on-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
               >
                 {item.label}
               </Link>
@@ -108,7 +108,7 @@ export function Nav({ items }: { items: NavItem[] }) {
                       <Link
                         to={subHref(item, child)}
                         onClick={() => setOpen(false)}
-                        className="text-on-surface-variant hover:text-primary"
+                        className="rounded-sm text-on-surface-variant hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
                       >
                         {child.label}
                       </Link>

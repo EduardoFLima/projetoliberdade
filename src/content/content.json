@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "Projeto Liberdade",
-    "logo": "logo.png",
+    "logo": "/images/logo.png",
     "social": [
       {
         "network": "facebook",
@@ -100,65 +100,16 @@
       "slug": "home",
       "title": "Home",
       "hero": {
-        "images": [
-          {
-            "src": "hero/FB_IMG_1526579537656.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579797013.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579813114.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579880959.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579932897.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579963187.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579991299.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526580011702.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526580019545.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526580085053.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526580223761.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526580449757.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526579791775.jpg",
-            "alt": ""
-          },
-          {
-            "src": "hero/FB_IMG_1526583032060.jpg",
-            "alt": ""
-          }
-        ]
-      }
+        "image": "/images/hero.jpg",
+        "alt": "Criança sorrindo durante a montaria terapêutica, conduzida por um profissional",
+        "title": "Reabilitação e Equoterapia",
+        "subtitle": "Promovendo qualidade de vida e desenvolvimento biopsicossocial através da relação com o cavalo."
+      },
+      "featuredServices": [
+        "equoterapia",
+        "equitacao-ludica",
+        "equitacao-adaptada"
+      ]
     },
     "historia": {
       "slug": "historia",
@@ -166,8 +117,8 @@
       "body": [
         {
           "type": "image",
-          "src": "fotos/historia/FB_IMG_1526587620052.jpg",
-          "alt": ""
+          "src": "/images/historia.jpg",
+          "alt": "André Amaral e Karina Hollatz, fundadores do Projeto Liberdade, ao lado de um cavalo branco no haras"
         },
         {
           "type": "paragraph",

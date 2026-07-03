@@ -5,7 +5,8 @@ import { Footer } from '../components/Footer'
 
 /**
  * Container for the site chrome: calls useContent once and passes site +
- * navigation down as props. Presentational components never call the hook.
+ * navigation down as props, and the full content to the routed page via the
+ * Outlet context. Presentational components never call the hook.
  */
 export function SiteLayout() {
   const { content, loading, error } = useContent()
@@ -22,9 +23,11 @@ export function SiteLayout() {
             Erro: {error.message}
           </p>
         ) : null}
-        <Outlet />
+        {content ? <Outlet context={content} /> : null}
       </main>
-      {content ? <Footer site={content.site} /> : null}
+      {content ? (
+        <Footer site={content.site} navigation={content.navigation} />
+      ) : null}
     </div>
   )
 }
