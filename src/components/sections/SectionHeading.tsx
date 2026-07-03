@@ -6,7 +6,11 @@ interface SectionHeadingProps {
   className?: string
 }
 
-export function SectionHeading({ title, intro, className }: SectionHeadingProps) {
+export function SectionHeading({
+  title,
+  intro,
+  className,
+}: SectionHeadingProps) {
   return (
     <div className={cn('mx-auto mb-12 max-w-2xl text-center', className)}>
       <h2 className="mb-3 font-display text-headline-md text-secondary">
