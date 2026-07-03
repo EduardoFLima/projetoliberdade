@@ -2,12 +2,14 @@ import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { SectionHeading } from './SectionHeading'
+import { Quote } from '../blocks/Quote'
 
 interface HistoriaSectionProps {
-  heading: string
+  heading?: string
   paragraphs: string[]
   image?: { src: string; alt: string }
   cta?: { label: string; to: string }
+  quote?: { text: string; author?: string }
   tone?: 'surface' | 'muted'
 }
 
@@ -16,12 +18,13 @@ export function HistoriaSection({
   paragraphs,
   image,
   cta,
+  quote,
   tone = 'surface',
 }: HistoriaSectionProps) {
   return (
     <Section tone={tone}>
       <Container>
-        <SectionHeading title={heading} />
+        {heading ? <SectionHeading title={heading} /> : null}
         <div className="grid items-center gap-10 md:grid-cols-2">
           <div className="space-y-6">
             {paragraphs.map((text) => (
@@ -32,6 +35,7 @@ export function HistoriaSection({
                 {text}
               </p>
             ))}
+            {quote ? <Quote text={quote.text} author={quote.author} /> : null}
             {cta ? (
               <Button to={cta.to} variant="secondary">
                 {cta.label}
