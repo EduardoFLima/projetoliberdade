@@ -5,6 +5,9 @@ import type {
   SiteContent,
 } from '../../content/types'
 import type { ServiceCardData } from '../../components/sections/ServicesSection'
+import { firstParagraph, paragraphs, selectMvv } from '../../content/selectors'
+
+export { selectMvv }
 
 interface NamedSection {
   slug: string
@@ -17,25 +20,9 @@ interface HistoriaPage {
   body: Block[]
 }
 
-interface HistoriaWithSections extends HistoriaPage {
-  sections?: NamedSection[]
-}
-
 interface ServicosPage {
   body?: Block[]
   sections?: NamedSection[]
-}
-
-function paragraphs(body: Block[]): string[] {
-  return body
-    .filter(
-      (b): b is Extract<Block, { type: 'paragraph' }> => b.type === 'paragraph',
-    )
-    .map((b) => b.text)
-}
-
-function firstParagraph(body: Block[]): string {
-  return paragraphs(body)[0] ?? ''
 }
 
 export function selectHero(content: SiteContent): HeroContent {
@@ -59,18 +46,6 @@ export function selectHistoria(
     heading: page.title,
     paragraphs: paragraphs(body).slice(0, maxParagraphs),
     image: image ? { src: image.src, alt: image.alt } : undefined,
-  }
-}
-
-export function selectMvv(content: SiteContent): {
-  heading: string
-  body: Block[]
-} {
-  const page = content.pages.historia as unknown as HistoriaWithSections
-  const section = page.sections?.find((s) => s.slug === 'missao-visao-valores')
-  return {
-    heading: section?.title ?? 'Missão, Visão e Valores',
-    body: section?.body ?? [],
   }
 }
 
