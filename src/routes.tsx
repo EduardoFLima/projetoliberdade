@@ -2,7 +2,7 @@
    local NotFound component with the exported router config; not relevant for HMR */
 import { createBrowserRouter } from 'react-router'
 import { SiteLayout } from './layouts/SiteLayout'
-import { PlaceholderPage } from './PlaceholderPage'
+import { HomePage } from './features/home/HomePage'
 import { StyleGuide } from './styleguide/StyleGuide'
 
 function NotFound() {
@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
     path: '/',
     Component: SiteLayout,
     children: [
-      { index: true, Component: PlaceholderPage },
+      { index: true, Component: HomePage },
       { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },
     ],
