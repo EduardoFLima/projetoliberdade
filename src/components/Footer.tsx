@@ -31,7 +31,7 @@ export function Footer({
             <Link
               key={item.slug}
               to={href(item)}
-              className="text-label-md text-on-surface-variant transition-colors hover:text-primary"
+              className="rounded-sm text-label-md text-on-surface-variant transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
             >
               {item.label}
             </Link>

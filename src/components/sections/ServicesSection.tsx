@@ -42,7 +42,7 @@ export function ServicesSection({
               </p>
               <Link
                 to={service.to}
-                className="mt-auto inline-flex items-center gap-1 text-label-md text-link transition-colors hover:text-cta"
+                className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
               >
                 Ver mais <ArrowForwardIcon className="h-4 w-4" />
               </Link>

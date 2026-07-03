@@ -62,7 +62,7 @@ export function Hero({
           </Button>
           <Link
             to={secondaryCta.to}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-on-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-on-primary/10"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-on-primary px-6 py-3 text-button text-on-primary transition-colors hover:bg-on-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-on-primary"
           >
             {secondaryCta.label}
           </Link>
