@@ -390,14 +390,18 @@ Migrate the two images the home needs (plus the logo), and reshape `pages.home` 
 
 - [ ] **Step 1: Migrate the image assets**
 
+`public/images/hero.jpg` is already present — it was downloaded from the Stitch
+mockup's hero background (the child on a therapy horse) per the user's
+instruction to reuse the mockup image. Do **not** overwrite it. Copy only the
+remaining two assets:
+
 ```bash
 mkdir -p public/images
-cp docs/resources/hero/FB_IMG_1526579537656.jpg public/images/hero.jpg
 cp docs/resources/fotos/historia/FB_IMG_1526587620052.jpg public/images/historia.jpg
 cp docs/resources/logo.png public/images/logo.png
 ls public/images
 ```
-Expected: `hero.jpg  historia.jpg  logo.png`
+Expected: `hero.jpg  historia.jpg  logo.png` (hero.jpg is the mockup image, ~512×512 PNG saved as `.jpg`; fills fine with `bg-cover` and is easy to swap for a higher-res photo later).
 
 - [ ] **Step 2: Write the failing test**
 
