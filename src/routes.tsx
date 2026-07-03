@@ -3,6 +3,7 @@
 import { createBrowserRouter } from 'react-router'
 import { SiteLayout } from './layouts/SiteLayout'
 import { HomePage } from './features/home/HomePage'
+import { HistoriaPage } from './features/historia/HistoriaPage'
 import { StyleGuide } from './styleguide/StyleGuide'
 
 function NotFound() {
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
     Component: SiteLayout,
     children: [
       { index: true, Component: HomePage },
+      { path: 'historia', Component: HistoriaPage },
       { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },
     ],
