@@ -114,6 +114,10 @@
     "historia": {
       "slug": "historia",
       "title": "História",
+      "hero": {
+        "title": "Nossa História",
+        "subtitle": "Terapia e reabilitação equestre desde 2006. Uma jornada de dedicação, cuidado e liberdade."
+      },
       "body": [
         {
           "type": "image",
