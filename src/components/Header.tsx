@@ -29,7 +29,6 @@ export function Header({
           <Nav items={navigation} />
           <Button
             to="/contato"
-            compact
             pill
             className="hidden items-center gap-1 md:inline-flex"
           >
