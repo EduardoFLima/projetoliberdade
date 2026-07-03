@@ -27,6 +27,18 @@ export interface Page {
   [key: string]: unknown
 }
 
+export interface HeroContent {
+  image: string
+  alt: string
+  title: string
+  subtitle: string
+}
+
+export interface HomeContent extends Page {
+  hero: HeroContent
+  featuredServices: string[]
+}
+
 export interface SiteContent {
   site: Site
   navigation: NavItem[]
