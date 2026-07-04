@@ -19,4 +19,11 @@ describe('SectionHeading', () => {
     const { container } = render(<SectionHeading title="História" />)
     expect(container.querySelector('p')).toBeNull()
   })
+
+  it('renders the title as a level-1 heading when level="h1"', () => {
+    render(<SectionHeading title="Nossos Serviços" level="h1" />)
+    expect(
+      screen.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
+    ).toBeInTheDocument()
+  })
 })

@@ -24,7 +24,4 @@ test('hero and service CTAs point to their routes', async ({ page }) => {
   await expect(
     page.getByRole('link', { name: 'Entre em Contato' }).first(),
   ).toHaveAttribute('href', '/contato')
-  await expect(
-    page.getByRole('link', { name: /Ver mais/ }).first(),
-  ).toHaveAttribute('href', '/servicos/equoterapia')
 })

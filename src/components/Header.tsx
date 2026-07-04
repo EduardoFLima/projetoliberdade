@@ -2,8 +2,7 @@ import { Link } from 'react-router'
 import type { NavItem, Site } from '../content/types'
 import { Container } from './ui/Container'
 import { Nav } from './Nav'
-import { Button } from './ui/Button'
-import { ChatIcon } from './ui/icons'
+import { ContactButton } from './ui/ContactButton'
 
 export function Header({
   site,
@@ -27,13 +26,7 @@ export function Header({
         </Link>
         <div className="flex items-center gap-6">
           <Nav items={navigation} />
-          <Button
-            to="/contato"
-            pill
-            className="hidden items-center gap-1 md:inline-flex"
-          >
-            <ChatIcon className="h-4 w-4" /> Entre em contato
-          </Button>
+          <ContactButton className="hidden md:inline-flex" />
         </div>
       </Container>
     </header>
