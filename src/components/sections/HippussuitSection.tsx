@@ -126,14 +126,14 @@ export function HippussuitSection({
               </p>
             ))}
             <div className="rounded-lg bg-surface-container p-6">
-              <p className="mb-2 font-sans text-label-md text-on-surface">
+              <p className="mb-2 font-sans text-body-md text-on-surface">
                 {developedBy.label}
               </p>
               <ul className="space-y-1">
                 {developedBy.items.map((item) => (
                   <li
                     key={item}
-                    className="font-sans text-label-sm text-on-surface-variant"
+                    className="font-sans text-body-md text-on-surface-variant"
                   >
                     {item}
                   </li>
