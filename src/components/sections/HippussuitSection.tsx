@@ -69,7 +69,7 @@ export function HippussuitSection({
                   src={image.src}
                   alt={image.alt}
                   loading="lazy"
-                  className="aspect-video w-full object-cover"
+                  className="aspect-square w-full object-cover"
                 />
               </div>
             </div>
