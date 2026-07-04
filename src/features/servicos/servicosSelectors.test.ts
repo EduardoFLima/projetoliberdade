@@ -56,11 +56,11 @@ describe('selectServicesGrid', () => {
 })
 
 describe('selectHippussuit', () => {
-  it('returns the intro paragraph, first-list highlights, and image override', () => {
+  it('returns the second paragraph, one motor + two behavioral highlights, and image override', () => {
     const h = selectHippussuit(content)
     expect(h.title).toBe('Hippussuit')
-    expect(h.paragraphs).toEqual(['Intro do HippusSuit.'])
-    expect(h.highlights).toEqual(['A', 'B', 'C', 'D'])
+    expect(h.paragraphs).toEqual(['Segundo parágrafo.'])
+    expect(h.highlights).toEqual(['A', 'Comportamental 1'])
     expect(h.image).toEqual({
       src: '/images/hippussuit.jpg',
       alt: 'Hippussuit',

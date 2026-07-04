@@ -48,14 +48,18 @@ export function selectHippussuit(content: SiteContent): {
   const page = content.pages.servicos as unknown as ServicosPageContent
   const section = (page.sections ?? []).find((s) => s.slug === 'hippussuit')
   const body = section?.body ?? []
-  const list = body.find(
+  const lists = body.filter(
     (b): b is Extract<Block, { type: 'list' }> => b.type === 'list',
   )
+  const [motorHighlights, behavioralHighlights] = lists
   const title = section?.title ?? 'Hippussuit'
   return {
     title,
-    paragraphs: paragraphs(body).slice(0, 1),
-    highlights: (list?.items ?? []).slice(0, 4),
+    paragraphs: paragraphs(body).slice(1, 2),
+    highlights: [
+      ...(motorHighlights?.items ?? []).slice(0, 1),
+      ...(behavioralHighlights?.items ?? []).slice(0, 2),
+    ],
     image: { src: '/images/hippussuit.jpg', alt: title },
   }
 }
