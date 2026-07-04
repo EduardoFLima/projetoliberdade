@@ -77,13 +77,13 @@ export function HippussuitSection({
               <h2 className="font-display text-headline-md text-primary">
                 {title}
               </h2>
-              <p className="font-sans text-body-md text-on-surface-variant">
+              <p className="font-sans text-body-md text-justify text-on-surface-variant">
                 {intro}
               </p>
               <h3 className="font-display text-headline-sm text-on-surface">
                 {whatIsIt.heading}
               </h3>
-              <p className="font-sans text-body-md text-on-surface-variant">
+              <p className="font-sans text-body-md text-justify text-on-surface-variant">
                 {whatIsIt.text}
               </p>
             </div>
@@ -93,7 +93,7 @@ export function HippussuitSection({
             <h3 className="font-display text-headline-sm text-on-surface">
               {howItWorks.heading}
             </h3>
-            <p className="font-sans text-body-md text-on-surface-variant">
+            <p className="font-sans text-body-md text-justify text-on-surface-variant">
               {howItWorks.text}
             </p>
           </div>
@@ -120,7 +120,7 @@ export function HippussuitSection({
             {closing.map((text) => (
               <p
                 key={text}
-                className="font-sans text-body-md italic text-on-surface-variant"
+                className="font-sans text-body-md text-justify italic text-on-surface-variant"
               >
                 {text}
               </p>
