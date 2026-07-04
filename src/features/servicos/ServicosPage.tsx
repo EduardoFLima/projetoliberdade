@@ -1,7 +1,7 @@
 import { useOutletContext } from 'react-router'
 import type { SiteContent } from '../../content/types'
 import { ServicesSection } from '../../components/sections/ServicesSection'
-import { FeatureSpotlight } from '../../components/sections/FeatureSpotlight'
+import { HippussuitSection } from '../../components/sections/HippussuitSection'
 import { ContactCta } from '../../components/sections/ContactCta'
 import { selectHippussuit, selectServicesGrid } from './servicosSelectors'
 
@@ -19,13 +19,7 @@ export function ServicosPage() {
         services={grid.services}
         headingLevel="h1"
       />
-      <FeatureSpotlight
-        tone="muted"
-        title={hippussuit.title}
-        paragraphs={hippussuit.paragraphs}
-        highlights={hippussuit.highlights}
-        image={hippussuit.image}
-      />
+      <HippussuitSection hippussuit={hippussuit} />
       <ContactCta
         tone="surface"
         heading="Agende uma Avaliação"
