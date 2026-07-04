@@ -17,6 +17,7 @@ export function ServicosPage() {
         heading={grid.heading}
         intro={grid.intro}
         services={grid.services}
+        headingLevel="h1"
       />
       <FeatureSpotlight
         tone="muted"

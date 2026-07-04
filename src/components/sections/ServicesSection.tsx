@@ -16,6 +16,7 @@ interface ServicesSectionProps {
   intro?: string
   services: ServiceCardData[]
   tone?: 'surface' | 'muted'
+  headingLevel?: 'h1' | 'h2'
 }
 
 export function ServicesSection({
@@ -23,11 +24,12 @@ export function ServicesSection({
   intro,
   services,
   tone = 'surface',
+  headingLevel = 'h2',
 }: ServicesSectionProps) {
   return (
     <Section tone={tone}>
       <Container>
-        <SectionHeading title={heading} intro={intro} />
+        <SectionHeading title={heading} intro={intro} level={headingLevel} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => (
             <article
