@@ -28,9 +28,18 @@ const content = {
           body: [
             { type: 'image', src: 'placeholder.jpg', alt: '' },
             { type: 'paragraph', text: 'Intro do HippusSuit.' },
-            { type: 'paragraph', text: 'Segundo parágrafo.' },
-            { type: 'list', items: ['A', 'B', 'C', 'D', 'E'] },
-            { type: 'list', items: ['Comportamental 1'] },
+            { type: 'heading', text: 'O que é' },
+            { type: 'paragraph', text: 'É uma vestimenta.' },
+            { type: 'heading', text: 'Como funciona' },
+            { type: 'paragraph', text: 'Funciona assim.' },
+            { type: 'heading', text: 'Nos aspectos motores' },
+            { type: 'list', items: ['Motor A', 'Motor B'] },
+            { type: 'heading', text: 'Os aspectos comportamentais' },
+            { type: 'list', items: ['Comp 1'] },
+            { type: 'paragraph', text: 'Fecho um.' },
+            { type: 'paragraph', text: 'Fecho dois.' },
+            { type: 'paragraph', text: 'Desenvolvido por:' },
+            { type: 'list', items: ['Karina Hollatz', 'André'] },
           ],
         },
       ],
@@ -56,14 +65,34 @@ describe('selectServicesGrid', () => {
 })
 
 describe('selectHippussuit', () => {
-  it('returns the second paragraph, one motor + two behavioral highlights, and image override', () => {
+  it('maps blocks into the structured hippussuit layout', () => {
     const h = selectHippussuit(content)
     expect(h.title).toBe('Hippussuit')
-    expect(h.paragraphs).toEqual(['Segundo parágrafo.'])
-    expect(h.highlights).toEqual(['A', 'Comportamental 1'])
     expect(h.image).toEqual({
       src: '/images/hippussuit.jpg',
       alt: 'Hippussuit',
+    })
+    expect(h.intro).toBe('Intro do HippusSuit.')
+    expect(h.whatIsIt).toEqual({
+      heading: 'O que é',
+      text: 'É uma vestimenta.',
+    })
+    expect(h.howItWorks).toEqual({
+      heading: 'Como funciona',
+      text: 'Funciona assim.',
+    })
+    expect(h.motor).toEqual({
+      heading: 'Nos aspectos motores',
+      items: ['Motor A', 'Motor B'],
+    })
+    expect(h.behavioral).toEqual({
+      heading: 'Os aspectos comportamentais',
+      items: ['Comp 1'],
+    })
+    expect(h.closing).toEqual(['Fecho um.', 'Fecho dois.'])
+    expect(h.developedBy).toEqual({
+      label: 'Desenvolvido por:',
+      items: ['Karina Hollatz', 'André'],
     })
   })
 })

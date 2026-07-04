@@ -1,5 +1,6 @@
 import type { Block, SiteContent } from '../../content/types'
 import type { ServiceCardData } from '../../components/sections/ServicesSection'
+import type { HippussuitContent } from '../../components/sections/HippussuitSection'
 import { firstParagraph, paragraphs } from '../../content/selectors'
 
 interface ServiceSection {
@@ -39,27 +40,31 @@ export function selectServicesGrid(content: SiteContent): {
   }
 }
 
-export function selectHippussuit(content: SiteContent): {
-  title: string
-  paragraphs: string[]
-  highlights: string[]
-  image: { src: string; alt: string }
-} {
+export function selectHippussuit(content: SiteContent): HippussuitContent {
   const page = content.pages.servicos as unknown as ServicosPageContent
   const section = (page.sections ?? []).find((s) => s.slug === 'hippussuit')
   const body = section?.body ?? []
+  const title = section?.title ?? 'Hippussuit'
+
+  const headings = body
+    .filter(
+      (b): b is Extract<Block, { type: 'heading' }> => b.type === 'heading',
+    )
+    .map((b) => b.text)
+  const paras = paragraphs(body)
   const lists = body.filter(
     (b): b is Extract<Block, { type: 'list' }> => b.type === 'list',
   )
-  const [motorHighlights, behavioralHighlights] = lists
-  const title = section?.title ?? 'Hippussuit'
+
   return {
     title,
-    paragraphs: paragraphs(body).slice(1, 2),
-    highlights: [
-      ...(motorHighlights?.items ?? []).slice(0, 1),
-      ...(behavioralHighlights?.items ?? []).slice(0, 2),
-    ],
     image: { src: '/images/hippussuit.jpg', alt: title },
+    intro: paras[0] ?? '',
+    whatIsIt: { heading: headings[0] ?? '', text: paras[1] ?? '' },
+    howItWorks: { heading: headings[1] ?? '', text: paras[2] ?? '' },
+    motor: { heading: headings[2] ?? '', items: lists[0]?.items ?? [] },
+    behavioral: { heading: headings[3] ?? '', items: lists[1]?.items ?? [] },
+    closing: paras.slice(3, 5),
+    developedBy: { label: paras[5] ?? '', items: lists[2]?.items ?? [] },
   }
 }
