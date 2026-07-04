@@ -39,7 +39,7 @@ function ServiceCard({ title, excerpt }: Pick<ServiceCardData, 'title' | 'excerp
       <p
         ref={excerptRef}
         className={cn(
-          'mb-6 flex-grow font-sans text-body-md text-on-surface-variant',
+          'mb-6 flex-grow font-sans text-body-md text-on-surface-variant text-justify',
           expanded ? undefined : 'line-clamp-10',
         )}
       >
