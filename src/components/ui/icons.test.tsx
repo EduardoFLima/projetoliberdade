@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import {
   ArrowForwardIcon,
   ChatIcon,
+  CheckCircleIcon,
   FavoriteIcon,
   FlagIcon,
   MenuIcon,
@@ -18,6 +19,7 @@ describe('icons', () => {
       ArrowForwardIcon,
       ChatIcon,
       MenuIcon,
+      CheckCircleIcon,
     ]
     for (const Icon of icons) {
       const { container, unmount } = render(<Icon className="h-4 w-4" />)
