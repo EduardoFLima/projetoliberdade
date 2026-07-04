@@ -27,50 +27,7 @@
     {
       "slug": "servicos",
       "label": "Serviços",
-      "order": 2,
-      "submenu": [
-        {
-          "slug": "equoterapia",
-          "label": "Equoterapia",
-          "order": 1
-        },
-        {
-          "slug": "equitacao-classica",
-          "label": "Equitação Clássica",
-          "order": 2
-        },
-        {
-          "slug": "equitacao-ludica",
-          "label": "Equitação Lúdica",
-          "order": 3
-        },
-        {
-          "slug": "equitacao-adaptada",
-          "label": "Equitação Adaptada",
-          "order": 4
-        },
-        {
-          "slug": "pet-terapia",
-          "label": "Pet Terapia",
-          "order": 5
-        },
-        {
-          "slug": "hidroterapia",
-          "label": "Hidroterapia",
-          "order": 6
-        },
-        {
-          "slug": "reabilitacao-neurofuncional",
-          "label": "Reabilitação Neurofuncional",
-          "order": 7
-        },
-        {
-          "slug": "hippussuit",
-          "label": "Hippussuit",
-          "order": 9,
-          "featured": true
-        }
-      ]
+      "order": 2
     },
     {
       "slug": "momentos",
