@@ -17,7 +17,17 @@ test('servicos page renders all services, hippussuit and contact CTA', async ({
       name: 'Reabilitação Neurofuncional',
     }),
   ).toBeVisible()
-  await expect(page.getByRole('link', { name: /Ver mais/ })).toHaveCount(7)
+  const verMais = page.getByRole('button', { name: /Ver mais/ })
+  await expect(verMais).toHaveCount(5)
+
+  const reabilitacaoCard = page
+    .locator('article')
+    .filter({ hasText: 'Reabilitação Neurofuncional' })
+  await reabilitacaoCard.getByRole('button', { name: /Ver mais/ }).click()
+  await expect(verMais).toHaveCount(4)
+  await expect(
+    page.getByText(/Como métodos de atendimento utilizamos/),
+  ).toBeVisible()
 
   await expect(
     page.getByRole('heading', { level: 2, name: 'Hippussuit' }),
