@@ -79,3 +79,12 @@ export function MenuIcon({ className }: IconProps) {
     </Svg>
   )
 }
+
+export function CheckCircleIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m8.5 12 2.5 2.5 4.5-5" />
+    </Svg>
+  )
+}
