@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { SiteContent } from '../../content/types'
+import { contentRepository } from '../../content/content'
 import { selectHippussuit, selectServicesGrid } from './servicosSelectors'
 
 const content = {
@@ -94,5 +95,26 @@ describe('selectHippussuit', () => {
       label: 'Desenvolvido por:',
       items: ['Karina Hollatz', 'André'],
     })
+  })
+
+  it('pins the real content.json shape so block reordering fails loudly', async () => {
+    const realContent = await contentRepository.getContent()
+    const h = selectHippussuit(realContent)
+
+    expect(h.title).toBe('Hippussuit')
+    expect(h.whatIsIt.heading).toBe('O que é')
+    expect(h.howItWorks.heading).toBe('Como funciona')
+    expect(h.motor.heading).toBe('Nos aspectos motores')
+    expect(h.behavioral.heading).toBe('Os aspectos comportamentais')
+    expect(h.developedBy.items).toEqual([
+      'Karina Hollatz – Fisioterapeuta',
+      'André Augusto Amaral Gomes – Equitador/Educador Físico',
+      'Cibele Ferreira Lima – Terapeuta Ocupacional',
+      'Equipe do Centro de Equoterapia e Equitação Projeto Liberdade',
+    ])
+    expect(h.closing.length).toBeGreaterThan(0)
+    expect(h.closing[0]).toContain(
+      'órtese de retificação postural HippusSuit pode ser sugerido',
+    )
   })
 })
