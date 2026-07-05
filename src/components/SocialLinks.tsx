@@ -35,7 +35,19 @@ const icons: Record<string, ReactElement> = {
   ),
 }
 
-export function SocialLinks({ links }: { links: SocialLink[] }) {
+const linkClass: Record<'inline' | 'buttons', string> = {
+  inline: 'text-on-surface-variant hover:text-primary',
+  buttons:
+    'flex h-12 w-12 items-center justify-center rounded-full border border-surface-container-highest bg-surface-container-lowest text-primary shadow-level1 transition-colors hover:bg-primary hover:text-on-primary',
+}
+
+export function SocialLinks({
+  links,
+  variant = 'inline',
+}: {
+  links: SocialLink[]
+  variant?: 'inline' | 'buttons'
+}) {
   return (
     <ul className="flex gap-4">
       {links.map((link) => (
@@ -45,7 +57,7 @@ export function SocialLinks({ links }: { links: SocialLink[] }) {
             target="_blank"
             rel="noreferrer"
             aria-label={labels[link.network] ?? link.network}
-            className="text-on-surface-variant hover:text-primary"
+            className={linkClass[variant]}
           >
             {icons[link.network] ?? <span aria-hidden="true">↗</span>}
           </a>

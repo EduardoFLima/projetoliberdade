@@ -16,4 +16,12 @@ describe('SocialLinks', () => {
     expect(fb).toHaveAttribute('rel', 'noreferrer')
     expect(screen.getByRole('link', { name: 'Instagram' })).toBeInTheDocument()
   })
+
+  it('renders circular button styling in the buttons variant', () => {
+    render(<SocialLinks links={links} variant="buttons" />)
+    const fb = screen.getByRole('link', { name: 'Facebook' })
+    expect(fb.className).toContain('rounded-full')
+    expect(fb.className).toContain('text-primary')
+    expect(fb).toHaveAttribute('href', 'https://facebook.com/x')
+  })
 })
