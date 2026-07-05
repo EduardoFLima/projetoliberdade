@@ -439,6 +439,14 @@
     "contato": {
       "slug": "contato",
       "title": "Contato",
+      "hero": {
+        "title": "Entre em Contato",
+        "subtitle": "Estamos aqui para ajudar. Utilize nossos canais de atendimento direto para falar com a equipe do Projeto Liberdade."
+      },
+      "channelsHeading": "Fale Conosco",
+      "socialHeading": "Redes Sociais",
+      "unitsHeading": "Nossas Unidades",
+      "unitsSubtitle": "Encontre o espaço Projeto Liberdade mais próximo de você.",
       "email": "contato@projetoliberdade.com.br",
       "phones": [
         {
