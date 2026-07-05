@@ -6,7 +6,11 @@ import {
   CheckCircleIcon,
   FavoriteIcon,
   FlagIcon,
+  MailIcon,
+  MapIcon,
+  MapPinIcon,
   MenuIcon,
+  ShareIcon,
   VisibilityIcon,
 } from './icons'
 
@@ -20,6 +24,10 @@ describe('icons', () => {
       ChatIcon,
       MenuIcon,
       CheckCircleIcon,
+      MailIcon,
+      ShareIcon,
+      MapPinIcon,
+      MapIcon,
     ]
     for (const Icon of icons) {
       const { container, unmount } = render(<Icon className="h-4 w-4" />)

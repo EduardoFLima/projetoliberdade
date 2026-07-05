@@ -88,3 +88,41 @@ export function CheckCircleIcon({ className }: IconProps) {
     </Svg>
   )
 }
+
+export function MailIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </Svg>
+  )
+}
+
+export function ShareIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4" />
+    </Svg>
+  )
+}
+
+export function MapPinIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </Svg>
+  )
+}
+
+export function MapIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="m9 4-6 2v14l6-2 6 2 6-2V4l-6 2-6-2Z" />
+      <path d="M9 4v14M15 6v14" />
+    </Svg>
+  )
+}
