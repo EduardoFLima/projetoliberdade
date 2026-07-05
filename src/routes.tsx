@@ -5,6 +5,7 @@ import { SiteLayout } from './layouts/SiteLayout'
 import { HomePage } from './features/home/HomePage'
 import { HistoriaPage } from './features/historia/HistoriaPage'
 import { ServicosPage } from './features/servicos/ServicosPage'
+import { ContatoPage } from './features/contato/ContatoPage'
 import { StyleGuide } from './styleguide/StyleGuide'
 
 function NotFound() {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { index: true, Component: HomePage },
       { path: 'historia', Component: HistoriaPage },
       { path: 'servicos', Component: ServicosPage },
+      { path: 'contato', Component: ContatoPage },
       { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },
     ],
