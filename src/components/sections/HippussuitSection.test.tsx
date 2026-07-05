@@ -11,7 +11,10 @@ const hippussuit: HippussuitContent = {
   motor: { heading: 'Nos aspectos motores', items: ['Motor A', 'Motor B'] },
   behavioral: { heading: 'Os aspectos comportamentais', items: ['Comp 1'] },
   closing: ['Fecho um.', 'Fecho dois.'],
-  developedBy: { label: 'Desenvolvido por:', items: ['Karina Hollatz', 'André'] },
+  developedBy: {
+    label: 'Desenvolvido por:',
+    items: ['Karina Hollatz', 'André'],
+  },
 }
 
 describe('HippussuitSection', () => {

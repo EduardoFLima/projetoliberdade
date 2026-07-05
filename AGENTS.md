@@ -12,7 +12,9 @@ Welcome! This file provides essential guidelines, context, and requirements for 
 Brochure website for **Projeto Liberdade** (Brazilian equine-therapy / rehabilitation organization). Content-driven: today from a bundled `content.json` snapshot; later from Firebase Realtime Database (RTDB) at runtime with the JSON as fallback.
 
 ### Content conventions
+
 Content model is locked in `docs/superpowers/specs/2026-06-30-content-json-redesign-design.md`:
+
 - English keys, Portuguese content values, slugs double as URL paths (e.g., `/servicos/equoterapia`).
 - `body` is an ordered array of typed blocks (discriminator `type`).
 - 5 pages: home, historia, servicos, momentos, contato.
@@ -24,7 +26,7 @@ Content model is locked in `docs/superpowers/specs/2026-06-30-content-json-redes
 All agent skills are checked into the repository under the [.superpowers/skills/](file:///Users/eduardolima/projects/projetoliberdade/.superpowers/skills) folder. You **MUST** read and invoke the appropriate skills before taking actions or responding:
 
 1. **Bootstrap & Core Rule**: Read and follow [.superpowers/skills/using-superpowers/SKILL.md](file:///Users/eduardolima/projects/projetoliberdade/.superpowers/skills/using-superpowers/SKILL.md) before any action—including clarifying questions, planning, or editing files.
-   - *Rule:* Check for relevant skills before every task. This is a mandatory workflow.
+   - _Rule:_ Check for relevant skills before every task. This is a mandatory workflow.
 2. **Brainstorming & Requirements**: Run [.superpowers/skills/brainstorming/SKILL.md](file:///Users/eduardolima/projects/projetoliberdade/.superpowers/skills/brainstorming/SKILL.md) before starting any implementation. Explore the user's intent, verify design choices, and align on requirements.
 3. **Implementation Planning**: Run [.superpowers/skills/writing-plans/SKILL.md](file:///Users/eduardolima/projects/projetoliberdade/.superpowers/skills/writing-plans/SKILL.md) to build a step-by-step plan specifying exact file paths and verification commands.
 4. **Test-Driven Development (TDD)**: Enforce the RED-GREEN-REFACTOR cycle using [.superpowers/skills/test-driven-development/SKILL.md](file:///Users/eduardolima/projects/projetoliberdade/.superpowers/skills/test-driven-development/SKILL.md). You MUST write failing tests first, verify they fail, write minimal code to make them pass, and refactor.
@@ -84,11 +86,13 @@ tests/e2e/      # Playwright test specs
 ```
 
 ### The dependency rule (non-negotiable)
+
 - Files under `features`, `components`, and `layouts` **never** import `content.json` or reference Firebase directly.
 - The routed layout (`SiteLayout`) or page containers retrieve data using `useContent` and flow it down via the React Router outlet context (`useOutletContext`). Presentational components receive content via props only.
 - Container content flows to pages via the router `Outlet` context (`SiteLayout` provides it; page containers read it with `useOutletContext`).
 
 ### Code style
+
 - Small, single-responsibility files.
 - Typed content.
 - No prop-drilling of the data source.
@@ -112,6 +116,7 @@ pnpm test:e2e      # Run Playwright E2E tests
 ```
 
 ### Tooling (MCP)
+
 - **Always use Context7** (`resolve-library-id` / `query-docs`) to look up modern APIs/libraries before writing code — training data may be stale.
 - **Use the Playwright MCP server** whenever browser automation is required (driving the app, inspecting the DOM, taking screenshots, verifying page behavior).
 

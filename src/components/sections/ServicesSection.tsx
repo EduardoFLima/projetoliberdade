@@ -20,7 +20,10 @@ interface ServicesSectionProps {
   headingLevel?: 'h1' | 'h2'
 }
 
-function ServiceCard({ title, excerpt }: Pick<ServiceCardData, 'title' | 'excerpt'>) {
+function ServiceCard({
+  title,
+  excerpt,
+}: Pick<ServiceCardData, 'title' | 'excerpt'>) {
   const excerptRef = useRef<HTMLParagraphElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [overflowing, setOverflowing] = useState(false)

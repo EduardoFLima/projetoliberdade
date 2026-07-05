@@ -45,12 +45,8 @@ describe('HistoriaSection', () => {
   })
 
   it('omits the heading when none is provided', () => {
-    renderWithRouter(
-      <HistoriaSection paragraphs={['Só um parágrafo.']} />,
-    )
-    expect(
-      screen.queryByRole('heading', { level: 2 }),
-    ).not.toBeInTheDocument()
+    renderWithRouter(<HistoriaSection paragraphs={['Só um parágrafo.']} />)
+    expect(screen.queryByRole('heading', { level: 2 })).not.toBeInTheDocument()
     expect(screen.getByText('Só um parágrafo.')).toBeInTheDocument()
   })
 
@@ -61,8 +57,6 @@ describe('HistoriaSection', () => {
         quote={{ text: 'Dezesseis anos de dedicação.' }}
       />,
     )
-    expect(
-      screen.getByText('Dezesseis anos de dedicação.'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Dezesseis anos de dedicação.')).toBeInTheDocument()
   })
 })

@@ -8,7 +8,11 @@ interface ContactCtaProps {
   tone?: 'surface' | 'muted'
 }
 
-export function ContactCta({ heading, body, tone = 'surface' }: ContactCtaProps) {
+export function ContactCta({
+  heading,
+  body,
+  tone = 'surface',
+}: ContactCtaProps) {
   return (
     <Section tone={tone}>
       <Container className="flex flex-col items-center gap-6 text-center">

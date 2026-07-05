@@ -17,12 +17,7 @@ export function ContatoPage() {
 
   return (
     <>
-      <PageHero
-        image=""
-        alt=""
-        title={hero.title}
-        subtitle={hero.subtitle}
-      />
+      <PageHero image="" alt="" title={hero.title} subtitle={hero.subtitle} />
       <ContactChannels
         heading={channels.heading}
         socialHeading={channels.socialHeading}
