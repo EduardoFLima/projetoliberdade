@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router'
 import { MediaToggle } from './MediaToggle'
 
 describe('MediaToggle', () => {
-  it('renders Vídeos as the active link and Fotos as a disabled button', () => {
+  it('marks the active pill with aria-current and links both views', () => {
     render(
       <MemoryRouter>
         <MediaToggle active="videos" />
@@ -14,7 +14,23 @@ describe('MediaToggle', () => {
     expect(videos).toHaveAttribute('href', '/momentos/videos')
     expect(videos).toHaveAttribute('aria-current', 'page')
 
-    const fotos = screen.getByRole('button', { name: 'Fotos' })
-    expect(fotos).toBeDisabled()
+    const fotos = screen.getByRole('link', { name: 'Fotos' })
+    expect(fotos).toHaveAttribute('href', '/momentos/fotos')
+    expect(fotos).not.toHaveAttribute('aria-current')
+  })
+
+  it('marks Fotos active when active="fotos"', () => {
+    render(
+      <MemoryRouter>
+        <MediaToggle active="fotos" />
+      </MemoryRouter>,
+    )
+    expect(screen.getByRole('link', { name: 'Fotos' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    )
+    expect(screen.getByRole('link', { name: 'Vídeos' })).not.toHaveAttribute(
+      'aria-current',
+    )
   })
 })

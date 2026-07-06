@@ -1,4 +1,4 @@
-import type { SiteContent } from '../../content/types'
+import type { Photo, SiteContent } from '../../content/types'
 import {
   embedUrl,
   getYouTubeId,
@@ -43,4 +43,9 @@ export function selectVideos(content: SiteContent): VideoCardVm[] {
       },
     ]
   })
+}
+
+export function selectPhotos(content: SiteContent): Photo[] {
+  const { featured, items } = content.pages.momentos.photos
+  return [featured, ...items]
 }

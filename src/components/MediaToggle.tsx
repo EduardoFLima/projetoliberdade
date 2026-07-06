@@ -23,18 +23,18 @@ export function MediaToggle({ active }: MediaToggleProps) {
       >
         Vídeos
       </Link>
-      <button
-        type="button"
-        disabled
-        aria-disabled="true"
-        title="Em breve"
+      <Link
+        to="/momentos/fotos"
+        aria-current={active === 'fotos' ? 'page' : undefined}
         className={cn(
           base,
-          'cursor-not-allowed text-on-surface-variant opacity-50',
+          active === 'fotos'
+            ? 'bg-cta text-on-cta'
+            : 'text-on-surface-variant hover:text-primary',
         )}
       >
         Fotos
-      </button>
+      </Link>
     </div>
   )
 }

@@ -29,6 +29,7 @@ export function Lightbox({ photos, startIndex = 0, onClose }: LightboxProps) {
 
   return (
     <div
+      data-testid="lightbox"
       role="dialog"
       aria-modal="true"
       aria-label="Galeria de fotos"

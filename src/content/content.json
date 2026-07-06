@@ -361,81 +361,38 @@
         }
       ],
       "photos": {
-        "albums": [
+        "featured": {
+          "src": "/images/momentos/foto-3.jpg",
+          "alt": "Criança acolhida por uma terapeuta sorridente durante uma atividade ao ar livre"
+        },
+        "items": [
           {
-            "slug": "reabilitacao",
-            "title": "Reabilitação",
-            "cover": {
-              "src": "fotos/album1/FB_IMG_1526582851926.jpg",
-              "alt": ""
-            },
-            "photos": [
-              {
-                "src": "fotos/album1/FB_IMG_1526582851926.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album1/FB_IMG_1526579797013.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album1/FB_IMG_1526579813114.jpg",
-                "alt": "",
-                "caption": ""
-              }
-            ]
+            "src": "/images/momentos/foto-1.jpg",
+            "alt": "Menino sorridente de capacete e camiseta azul montando um cavalo branco em meio à vegetação"
           },
           {
-            "slug": "liberdade",
-            "title": "Liberdade",
-            "cover": {
-              "src": "fotos/album2/FB_IMG_1526579880959.jpg",
-              "alt": ""
-            },
-            "photos": [
-              {
-                "src": "fotos/album2/FB_IMG_1526579880959.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album2/FB_IMG_1526579932897.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album2/FB_IMG_1526579963187.jpg",
-                "alt": "",
-                "caption": ""
-              }
-            ]
+            "src": "/images/momentos/foto-2.jpg",
+            "alt": "Menino de capacete e óculos sorrindo enquanto monta um cavalo branco em um picadeiro coberto"
           },
           {
-            "slug": "desenvolvimento",
-            "title": "Desenvolvimento",
-            "cover": {
-              "src": "fotos/album3/FB_IMG_1526579991299.jpg",
-              "alt": ""
-            },
-            "photos": [
-              {
-                "src": "fotos/album3/FB_IMG_1526579991299.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album3/FB_IMG_1526580011702.jpg",
-                "alt": "",
-                "caption": ""
-              },
-              {
-                "src": "fotos/album3/FB_IMG_1526580019545.jpg",
-                "alt": "",
-                "caption": ""
-              }
-            ]
+            "src": "/images/momentos/foto-5.jpg",
+            "alt": "Terapeuta beijando o rosto de uma menina sentada sobre um cavalo, ao ar livre"
+          },
+          {
+            "src": "/images/momentos/foto-6.jpg",
+            "alt": "Menino com capa de super-herói montado em um cavalo, amparado por duas terapeutas"
+          },
+          {
+            "src": "/images/momentos/foto-7.jpg",
+            "alt": "Homem beijando carinhosamente a testa de uma criança no colo durante atividade ao ar livre"
+          },
+          {
+            "src": "/images/momentos/foto-8.jpg",
+            "alt": "Menina fantasiada de princesa sorrindo enquanto monta um cavalo de pelagem clara"
+          },
+          {
+            "src": "/images/momentos/foto-9.jpg",
+            "alt": "Menino sorridente de chapéu de cowboy e lenço vermelho montando um cavalo"
           }
         ]
       }

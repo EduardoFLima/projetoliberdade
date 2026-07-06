@@ -23,6 +23,7 @@ export const router = createBrowserRouter([
       { path: 'servicos', Component: ServicosPage },
       { path: 'momentos', Component: MomentosPage },
       { path: 'momentos/videos', Component: MomentosPage },
+      { path: 'momentos/fotos', Component: MomentosPage },
       { path: 'contato', Component: ContatoPage },
       { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },

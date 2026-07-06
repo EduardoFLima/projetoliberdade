@@ -8,7 +8,7 @@ test('momentos videos page renders header, toggle and two video cards', async ({
     page.getByRole('heading', { level: 1, name: 'Nossos Momentos' }),
   ).toBeVisible()
   await expect(page.getByRole('link', { name: 'Vídeos' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'Fotos' })).toBeDisabled()
+  await expect(page.getByRole('link', { name: 'Fotos' })).toBeVisible()
   await expect(page.getByRole('button', { name: /^Assistir:/ })).toHaveCount(2)
 })
 
@@ -39,4 +39,19 @@ test('momentos submenu is accessible via hover', async ({ page }) => {
   // Try to click the submenu link
   await submenuLink.click()
   await expect(page).toHaveURL(/\/momentos\/videos/)
+})
+
+test('switching to Fotos shows the photo grid', async ({ page }) => {
+  await page.goto('/momentos')
+  await page.getByRole('link', { name: 'Fotos' }).click()
+  await expect(page).toHaveURL(/\/momentos\/fotos/)
+  await expect(
+    page.getByRole('button', { name: /^Ampliar foto:/ }).first(),
+  ).toBeVisible()
+})
+
+test('clicking a photo opens the lightbox', async ({ page }) => {
+  await page.goto('/momentos/fotos')
+  await page.getByRole('button', { name: /^Ampliar foto:/ }).first().click()
+  await expect(page.getByRole('dialog')).toBeVisible()
 })
