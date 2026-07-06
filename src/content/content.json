@@ -362,8 +362,8 @@
       ],
       "photos": {
         "featured": {
-          "src": "/images/momentos/destaque.jpg",
-          "alt": "Criança sorridente de capacete montando um cavalo marrom em um picadeiro ao ar livre"
+          "src": "/images/momentos/foto-3.jpg",
+          "alt": "Criança acolhida por uma terapeuta sorridente durante uma atividade ao ar livre"
         },
         "items": [
           {
@@ -373,10 +373,6 @@
           {
             "src": "/images/momentos/foto-2.jpg",
             "alt": "Menino de capacete e óculos sorrindo enquanto monta um cavalo branco em um picadeiro coberto"
-          },
-          {
-            "src": "/images/momentos/foto-3.jpg",
-            "alt": "Criança acolhida por uma terapeuta sorridente durante uma atividade ao ar livre"
           },
           {
             "src": "/images/momentos/foto-5.jpg",
