@@ -126,3 +126,130 @@ export function MapIcon({ className }: IconProps) {
     </Svg>
   )
 }
+
+function ServiceSvg({
+  className,
+  dataIcon,
+  children,
+}: IconProps & { dataIcon: string; children: ReactNode }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      data-icon={dataIcon}
+      className={className}
+    >
+      {children}
+    </svg>
+  )
+}
+
+export function HorseTherapyIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="horse-therapy">
+      <path d="M5 21c-1-4 1-7 4-8l1-3 3-1 2 2 3 1-1 3c1 2 1 4 0 6" />
+      <path d="M9 8.5h.01" />
+      <path d="M14.5 14c1 1.5 1 3.5-.5 4.5s-3.5.5-4.5-1" />
+    </ServiceSvg>
+  )
+}
+
+export function RidingHelmetIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="riding-helmet">
+      <path d="M3 14a9 9 0 0 1 18 0" />
+      <path d="M21 14a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3" />
+      <path d="M12 5v3" />
+      <path d="M6 17v2h12v-2" />
+    </ServiceSvg>
+  )
+}
+
+export function HorseshoeIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="horseshoe">
+      <path d="M7 21c-2-1-3-4-3-8a8 8 0 0 1 16 0c0 4-1 7-3 8" />
+      <path d="M7 21v-2M17 21v-2M8.5 18.5h.01M15.5 18.5h.01" />
+    </ServiceSvg>
+  )
+}
+
+export function AdaptedRidingIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="adapted-riding">
+      <path d="M6 20c-1.5-1-2.5-3.5-2.5-6.5A7.5 7.5 0 0 1 16 8" />
+      <circle cx="17" cy="7" r="1.5" />
+      <path d="M14 11h5l-1.5 4M15.5 15l-1.5 5M18 15l1.5 4" />
+    </ServiceSvg>
+  )
+}
+
+export function PawIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="paw">
+      <circle cx="7" cy="9" r="1.6" />
+      <circle cx="12" cy="6.5" r="1.6" />
+      <circle cx="17" cy="9" r="1.6" />
+      <path d="M12 12c-2.6 0-4.5 2-4.5 4 0 1.7 1.4 2.5 4.5 2.5s4.5-.8 4.5-2.5c0-2-1.9-4-4.5-4Z" />
+    </ServiceSvg>
+  )
+}
+
+export function SwimmerIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="swimmer">
+      <circle cx="17" cy="7" r="1.6" />
+      <path d="m5 12 4-2 3 2 3-1.5" />
+      <path d="M2 17c1.2 1 2.3 1 3.5 0s2.3-1 3.5 0 2.3 1 3.5 0 2.3-1 3.5 0 2.3 1 3.5 0" />
+      <path d="M2 20.5c1.2 1 2.3 1 3.5 0s2.3-1 3.5 0s2.3 1 3.5 0 2.3-1 3.5 0 2.3 1 3.5 0" />
+    </ServiceSvg>
+  )
+}
+
+export function NeuroIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="neuro">
+      <path d="M15 4a5 5 0 0 1 2 9v3a2 2 0 0 1-2 2h-1v2" />
+      <path d="M9.5 4A5 5 0 0 0 7 13" />
+      <path d="M9.5 4a3 3 0 0 1 5.5 0" />
+      <path d="M3 12h2l1.5-2 2 4 1.5-2h2" />
+    </ServiceSvg>
+  )
+}
+
+export function ServiceDefaultIcon({ className }: IconProps) {
+  return (
+    <ServiceSvg className={className} dataIcon="default">
+      <path d="M12 3v4M12 17v4M3 12h4M17 12h4" />
+      <circle cx="12" cy="12" r="3" />
+    </ServiceSvg>
+  )
+}
+
+const serviceIcons: Record<string, (props: IconProps) => ReactNode> = {
+  'horse-therapy': HorseTherapyIcon,
+  'riding-helmet': RidingHelmetIcon,
+  horseshoe: HorseshoeIcon,
+  'adapted-riding': AdaptedRidingIcon,
+  paw: PawIcon,
+  swimmer: SwimmerIcon,
+  neuro: NeuroIcon,
+}
+
+export function ServiceIcon({
+  name,
+  className,
+}: {
+  name?: string
+  className?: string
+}) {
+  const Icon = (name && serviceIcons[name]) || ServiceDefaultIcon
+  return <Icon className={className} />
+}

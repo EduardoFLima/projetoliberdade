@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { SiteContent } from '../../content/types'
+import contentJson from '../../content/content.json'
 import {
   selectHero,
   selectHistoria,
@@ -96,5 +97,14 @@ describe('homeSelectors', () => {
       excerpt: 'Método.',
       to: '/servicos/equoterapia',
     })
+  })
+
+  it('carries the icon key through to each featured card', () => {
+    const { services } = selectServices(contentJson as unknown as SiteContent)
+    for (const card of services) {
+      expect(typeof card.icon === 'string' || card.icon === undefined).toBe(true)
+    }
+    const withIcon = services.find((s) => s.icon)
+    expect(withIcon?.icon).toBeTruthy()
   })
 })

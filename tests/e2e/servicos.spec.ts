@@ -11,6 +11,13 @@ test('servicos page renders all services, hippussuit and contact CTA', async ({
   await expect(
     page.getByRole('heading', { level: 3, name: 'Equoterapia' }),
   ).toBeVisible()
+
+  // Every service card shows an icon badge
+  const iconBadges = page.locator('article [data-icon-tone]')
+  await expect(iconBadges.first()).toBeVisible()
+  expect(await iconBadges.count()).toBeGreaterThanOrEqual(7)
+  await expect(page.locator('article [data-icon="horse-therapy"]')).toBeVisible()
+
   await expect(
     page.getByRole('heading', {
       level: 3,

@@ -3,13 +3,14 @@ import { cn } from '../../lib/cn'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { SectionHeading } from './SectionHeading'
-import { ArrowForwardIcon } from '../ui/icons'
+import { ArrowForwardIcon, ServiceIcon } from '../ui/icons'
 
 export interface ServiceCardData {
   slug: string
   title: string
   excerpt: string
   to: string
+  icon?: string
 }
 
 interface ServicesSectionProps {
@@ -23,7 +24,9 @@ interface ServicesSectionProps {
 function ServiceCard({
   title,
   excerpt,
-}: Pick<ServiceCardData, 'title' | 'excerpt'>) {
+  icon,
+  index,
+}: Pick<ServiceCardData, 'title' | 'excerpt' | 'icon'> & { index: number }) {
   const excerptRef = useRef<HTMLParagraphElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [overflowing, setOverflowing] = useState(false)
@@ -34,8 +37,21 @@ function ServiceCard({
     setOverflowing(el.scrollHeight > el.clientHeight + 1)
   }, [excerpt])
 
+  const tone = index % 2 === 0 ? 'green' : 'purple'
+
   return (
     <article className="flex h-full flex-col rounded-xl border border-outline-variant/30 bg-surface p-6 transition-shadow hover:shadow-level2">
+      <div
+        data-icon-tone={tone}
+        className={cn(
+          'mb-4 flex h-12 w-12 items-center justify-center rounded-xl',
+          tone === 'green'
+            ? 'bg-primary-container/15 text-cta'
+            : 'bg-secondary-container/40 text-secondary',
+        )}
+      >
+        <ServiceIcon name={icon} className="h-6 w-6" />
+      </div>
       <h3 className="mb-3 font-display text-headline-sm text-on-surface">
         {title}
       </h3>
@@ -73,11 +89,13 @@ export function ServicesSection({
       <Container>
         <SectionHeading title={heading} intro={intro} level={headingLevel} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <ServiceCard
               key={service.slug}
               title={service.title}
               excerpt={service.excerpt}
+              icon={service.icon}
+              index={index}
             />
           ))}
         </div>

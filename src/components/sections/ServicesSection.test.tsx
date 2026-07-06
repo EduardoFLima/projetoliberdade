@@ -96,4 +96,21 @@ describe('ServicesSection', () => {
       screen.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
     ).toBeInTheDocument()
   })
+
+  it('renders an icon badge per card, alternating green/purple by position', () => {
+    mockOverflow(false)
+    const withIcons = [
+      { ...services[0], icon: 'horse-therapy' },
+      { ...services[1], icon: 'horseshoe' },
+    ]
+    const { container } = renderWithRouter(
+      <ServicesSection heading="Nossos Serviços" services={withIcons} />,
+    )
+    const badges = container.querySelectorAll('[data-icon-tone]')
+    expect(badges).toHaveLength(2)
+    expect(badges[0]).toHaveAttribute('data-icon-tone', 'green')
+    expect(badges[1]).toHaveAttribute('data-icon-tone', 'purple')
+    expect(container.querySelector('[data-icon="horse-therapy"]')).not.toBeNull()
+    expect(container.querySelector('[data-icon="horseshoe"]')).not.toBeNull()
+  })
 })

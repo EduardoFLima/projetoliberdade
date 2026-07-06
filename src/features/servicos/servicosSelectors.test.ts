@@ -14,6 +14,7 @@ const content = {
           slug: 'equoterapia',
           title: 'Equoterapia',
           order: 1,
+          icon: 'horse-therapy',
           body: [{ type: 'paragraph', text: 'Método terapêutico.' }],
         },
         {
@@ -62,6 +63,12 @@ describe('selectServicesGrid', () => {
       excerpt: 'Método terapêutico.',
       to: '/servicos/equoterapia',
     })
+  })
+
+  it('carries the icon key through to each card', () => {
+    const grid = selectServicesGrid(content)
+    const equoterapia = grid.services.find((s) => s.slug === 'equoterapia')
+    expect(equoterapia?.icon).toBe('horse-therapy')
   })
 })
 
