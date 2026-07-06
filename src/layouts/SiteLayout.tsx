@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router'
+import { Outlet, ScrollRestoration } from 'react-router'
 import { useContent } from '../content/useContent'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
@@ -13,6 +13,7 @@ export function SiteLayout() {
 
   return (
     <div className="flex min-h-screen flex-col bg-surface text-on-surface">
+      <ScrollRestoration />
       {content ? (
         <Header site={content.site} navigation={content.navigation} />
       ) : null}
