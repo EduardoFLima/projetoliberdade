@@ -17,29 +17,30 @@ function Submenu({ item }: { item: NavItem }) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <button
-        type="button"
+      <Link
+        to={topHref(item)}
         aria-haspopup="true"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
         className="rounded-sm text-on-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
       >
         {item.label}
-      </button>
+      </Link>
       {open ? (
-        <ul className="absolute left-0 top-full z-50 mt-2 min-w-48 rounded-lg bg-surface-container-lowest p-2 shadow-level2">
-          {children.map((child) => (
-            <li key={child.slug}>
-              <Link
-                to={subHref(item, child)}
-                onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2 text-on-surface hover:bg-surface-container hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
-              >
-                {child.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="absolute left-0 top-full z-50 min-w-48 pt-2">
+          <ul className="rounded-lg bg-surface-container-lowest p-2 shadow-level2">
+            {children.map((child) => (
+              <li key={child.slug}>
+                <Link
+                  to={subHref(item, child)}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-md px-3 py-2 text-on-surface hover:bg-surface-container hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
+                >
+                  {child.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </div>
   )

@@ -23,11 +23,11 @@ describe('Nav', () => {
     )
   })
 
-  it('discloses a submenu on click', () => {
+  it('discloses a submenu on hover', () => {
     renderWithRouter(<Nav items={items} />)
-    const trigger = screen.getByRole('button', { name: 'Serviços' })
+    const trigger = screen.getByRole('link', { name: 'Serviços' })
     expect(trigger).toHaveAttribute('aria-expanded', 'false')
-    fireEvent.click(trigger)
+    fireEvent.mouseEnter(trigger)
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
     expect(
       screen.getAllByRole('link', { name: 'Equoterapia' })[0],
