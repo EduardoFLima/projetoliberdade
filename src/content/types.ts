@@ -42,7 +42,11 @@ export interface HomeContent extends Page {
 export interface SiteContent {
   site: Site
   navigation: NavItem[]
-  pages: Record<string, Page>
+  pages: {
+    home: HomeContent
+    momentos: MomentosPage
+    [key: string]: Page
+  }
 }
 
 export type Block =
@@ -70,4 +74,14 @@ export interface Album {
   title: string
   cover: Photo
   photos: Photo[]
+}
+
+export interface MomentosHeader {
+  title: string
+  subtitle: string
+}
+
+export interface MomentosPage extends Page {
+  header: MomentosHeader
+  videos: Video[]
 }

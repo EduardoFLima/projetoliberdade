@@ -5,6 +5,7 @@ import { SiteLayout } from './layouts/SiteLayout'
 import { HomePage } from './features/home/HomePage'
 import { HistoriaPage } from './features/historia/HistoriaPage'
 import { ServicosPage } from './features/servicos/ServicosPage'
+import { MomentosPage } from './features/momentos/MomentosPage'
 import { ContatoPage } from './features/contato/ContatoPage'
 import { StyleGuide } from './styleguide/StyleGuide'
 
@@ -20,6 +21,8 @@ export const router = createBrowserRouter([
       { index: true, Component: HomePage },
       { path: 'historia', Component: HistoriaPage },
       { path: 'servicos', Component: ServicosPage },
+      { path: 'momentos', Component: MomentosPage },
+      { path: 'momentos/videos', Component: MomentosPage },
       { path: 'contato', Component: ContatoPage },
       { path: 'estilo', Component: StyleGuide },
       { path: '*', Component: NotFound },

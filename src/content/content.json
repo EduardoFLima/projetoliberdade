@@ -37,12 +37,12 @@
         {
           "slug": "fotos",
           "label": "Fotos",
-          "order": 1
+          "order": 2
         },
         {
           "slug": "videos",
           "label": "Vídeos",
-          "order": 2
+          "order": 1
         }
       ]
     },
@@ -342,6 +342,24 @@
     "momentos": {
       "slug": "momentos",
       "title": "Momentos",
+      "header": {
+        "title": "Nossos Momentos",
+        "subtitle": "Explore a beleza e a conexão transformadora da equoterapia. Uma galeria de momentos de cura, aprendizado e liberdade em nosso Haras."
+      },
+      "videos": [
+        {
+          "slug": "o-menino-e-seu-cavalo",
+          "title": "O menino e seu cavalo",
+          "order": 1,
+          "url": "https://www.youtube.com/embed/bAkqnk5AqOc"
+        },
+        {
+          "slug": "o-projeto-liberdade",
+          "title": "O projeto liberdade",
+          "order": 2,
+          "url": "https://www.youtube.com/embed/RcaxtQWPI_c"
+        }
+      ],
       "photos": {
         "albums": [
           {
@@ -420,21 +438,7 @@
             ]
           }
         ]
-      },
-      "videos": [
-        {
-          "slug": "o-menino-e-seu-cavalo",
-          "title": "O menino e seu cavalo",
-          "order": 1,
-          "url": "https://www.youtube.com/embed/bAkqnk5AqOc"
-        },
-        {
-          "slug": "o-projeto-liberdade",
-          "title": "O projeto liberdade",
-          "order": 2,
-          "url": "https://www.youtube.com/embed/RcaxtQWPI_c"
-        }
-      ]
+      }
     },
     "contato": {
       "slug": "contato",
