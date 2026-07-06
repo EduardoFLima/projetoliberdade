@@ -1,11 +1,11 @@
-import type { Album, Block, Video } from '../content/types'
+import type { Block, Photo, Video } from '../content/types'
 import { Container } from '../components/ui/Container'
 import { Section } from '../components/ui/Section'
 import { Button } from '../components/ui/Button'
 import { Chip } from '../components/ui/Chip'
 import { Card } from '../components/ui/Card'
 import { BlockRenderer } from '../components/blocks/BlockRenderer'
-import { Gallery } from '../components/Gallery'
+import { PhotoGallery } from '../components/sections/PhotoGallery'
 import { VideoEmbed } from '../components/VideoEmbed'
 
 const swatches = [
@@ -33,20 +33,10 @@ const sampleBlocks: Block[] = [
   { type: 'quote', text: 'Uma citação de exemplo.', author: 'Autor' },
 ]
 
-const sampleAlbums: Album[] = [
-  {
-    slug: 'demo',
-    title: 'Álbum de exemplo',
-    cover: { src: 'https://placehold.co/400', alt: 'capa' },
-    photos: [
-      { src: 'https://placehold.co/400', alt: 'foto 1' },
-      {
-        src: 'https://placehold.co/400?text=2',
-        alt: 'foto 2',
-        caption: 'Legenda',
-      },
-    ],
-  },
+const samplePhotos: Photo[] = [
+  { src: 'https://placehold.co/800', alt: 'Foto de exemplo em destaque' },
+  { src: 'https://placehold.co/400', alt: 'Foto de exemplo 1' },
+  { src: 'https://placehold.co/400?text=2', alt: 'Foto de exemplo 2' },
 ]
 
 const sampleVideo: Video = {
@@ -100,7 +90,7 @@ export function StyleGuide() {
       <Section className="mt-8">
         <h2 className="font-display text-headline-md">Galeria</h2>
         <div className="mt-4">
-          <Gallery albums={sampleAlbums} />
+          <PhotoGallery photos={samplePhotos} />
         </div>
       </Section>
 

@@ -69,19 +69,18 @@ export interface Photo {
   caption?: string
 }
 
-export interface Album {
-  slug: string
-  title: string
-  cover: Photo
-  photos: Photo[]
-}
-
 export interface MomentosHeader {
   title: string
   subtitle: string
 }
 
+export interface MomentosPhotos {
+  featured: Photo
+  items: Photo[]
+}
+
 export interface MomentosPage extends Page {
   header: MomentosHeader
   videos: Video[]
+  photos: MomentosPhotos
 }
