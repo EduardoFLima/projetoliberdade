@@ -41,7 +41,9 @@ export function HistoriaSection({
                 {text}
               </p>
             ))}
-            {quote ? <Quote text={quote.text} author={quote.author} /> : null}
+            {quote ? (
+              <Quote text={quote.text} author={quote.author} justify={justify} />
+            ) : null}
             {cta ? (
               <Button to={cta.to} variant="secondary">
                 {cta.label}

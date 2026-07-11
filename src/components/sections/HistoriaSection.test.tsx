@@ -69,4 +69,29 @@ describe('HistoriaSection', () => {
     )
     expect(screen.getByText('Dezesseis anos de dedicação.')).toBeInTheDocument()
   })
+
+  it('left-aligns the quote by default', () => {
+    renderWithRouter(
+      <HistoriaSection
+        paragraphs={['Texto.']}
+        quote={{ text: 'Dezesseis anos de dedicação.' }}
+      />,
+    )
+    expect(
+      screen.getByText('Dezesseis anos de dedicação.').closest('blockquote'),
+    ).not.toHaveClass('text-justify')
+  })
+
+  it('justifies the quote when justify is set', () => {
+    renderWithRouter(
+      <HistoriaSection
+        paragraphs={['Texto.']}
+        quote={{ text: 'Dezesseis anos de dedicação.' }}
+        justify
+      />,
+    )
+    expect(
+      screen.getByText('Dezesseis anos de dedicação.').closest('blockquote'),
+    ).toHaveClass('text-justify')
+  })
 })
