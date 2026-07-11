@@ -1,0 +1,97 @@
+- generic [ref=f4e3]:
+  - banner [ref=f4e4]:
+    - generic [ref=f4e5]:
+      - link "Projeto Liberdade" [ref=f4e6] [cursor=pointer]:
+        - /url: /
+        - img "Projeto Liberdade" [ref=f4e7]
+      - generic [ref=f4e8]:
+        - navigation "Principal" [ref=f4e9]:
+          - list [ref=f4e10]:
+            - listitem [ref=f4e11]:
+              - link "Home" [ref=f4e12] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f4e13]:
+              - link "História" [ref=f4e14] [cursor=pointer]:
+                - /url: /historia
+            - listitem [ref=f4e15]:
+              - link "Serviços" [ref=f4e16] [cursor=pointer]:
+                - /url: /servicos
+            - listitem [ref=f4e17]:
+              - link "Momentos" [ref=f4e19] [cursor=pointer]:
+                - /url: /momentos
+            - listitem [ref=f4e20]:
+              - link "Contato" [ref=f4e21] [cursor=pointer]:
+                - /url: /contato
+        - link "Entre em contato" [ref=f4e22] [cursor=pointer]:
+          - /url: /contato
+  - main [ref=f4e26]:
+    - generic [ref=f4e27]:
+      - img "Criança sorrindo durante a montaria terapêutica, conduzida por um profissional" [ref=f4e29]
+      - generic [ref=f4e31]:
+        - img "Projeto Liberdade" [ref=f4e32]
+        - heading "Reabilitação e Equoterapia" [level=1] [ref=f4e33]
+        - paragraph [ref=f4e34]: Promovendo qualidade de vida e desenvolvimento biopsicossocial através da relação com o cavalo.
+        - link "Nossos Serviços" [ref=f4e36] [cursor=pointer]:
+          - /url: /servicos
+    - generic [ref=f4e38]:
+      - heading "História" [level=2] [ref=f4e40]
+      - generic [ref=f4e42]:
+        - generic [ref=f4e43]:
+          - paragraph [ref=f4e44]: O Projeto Liberdade foi fundado no dia 29 de setembro de 2006 pelo Educador Físico André Amaral e a Fisioterapeuta Karina Hollatz; ambos tinham como objetivo promover a reabilitação de forma lúdica. No início, o casal promovia atividades de recreação, passeios e atividades direcionadas para a pessoa com deficiência, sempre pensando na promoção da qualidade de vida e na reabilitação de forma prazerosa.
+          - paragraph [ref=f4e45]: Com o passar dos anos, passaram a se dedicar também, a Terapia Assistida por Animais, onde cavalo, cachorro, coelho, tartaruga estavam presentes durante as atividades e atendimentos realizados. Em Outubro (12/10) do ano seguinte, se instalaram na zona Norte de São Paulo e abriram o Centro de Equoterapia Projeto Liberdade, onde através da intervenção de terapeutas e do cavalo, passaram a oferecer atendimentos diários para pessoas com deficiências física, intelectual, auditiva, visual e múltipla.
+          - link "Conheça nossa história" [ref=f4e46] [cursor=pointer]:
+            - /url: /historia
+        - img "André Amaral e Karina Hollatz, fundadores do Projeto Liberdade, ao lado de um cavalo branco no haras" [ref=f4e48]
+    - generic [ref=f4e50]:
+      - heading "Missão, Visão e Valores" [level=2] [ref=f4e52]
+      - generic [ref=f4e54]:
+        - generic [ref=f4e55]:
+          - heading "Missão" [level=3] [ref=f4e59]
+          - paragraph [ref=f4e60]: Oferecer a pessoa com deficiência a oportunidade de lazer, recreação e reabilitação, com profissionais qualificados, contribuindo para o desenvolvimento biopsicossocial, proporcionando melhora da qualidade de vida.
+        - generic [ref=f4e61]:
+          - heading "Visão" [level=3] [ref=f4e66]
+          - paragraph [ref=f4e67]: Ser reconhecido como um trabalho inovador através da reabilitação lúdica e atuante no atendimento especializado à pessoa com deficiência.
+        - generic [ref=f4e68]:
+          - heading "Valores" [level=3] [ref=f4e72]
+          - list [ref=f4e73]:
+            - listitem [ref=f4e74]: Valorização da pessoa com deficiência
+            - listitem [ref=f4e75]: Comprometimento
+            - listitem [ref=f4e76]: Ética e Transparência
+            - listitem [ref=f4e77]: Responsabilidade
+            - listitem [ref=f4e78]: Satisfação
+    - generic [ref=f4e80]:
+      - generic [ref=f4e81]:
+        - heading "Nossos Serviços" [level=2] [ref=f4e82]
+        - paragraph [ref=f4e84]: O Projeto Liberdade conta com profissionais das áreas da saúde e educação, com Fisioterapeuta, Terapeuta Ocupacional, Fonoaudióloga, Psicopedagoga, Psicóloga, Psicomotricista e Educador Físico que atuam de maneira multidisciplinar.
+      - generic [ref=f4e85]:
+        - article [ref=f4e86]:
+          - heading "Equoterapia" [level=3] [ref=f4e87]
+          - paragraph [ref=f4e88]: A Equoterapia é um método terapêutico e educacional que utiliza o cavalo dentro de uma abordagem interdisciplinar, nas áreas de saúde, educação e equitação, buscando o desenvolvimento biopsicossocial de pessoas com deficiência.
+        - article [ref=f4e89]:
+          - heading "Equitação Lúdica" [level=3] [ref=f4e90]
+          - paragraph [ref=f4e91]: A Equitação lúdica consiste em colocar o praticante em contato com o cavalo e através de recursos lúdicos passar princípios básicos de cuidados, material, encilhamento e montaria. A prática é direcionada a crianças que desejam iniciar a equitação.
+        - article [ref=f4e92]:
+          - heading "Equitação Adaptada" [level=3] [ref=f4e93]
+          - paragraph [ref=f4e94]: A Equitação adaptada consiste em colocar o praticante com alguma limitação física e/ou psíquica em contato com o cavalo. Os princípios básicos de cuidados, encilhamento e montaria são passados através da adaptação de materiais, de acordo com a necessidade de cada praticante. Praticantes da Equitação Adaptada demonstram autonomia enquanto montados, independente de qual seja sua deficiência e participam de Provas e Festivais.
+          - button "Ver mais" [ref=f4e95]
+  - contentinfo [ref=f4e98]:
+    - generic [ref=f4e99]:
+      - paragraph [ref=f4e100]: Projeto Liberdade
+      - navigation "Rodapé" [ref=f4e101]:
+        - link "Home" [ref=f4e102] [cursor=pointer]:
+          - /url: /
+        - link "História" [ref=f4e103] [cursor=pointer]:
+          - /url: /historia
+        - link "Serviços" [ref=f4e104] [cursor=pointer]:
+          - /url: /servicos
+        - link "Momentos" [ref=f4e105] [cursor=pointer]:
+          - /url: /momentos
+        - link "Contato" [ref=f4e106] [cursor=pointer]:
+          - /url: /contato
+      - list [ref=f4e107]:
+        - listitem [ref=f4e108]:
+          - link "Facebook" [ref=f4e109] [cursor=pointer]:
+            - /url: http://www.facebook.com.br/projetoliberdade
+        - listitem [ref=f4e112]:
+          - link "Instagram" [ref=f4e113] [cursor=pointer]:
+            - /url: https://www.instagram.com/projetoliberdadereabilitacao

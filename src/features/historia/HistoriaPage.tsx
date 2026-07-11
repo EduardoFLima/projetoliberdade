@@ -28,6 +28,7 @@ export function HistoriaPage() {
         paragraphs={narrative.paragraphs}
         image={narrative.image}
         quote={narrative.quote}
+        justify
       />
       <MissionVisionValues tone="muted" heading={mvv.heading} body={mvv.body} />
     </>
