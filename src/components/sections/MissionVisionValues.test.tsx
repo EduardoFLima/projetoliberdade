@@ -35,4 +35,18 @@ describe('MissionVisionValues', () => {
     expect(within(list).getByText('Comprometimento')).toBeInTheDocument()
     expect(within(list).getByText('Ética')).toBeInTheDocument()
   })
+
+  it('does not justify card paragraphs by default', () => {
+    render(<MissionVisionValues heading="MVV" body={body} />)
+    expect(screen.getByText('Oferecer oportunidade.')).not.toHaveClass(
+      'text-justify',
+    )
+  })
+
+  it('justifies card paragraphs when justify is set', () => {
+    render(<MissionVisionValues heading="MVV" body={body} justify />)
+    expect(screen.getByText('Oferecer oportunidade.')).toHaveClass(
+      'text-justify',
+    )
+  })
 })

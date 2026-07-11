@@ -30,7 +30,12 @@ export function HistoriaPage() {
         quote={narrative.quote}
         justify
       />
-      <MissionVisionValues tone="muted" heading={mvv.heading} body={mvv.body} />
+      <MissionVisionValues
+        tone="muted"
+        heading={mvv.heading}
+        body={mvv.body}
+        justify
+      />
     </>
   )
 }

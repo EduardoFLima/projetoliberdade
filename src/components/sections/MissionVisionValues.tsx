@@ -5,11 +5,13 @@ import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { SectionHeading } from './SectionHeading'
 import { FavoriteIcon, FlagIcon, VisibilityIcon } from '../ui/icons'
+import { cn } from '../../lib/cn'
 
 interface MissionVisionValuesProps {
   heading: string
   body: Block[]
   tone?: 'surface' | 'muted'
+  justify?: boolean
 }
 
 interface MvvCard {
@@ -39,6 +41,7 @@ export function MissionVisionValues({
   heading,
   body,
   tone = 'muted',
+  justify = false,
 }: MissionVisionValuesProps) {
   const cards = toCards(body)
   return (
@@ -64,7 +67,10 @@ export function MissionVisionValues({
                     return (
                       <p
                         key={block.text}
-                        className="font-sans text-body-md text-on-surface-variant"
+                        className={cn(
+                          'font-sans text-body-md text-on-surface-variant',
+                          justify && 'text-justify',
+                        )}
                       >
                         {block.text}
                       </p>
