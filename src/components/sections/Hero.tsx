@@ -25,7 +25,7 @@ export function Hero({
   primaryCta,
 }: HeroProps) {
   return (
-    <header className="relative flex min-h-[65vh] items-center justify-center overflow-hidden pt-20">
+    <header className="relative flex min-h-[65vh] items-center justify-center overflow-hidden pt-20 pb-16 md:pb-20">
       <div className="absolute inset-0 z-0">
         <div
           role="img"
