@@ -8,6 +8,7 @@ interface WhatsApp {
   name: string
   number: string
   tel: string
+  waHref: string
 }
 
 interface ContactChannelsProps {
@@ -43,7 +44,9 @@ export function ContactChannels({
                       WhatsApp {wa.name}
                     </p>
                     <a
-                      href={`tel:${wa.tel}`}
+                      href={wa.waHref}
+                      target="_blank"
+                      rel="noreferrer"
                       className="hover:text-primary"
                       aria-label={`WhatsApp ${wa.name} ${wa.number}`}
                     >

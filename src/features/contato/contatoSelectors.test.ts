@@ -21,8 +21,18 @@ describe('contato selectors (real content.json)', () => {
     expect(channels.socialHeading).toBe('Redes Sociais')
     expect(channels.email).toBe('contato@projetoliberdade.com.br')
     expect(channels.whatsapps).toEqual([
-      { name: 'Karina', number: '(11) 94191-7707', tel: '+5511941917707' },
-      { name: 'André', number: '(11) 95059-6727', tel: '+5511950596727' },
+      {
+        name: 'Karina',
+        number: '(11) 94191-7707',
+        tel: '+5511941917707',
+        waHref: 'https://wa.me/5511941917707',
+      },
+      {
+        name: 'André',
+        number: '(11) 95059-6727',
+        tel: '+5511950596727',
+        waHref: 'https://wa.me/5511950596727',
+      },
     ])
   })
 
