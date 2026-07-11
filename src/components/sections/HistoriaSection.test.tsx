@@ -50,6 +50,16 @@ describe('HistoriaSection', () => {
     expect(screen.getByText('Só um parágrafo.')).toBeInTheDocument()
   })
 
+  it('left-aligns paragraphs by default', () => {
+    renderWithRouter(<HistoriaSection paragraphs={['Texto.']} />)
+    expect(screen.getByText('Texto.')).not.toHaveClass('text-justify')
+  })
+
+  it('justifies paragraphs when justify is set', () => {
+    renderWithRouter(<HistoriaSection paragraphs={['Texto.']} justify />)
+    expect(screen.getByText('Texto.')).toHaveClass('text-justify')
+  })
+
   it('renders a pullquote when a quote is provided', () => {
     renderWithRouter(
       <HistoriaSection

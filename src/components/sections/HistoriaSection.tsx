@@ -3,6 +3,7 @@ import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { SectionHeading } from './SectionHeading'
 import { Quote } from '../blocks/Quote'
+import { cn } from '../../lib/cn'
 
 interface HistoriaSectionProps {
   heading?: string
@@ -11,6 +12,7 @@ interface HistoriaSectionProps {
   cta?: { label: string; to: string }
   quote?: { text: string; author?: string }
   tone?: 'surface' | 'muted'
+  justify?: boolean
 }
 
 export function HistoriaSection({
@@ -20,6 +22,7 @@ export function HistoriaSection({
   cta,
   quote,
   tone = 'surface',
+  justify = false,
 }: HistoriaSectionProps) {
   return (
     <Section tone={tone}>
@@ -30,7 +33,10 @@ export function HistoriaSection({
             {paragraphs.map((text) => (
               <p
                 key={text}
-                className="font-sans text-body-md text-on-surface-variant"
+                className={cn(
+                  'font-sans text-body-md text-on-surface-variant',
+                  justify && 'text-justify',
+                )}
               >
                 {text}
               </p>
