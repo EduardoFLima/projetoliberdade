@@ -9,7 +9,6 @@ const props = {
     {
       name: 'Karina',
       number: '(11) 94191-7707',
-      tel: '+5511941917707',
       waHref: 'https://wa.me/5511941917707',
     },
   ],

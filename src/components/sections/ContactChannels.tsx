@@ -7,7 +7,6 @@ import { SocialLinks } from '../SocialLinks'
 interface WhatsApp {
   name: string
   number: string
-  tel: string
   waHref: string
 }
 
@@ -37,7 +36,7 @@ export function ContactChannels({
             </h2>
             <ul className="flex flex-col gap-4 text-body-md text-on-surface-variant">
               {whatsapps.map((wa) => (
-                <li key={wa.tel} className="flex items-start gap-3">
+                <li key={wa.waHref} className="flex items-start gap-3">
                   <ChatIcon className="mt-1 h-5 w-5 shrink-0 text-primary" />
                   <div>
                     <p className="text-label-md text-on-surface">

@@ -24,13 +24,11 @@ describe('contato selectors (real content.json)', () => {
       {
         name: 'Karina',
         number: '(11) 94191-7707',
-        tel: '+5511941917707',
         waHref: 'https://wa.me/5511941917707',
       },
       {
         name: 'André',
         number: '(11) 95059-6727',
-        tel: '+5511950596727',
         waHref: 'https://wa.me/5511950596727',
       },
     ])

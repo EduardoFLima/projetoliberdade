@@ -37,7 +37,6 @@ interface ContatoPageContent {
 export interface WhatsAppChannel {
   name: string
   number: string
-  tel: string
   waHref: string
 }
 
@@ -70,16 +69,8 @@ function page(content: SiteContent): ContatoPageContent {
   return content.pages.contato as unknown as ContatoPageContent
 }
 
-function digits(number: string): string {
-  return `55${number.replace(/\D/g, '')}`
-}
-
-function telHref(number: string): string {
-  return `+${digits(number)}`
-}
-
 function waHref(number: string): string {
-  return `https://wa.me/${digits(number)}`
+  return `https://wa.me/55${number.replace(/\D/g, '')}`
 }
 
 function mapQuery(unit: UnitContent): string {
@@ -108,7 +99,6 @@ export function selectContactChannels(content: SiteContent): ContactChannels {
       .map((phone) => ({
         name: phone.name,
         number: phone.number,
-        tel: telHref(phone.number),
         waHref: waHref(phone.number),
       })),
     email: p.email,
