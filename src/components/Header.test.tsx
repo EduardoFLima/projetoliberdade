@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { screen } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { renderWithRouter } from '../test/render'
 import type { NavItem, Site } from '../content/types'
 import { Header } from './Header'
@@ -25,7 +25,14 @@ describe('Header', () => {
   it('renders the contact CTA linking to /contato', () => {
     renderWithRouter(<Header site={site} navigation={navigation} />)
     expect(
-      screen.getByRole('link', { name: /Entre em contato/ }),
+      screen.getAllByRole('link', { name: /Entre em contato/ })[0],
     ).toHaveAttribute('href', '/contato')
+  })
+
+  it('opens the drawer when the burger is clicked', () => {
+    renderWithRouter(<Header site={site} navigation={navigation} />)
+    expect(screen.queryByRole('dialog')).toBeNull()
+    fireEvent.click(screen.getByRole('button', { name: 'Abrir menu' }))
+    expect(screen.getByRole('dialog', { name: 'Menu' })).toBeInTheDocument()
   })
 })

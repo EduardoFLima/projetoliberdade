@@ -34,10 +34,8 @@ describe('Nav', () => {
     ).toHaveAttribute('href', '/servicos/equoterapia')
   })
 
-  it('toggles the mobile menu', () => {
+  it('does not render a mobile burger toggle', () => {
     renderWithRouter(<Nav items={items} />)
-    const toggle = screen.getByRole('button', { name: 'Abrir menu' })
-    fireEvent.click(toggle)
-    expect(screen.getByTestId('mobile-menu')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Abrir menu' })).toBeNull()
   })
 })
