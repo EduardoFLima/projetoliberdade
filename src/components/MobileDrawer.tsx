@@ -53,7 +53,6 @@ export function MobileDrawer({ items, open, onClose }: MobileDrawerProps) {
         id="mobile-drawer"
         data-testid="mobile-drawer"
         role="dialog"
-        aria-modal="true"
         aria-label="Menu"
         inert={!open ? true : undefined}
         className={cn(
@@ -72,7 +71,10 @@ export function MobileDrawer({ items, open, onClose }: MobileDrawerProps) {
             <CloseIcon className="h-6 w-6" />
           </button>
         </div>
-        <nav className="flex flex-col gap-2 px-4 pb-8 text-label-md">
+        <nav
+          aria-label="Principal"
+          className="flex flex-col gap-2 px-4 pb-8 text-label-md"
+        >
           {sorted.map((item) => (
             <div key={item.slug}>
               <Link

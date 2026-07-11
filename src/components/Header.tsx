@@ -32,7 +32,7 @@ export function Header({
         <button
           ref={burgerRef}
           type="button"
-          aria-label="Abrir menu"
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={open}
           aria-controls="mobile-drawer"
           onClick={() => setOpen(true)}

@@ -49,7 +49,7 @@ function Submenu({ item }: { item: NavItem }) {
 export function Nav({ items }: { items: NavItem[] }) {
   const sorted = [...items].sort(byOrder)
   return (
-    <nav aria-label="Principal" className="text-label-md">
+    <nav aria-label="Principal" className="hidden text-label-md md:block">
       <ul className="hidden items-center gap-6 md:flex">
         {sorted.map((item) => (
           <li key={item.slug}>
