@@ -5,7 +5,8 @@ import { ChatIcon } from './icons'
 export function ContactButton({ className }: { className?: string }) {
   return (
     <Button to="/contato" pill className={cn('items-center gap-1', className)}>
-      <ChatIcon className="h-4 w-4" /> Entre em contato
+      <ChatIcon className="h-4 w-4" />
+      <span className="sr-only md:not-sr-only">Entre em contato</span>
     </Button>
   )
 }

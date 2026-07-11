@@ -1,8 +1,12 @@
+import { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router'
 import type { NavItem, Site } from '../content/types'
 import { Container } from './ui/Container'
 import { Nav } from './Nav'
 import { ContactButton } from './ui/ContactButton'
+import { MobileDrawer } from './MobileDrawer'
+import { MenuIcon } from './ui/icons'
 
 export function Header({
   site,
@@ -11,24 +15,52 @@ export function Header({
   site: Site
   navigation: NavItem[]
 }) {
+  const [open, setOpen] = useState(false)
+  const burgerRef = useRef<HTMLButtonElement>(null)
+
+  const closeDrawer = () => {
+    setOpen(false)
+    burgerRef.current?.focus()
+  }
+
   return (
     <header
       data-testid="site-header"
       className="sticky top-0 z-40 border-b border-outline-variant bg-surface/90 backdrop-blur"
     >
-      <Container className="flex items-center justify-between gap-6 py-4">
-        <Link to="/" aria-label={site.name} className="flex items-center">
+      <Container className="grid grid-cols-[1fr_auto_1fr] items-center gap-6 py-4 md:flex md:justify-between">
+        <button
+          ref={burgerRef}
+          type="button"
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
+          aria-controls="mobile-drawer"
+          onClick={() => setOpen(true)}
+          className="justify-self-start rounded-sm text-on-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta md:hidden"
+        >
+          <MenuIcon className="h-6 w-6" />
+        </button>
+        <Link
+          to="/"
+          aria-label={site.name}
+          className="flex items-center justify-self-center"
+        >
           <img
             src={site.logo}
             alt={site.name}
             className="h-12 w-auto object-contain"
           />
         </Link>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 justify-self-end">
           <Nav items={navigation} />
-          <ContactButton className="hidden md:inline-flex" />
+          <ContactButton />
         </div>
       </Container>
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <MobileDrawer items={navigation} open={open} onClose={closeDrawer} />,
+          document.body,
+        )}
     </header>
   )
 }

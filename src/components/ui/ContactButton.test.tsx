@@ -15,4 +15,11 @@ describe('ContactButton', () => {
     const link = screen.getByRole('link', { name: /Entre em contato/ })
     expect(link.getAttribute('class')).toContain('hidden')
   })
+
+  it('keeps the label accessible but visually hidden on mobile', () => {
+    renderWithRouter(<ContactButton />)
+    const label = screen.getByText('Entre em contato')
+    expect(label.getAttribute('class')).toContain('sr-only')
+    expect(label.getAttribute('class')).toContain('md:not-sr-only')
+  })
 })

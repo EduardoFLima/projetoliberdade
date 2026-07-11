@@ -80,6 +80,15 @@ export function MenuIcon({ className }: IconProps) {
   )
 }
 
+export function CloseIcon({ className }: IconProps) {
+  return (
+    <Svg className={className}>
+      <path d="M6 6 18 18" />
+      <path d="M18 6 6 18" />
+    </Svg>
+  )
+}
+
 export function CheckCircleIcon({ className }: IconProps) {
   return (
     <Svg className={className}>

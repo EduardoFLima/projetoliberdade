@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router'
 import type { NavItem } from '../content/types'
 
@@ -47,20 +47,9 @@ function Submenu({ item }: { item: NavItem }) {
 }
 
 export function Nav({ items }: { items: NavItem[] }) {
-  const [open, setOpen] = useState(false)
   const sorted = [...items].sort(byOrder)
-
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
-    }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
-  }, [open])
-
   return (
-    <nav aria-label="Principal" className="text-label-md">
+    <nav aria-label="Principal" className="hidden text-label-md md:block">
       <ul className="hidden items-center gap-6 md:flex">
         {sorted.map((item) => (
           <li key={item.slug}>
@@ -77,50 +66,6 @@ export function Nav({ items }: { items: NavItem[] }) {
           </li>
         ))}
       </ul>
-
-      <button
-        type="button"
-        aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className="text-on-surface md:hidden"
-      >
-        <span aria-hidden="true">{open ? '✕' : '☰'}</span>
-      </button>
-
-      {open ? (
-        <ul
-          data-testid="mobile-menu"
-          className="mt-4 flex flex-col gap-3 md:hidden"
-        >
-          {sorted.map((item) => (
-            <li key={item.slug}>
-              <Link
-                to={topHref(item)}
-                onClick={() => setOpen(false)}
-                className="rounded-sm text-on-surface hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
-              >
-                {item.label}
-              </Link>
-              {item.submenu ? (
-                <ul className="ml-4 mt-2 flex flex-col gap-2">
-                  {[...item.submenu].sort(byOrder).map((child) => (
-                    <li key={child.slug}>
-                      <Link
-                        to={subHref(item, child)}
-                        onClick={() => setOpen(false)}
-                        className="rounded-sm text-on-surface-variant hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
-                      >
-                        {child.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      ) : null}
     </nav>
   )
 }
