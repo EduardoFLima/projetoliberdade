@@ -6,14 +6,18 @@ const props = {
   heading: 'Fale Conosco',
   socialHeading: 'Redes Sociais',
   whatsapps: [
-    { name: 'Karina', number: '(11) 94191-7707', tel: '+5511941917707' },
+    {
+      name: 'Karina',
+      number: '(11) 94191-7707',
+      waHref: 'https://wa.me/5511941917707',
+    },
   ],
   email: 'contato@projetoliberdade.com.br',
   social: [{ network: 'instagram', url: 'https://instagram.com/x' }],
 }
 
 describe('ContactChannels', () => {
-  it('renders whatsapp tel links, an email mailto link and social buttons', () => {
+  it('renders whatsapp deep links, an email mailto link and social buttons', () => {
     render(<ContactChannels {...props} />)
 
     expect(
@@ -21,7 +25,9 @@ describe('ContactChannels', () => {
     ).toBeInTheDocument()
 
     const wa = screen.getByRole('link', { name: /Karina/ })
-    expect(wa).toHaveAttribute('href', 'tel:+5511941917707')
+    expect(wa).toHaveAttribute('href', 'https://wa.me/5511941917707')
+    expect(wa).toHaveAttribute('target', '_blank')
+    expect(wa).toHaveAttribute('rel', 'noreferrer')
 
     const mail = screen.getByRole('link', {
       name: 'contato@projetoliberdade.com.br',
