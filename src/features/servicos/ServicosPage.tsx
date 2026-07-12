@@ -1,4 +1,4 @@
-import { useOutletContext } from 'react-router'
+import { useParams, useOutletContext } from 'react-router'
 import type { SiteContent } from '../../content/types'
 import { ServicesSection } from '../../components/sections/ServicesSection'
 import { HippussuitSection } from '../../components/sections/HippussuitSection'
@@ -6,6 +6,7 @@ import { ContactCta } from '../../components/sections/ContactCta'
 import { selectHippussuit, selectServicesGrid } from './servicosSelectors'
 
 export function ServicosPage() {
+  const { slug } = useParams()
   const content = useOutletContext<SiteContent>()
   const grid = selectServicesGrid(content)
   const hippussuit = selectHippussuit(content)
@@ -18,6 +19,7 @@ export function ServicosPage() {
         intro={grid.intro}
         services={grid.services}
         headingLevel="h1"
+        activeSlug={slug}
       />
       <HippussuitSection hippussuit={hippussuit} />
       <ContactCta

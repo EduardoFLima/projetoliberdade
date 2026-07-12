@@ -12,7 +12,9 @@ test('navigating to a new page scrolls back to the top', async ({ page }) => {
   await page.evaluate(() =>
     window.scrollTo(0, document.documentElement.scrollHeight),
   )
-  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0)
+  await expect
+    .poll(() => page.evaluate(() => window.scrollY))
+    .toBeGreaterThan(0)
 
   // Navigate to another page via the nav.
   await page.getByRole('link', { name: 'História' }).first().click()

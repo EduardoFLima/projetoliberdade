@@ -20,17 +20,27 @@ test('playing a video opens the modal', async ({ page }) => {
   await expect(page.getByRole('dialog')).toBeVisible()
 })
 
-test('momentos is reachable from the header nav by clicking the main button', async ({ page }) => {
+test('momentos is reachable from the header nav by clicking the main button', async ({
+  page,
+}) => {
   await page.goto('/')
-  await page.getByTestId('site-header').getByRole('link', { name: 'Momentos', exact: true }).click()
+  await page
+    .getByTestId('site-header')
+    .getByRole('link', { name: 'Momentos', exact: true })
+    .click()
   await expect(page).toHaveURL(/\/momentos/)
-  await expect(page.getByRole('heading', { level: 1, name: 'Nossos Momentos' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Nossos Momentos' }),
+  ).toBeVisible()
 })
 
 test('momentos submenu is accessible via hover', async ({ page }) => {
   await page.goto('/')
   // Hover over the main button
-  await page.getByTestId('site-header').getByRole('link', { name: 'Momentos', exact: true }).hover()
+  await page
+    .getByTestId('site-header')
+    .getByRole('link', { name: 'Momentos', exact: true })
+    .hover()
 
   // Verify submenu becomes visible
   const submenuLink = page.getByRole('link', { name: 'Vídeos' })
@@ -52,6 +62,9 @@ test('switching to Fotos shows the photo grid', async ({ page }) => {
 
 test('clicking a photo opens the lightbox', async ({ page }) => {
   await page.goto('/momentos/fotos')
-  await page.getByRole('button', { name: /^Ampliar foto:/ }).first().click()
+  await page
+    .getByRole('button', { name: /^Ampliar foto:/ })
+    .first()
+    .click()
   await expect(page.getByRole('dialog')).toBeVisible()
 })

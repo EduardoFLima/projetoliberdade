@@ -5,7 +5,8 @@ import { cn } from '../lib/cn'
 import { CloseIcon } from './ui/icons'
 
 const byOrder = (a: NavItem, b: NavItem) => a.order - b.order
-const topHref = (item: NavItem) => (item.slug === 'home' ? '/' : `/${item.slug}`)
+const topHref = (item: NavItem) =>
+  item.slug === 'home' ? '/' : `/${item.slug}`
 const subHref = (parent: NavItem, child: NavItem) =>
   `/${parent.slug}/${child.slug}`
 

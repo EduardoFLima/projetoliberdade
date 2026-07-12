@@ -51,6 +51,7 @@ describe('ServicesSection', () => {
     mockOverflow(true)
     renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
+      { route: '/servicos' },
     )
     const buttons = screen.getAllByRole('button', { name: /Ver mais/ })
     expect(buttons).toHaveLength(2)
@@ -64,10 +65,51 @@ describe('ServicesSection', () => {
     mockOverflow(false)
     renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
+      { route: '/servicos' },
     )
     expect(
       screen.queryByRole('button', { name: /Ver mais/ }),
     ).not.toBeInTheDocument()
+  })
+
+  it('renders a "Ver mais" Link to the detail page on the home page (/)', () => {
+    mockOverflow(true)
+    renderWithRouter(
+      <ServicesSection heading="Nossos Serviços" services={services} />,
+      { route: '/' },
+    )
+    const links = screen.getAllByRole('link', { name: /Ver mais/ })
+    expect(links).toHaveLength(2)
+    expect(links[0]).toHaveAttribute('href', '/servicos/equoterapia')
+  })
+
+  it('automatically expands, highlights, and scrolls to the active card based on activeSlug', () => {
+    mockOverflow(true)
+    const scrollIntoViewMock = vi.fn()
+    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+
+    renderWithRouter(
+      <ServicesSection
+        heading="Nossos Serviços"
+        services={services}
+        activeSlug="equoterapia"
+      />,
+      { route: '/servicos/equoterapia' },
+    )
+
+    // equoterapia is activeSlug, so it is already expanded. Therefore, only
+    // equitacao-ludica should show a "Ver mais" button.
+    const buttons = screen.getAllByRole('button', { name: /Ver mais/ })
+    expect(buttons).toHaveLength(1)
+
+    // Verify that scrollIntoView was called for the active card
+    expect(scrollIntoViewMock).toHaveBeenCalled()
+
+    // Verify visual highlight
+    const equoterapiaCard = screen
+      .getByRole('heading', { name: 'Equoterapia' })
+      .closest('article')
+    expect(equoterapiaCard?.getAttribute('class')).toContain('border-cta')
   })
 
   it('renders the heading as level 2 by default', () => {

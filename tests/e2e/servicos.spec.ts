@@ -47,3 +47,62 @@ test('servicos is reachable from the header nav', async ({ page }) => {
     page.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
   ).toBeVisible()
 })
+
+test('direct access to a service detail route (/servicos/:slug) expands the matching card', async ({
+  page,
+}) => {
+  await page.goto('/servicos/equoterapia')
+
+  // The page should render without 404
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
+  ).toBeVisible()
+
+  const equoterapiaCard = page
+    .locator('article')
+    .filter({ hasText: 'Equoterapia' })
+
+  // It should be expanded automatically, so its "Ver mais" is not visible
+  await expect(
+    equoterapiaCard.getByRole('button', { name: /Ver mais/ }),
+  ).not.toBeVisible()
+
+  // Full text should be visible
+  await expect(
+    page.getByText(/A Equoterapia é um método terapêutico e educacional/),
+  ).toBeVisible()
+
+  // The card should have visual highlight styling (the border-cta class)
+  await expect(equoterapiaCard).toHaveClass(/border-cta/)
+})
+
+test('clicking Ver mais on a featured service card on homepage navigates to /servicos/:slug and expands it', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  // On homepage, featured service card has "Ver mais" as a link
+  const equoterapiaCardOnHome = page
+    .locator('article')
+    .filter({ hasText: 'Equoterapia' })
+
+  await equoterapiaCardOnHome.getByRole('link', { name: /Ver mais/ }).click()
+
+  // It should navigate to /servicos/equoterapia
+  await expect(page).toHaveURL(/\/servicos\/equoterapia$/)
+
+  const equoterapiaCard = page
+    .locator('article')
+    .filter({ hasText: 'Equoterapia' })
+
+  // On the services page, it is expanded automatically and highlighted
+  await expect(
+    equoterapiaCard.getByRole('button', { name: /Ver mais/ }),
+  ).not.toBeVisible()
+
+  await expect(
+    page.getByText(/A Equoterapia é um método terapêutico e educacional/),
+  ).toBeVisible()
+
+  await expect(equoterapiaCard).toHaveClass(/border-cta/)
+})

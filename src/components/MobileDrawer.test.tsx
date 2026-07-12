@@ -20,14 +20,19 @@ const items: NavItem[] = [
 
 describe('MobileDrawer', () => {
   it('is hidden from the a11y tree when closed', () => {
-    renderWithRouter(<MobileDrawer items={items} open={false} onClose={vi.fn()} />)
+    renderWithRouter(
+      <MobileDrawer items={items} open={false} onClose={vi.fn()} />,
+    )
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 
   it('renders top-level and submenu links when open', () => {
     renderWithRouter(<MobileDrawer items={items} open onClose={vi.fn()} />)
     expect(screen.getByRole('dialog', { name: 'Menu' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/')
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute(
+      'href',
+      '/',
+    )
     expect(screen.getByRole('link', { name: 'Contato' })).toHaveAttribute(
       'href',
       '/contato',

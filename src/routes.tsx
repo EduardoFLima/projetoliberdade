@@ -21,6 +21,7 @@ export const router = createBrowserRouter([
       { index: true, Component: HomePage },
       { path: 'historia', Component: HistoriaPage },
       { path: 'servicos', Component: ServicosPage },
+      { path: 'servicos/:slug', Component: ServicosPage },
       { path: 'momentos', Component: MomentosPage },
       { path: 'momentos/videos', Component: MomentosPage },
       { path: 'momentos/fotos', Component: MomentosPage },
