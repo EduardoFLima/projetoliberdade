@@ -1,6 +1,17 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { HippussuitSection, type HippussuitContent } from './HippussuitSection'
+
+// jsdom does not implement scrollIntoView
+const scrollIntoViewMock = vi.fn()
+
+beforeEach(() => {
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+})
+
+afterEach(() => {
+  scrollIntoViewMock.mockClear()
+})
 
 const hippussuit: HippussuitContent = {
   title: 'Hippussuit',
@@ -42,5 +53,19 @@ describe('HippussuitSection', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(5)
     const img = screen.getByRole('img', { name: 'Hippussuit' })
     expect(img).toHaveAttribute('src', '/images/hippussuit.jpg')
+  })
+
+  it('is not highlighted by default', () => {
+    const { container } = render(<HippussuitSection hippussuit={hippussuit} />)
+    expect(container.querySelector('.border-cta')).toBeNull()
+  })
+
+  it('highlights and scrolls into view when active', () => {
+    const { container } = render(
+      <HippussuitSection hippussuit={hippussuit} isActive />,
+    )
+
+    expect(container.querySelector('.border-cta')).not.toBeNull()
+    expect(scrollIntoViewMock).toHaveBeenCalled()
   })
 })

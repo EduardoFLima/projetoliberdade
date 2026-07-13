@@ -1,4 +1,6 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import type { MouseEvent } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { cn } from '../../lib/cn'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
@@ -20,6 +22,14 @@ interface ServicesSectionProps {
   services: ServiceCardData[]
   tone?: 'surface' | 'muted'
   headingLevel?: 'h1' | 'h2'
+  activeSlug?: string
+  selectable?: boolean
+}
+
+interface ServiceCardProps extends Omit<ServiceCardData, 'slug'> {
+  index: number
+  isActive?: boolean
+  selectable?: boolean
 }
 
 function ServiceCard({
@@ -27,40 +37,59 @@ function ServiceCard({
   index,
   title,
   excerpt,
-}: Pick<ServiceCardData, 'title' | 'excerpt' | 'icon'> & { index: number }) {
-  const excerptRef = useRef<HTMLParagraphElement>(null)
-  const [expanded, setExpanded] = useState(false)
-  const [overflowing, setOverflowing] = useState(false)
+  to,
+  isActive = false,
+  selectable = false,
+}: ServiceCardProps) {
+  const cardRef = useRef<HTMLElement>(null)
+  const navigate = useNavigate()
 
   useLayoutEffect(() => {
-    const el = excerptRef.current
-    if (!el) return
-    setOverflowing(el.scrollHeight > el.clientHeight + 1)
-  }, [excerpt])
+    if (isActive && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [isActive])
+
+  function handleCardClick(event: MouseEvent<HTMLElement>) {
+    if (!selectable || isActive) return
+    // Let the inner "Ver mais" Link handle its own click.
+    if ((event.target as HTMLElement).closest('a')) return
+    navigate(to, { preventScrollReset: true })
+  }
 
   return (
-    <article className="flex h-full flex-col rounded-xl border border-outline-variant/30 bg-surface p-6 transition-shadow hover:shadow-level2">
+    <article
+      ref={cardRef}
+      onClick={handleCardClick}
+      aria-current={isActive || undefined}
+      className={cn(
+        'flex h-full flex-col rounded-xl border p-6 transition-all duration-300 hover:shadow-level2',
+        isActive
+          ? 'border-cta bg-cta/5 ring-2 ring-cta/20'
+          : 'border-outline-variant/30 bg-surface',
+        selectable && !isActive && 'cursor-pointer',
+      )}
+    >
       <ServiceIcon icon={icon} index={index} className="mb-4" />
       <h3 className="mb-3 font-display text-headline-sm text-on-surface">
         {title}
       </h3>
       <p
-        ref={excerptRef}
         className={cn(
           'mb-6 flex-grow font-sans text-body-md text-on-surface-variant text-justify',
-          expanded ? undefined : 'line-clamp-10',
+          isActive ? undefined : 'line-clamp-10',
         )}
       >
         {excerpt}
       </p>
-      {overflowing && !expanded ? (
-        <button
-          type="button"
-          onClick={() => setExpanded(true)}
+      {!isActive ? (
+        <Link
+          to={to}
+          preventScrollReset={selectable}
           className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
         >
           Ver mais <ArrowForwardIcon className="h-4 w-4" />
-        </button>
+        </Link>
       ) : null}
     </article>
   )
@@ -72,6 +101,8 @@ export function ServicesSection({
   services,
   tone = 'surface',
   headingLevel = 'h2',
+  activeSlug,
+  selectable = false,
 }: ServicesSectionProps) {
   return (
     <Section tone={tone}>
@@ -85,6 +116,9 @@ export function ServicesSection({
               index={index}
               title={service.title}
               excerpt={service.excerpt}
+              to={service.to}
+              isActive={service.slug === activeSlug}
+              selectable={selectable}
             />
           ))}
         </div>
