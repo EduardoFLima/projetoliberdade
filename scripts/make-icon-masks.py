@@ -11,7 +11,7 @@ plain grayscale of the RGB would turn the black corners opaque)."""
 
 import os
 
-from PIL import Image, ImageChops, ImageOps
+from PIL import Image, ImageChops, ImageFilter, ImageOps
 
 SRC = "docs/resources/icons"
 DST = "public/icons"
@@ -23,6 +23,7 @@ NAMES = [
 ]
 LO, HI = 70, 180  # inverted-luminance normalization window; tune in the Task 3 preview
 PAD = 0.12  # padding fraction around the trimmed glyph on the square canvas
+DILATE = 5  # odd MaxFilter window; thickens strokes so fine line-art stays legible at badge size
 
 _SCALE = 255.0 / (HI - LO)
 
@@ -41,6 +42,8 @@ def make_mask(name: str) -> None:
     inv = ImageOps.invert(rgba.convert("L"))  # strokes bright, disc dark, corners bright
     norm = inv.point(_normalize)  # stroke coverage, ignoring transparency
     alpha = ImageChops.multiply(norm, orig_alpha)  # zero out originally-transparent pixels
+    if DILATE > 1:
+        alpha = alpha.filter(ImageFilter.MaxFilter(DILATE))  # thicken thin strokes
 
     black = Image.new("L", alpha.size, 0)
     out = Image.merge("RGBA", (black, black, black, alpha))
