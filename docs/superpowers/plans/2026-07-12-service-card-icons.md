@@ -6,7 +6,7 @@
 
 **Architecture:** A new presentational `ServiceIcon` component maps a content-supplied icon key to one of two renderers — an inline SVG (real Material Symbols outlined path data) for the three simple glyphs, or a CSS-masked `<span>` for the four horse illustrations (baked circle stripped to a transparent alpha mask, token color painted through via `background-color: currentColor`). The badge circle and tone are drawn from design tokens, alternating by card index. Content carries only a string key, so the dependency rule holds.
 
-**Tech Stack:** React + TypeScript, Tailwind v4 (`@theme` tokens in `src/index.css`), Vitest + Testing Library, Python 3 + Pillow (build-time mask generation only — not a runtime dependency).
+**Tech Stack:** React + TypeScript, Tailwind v4 (`@theme` tokens in `src/index.css`), Vitest + Testing Library, Python 3 + Pillow (pure Pillow, no numpy; build-time mask generation only — not a runtime dependency).
 
 ## Global Constraints
 
@@ -47,14 +47,20 @@
 Create `scripts/make-icon-masks.py`:
 
 ```python
-"""Convert line-art service icons (dark strokes on a pale baked circle)
-into transparent alpha masks for CSS mask-image. Build-time tool; the
-site has no Python runtime dependency."""
+"""Convert line-art service icons (dark strokes on a pale baked circle,
+already on a transparent RGBA canvas) into transparent alpha masks for
+CSS mask-image. Build-time tool, pure Pillow; the site has no Python
+runtime dependency.
+
+The source PNGs are RGBA: outside the disc is fully transparent
+(alpha 0, RGB black), the disc is a pale opaque fill, strokes are dark
+opaque. We derive stroke coverage from inverted luminance, then multiply
+by the ORIGINAL alpha so the transparent corners stay transparent (a
+plain grayscale of the RGB would turn the black corners opaque)."""
 
 import os
 
-import numpy as np
-from PIL import Image, ImageOps
+from PIL import Image, ImageChops, ImageOps
 
 SRC = "docs/resources/icons"
 DST = "public/icons"
@@ -64,30 +70,40 @@ NAMES = [
     "playful-riding",
     "adaptive-equitation",
 ]
-LO, HI = 70, 180  # luminance-inversion normalization; tune in the Task 3 preview
+LO, HI = 70, 180  # inverted-luminance normalization window; tune in the Task 3 preview
 PAD = 0.12  # padding fraction around the trimmed glyph on the square canvas
+
+_SCALE = 255.0 / (HI - LO)
+
+
+def _normalize(v: int) -> int:
+    if v <= LO:
+        return 0
+    if v >= HI:
+        return 255
+    return int((v - LO) * _SCALE)
 
 
 def make_mask(name: str) -> None:
-    img = Image.open(f"{SRC}/{name}.png").convert("RGB")
-    inv = ImageOps.invert(ImageOps.grayscale(img))  # strokes bright, bg dark
-    a = np.asarray(inv, dtype=np.float32)
-    a = np.clip((a - LO) / (HI - LO), 0.0, 1.0) * 255.0
-    alpha = Image.fromarray(a.astype("uint8"), "L")
+    rgba = Image.open(f"{SRC}/{name}.png").convert("RGBA")
+    orig_alpha = rgba.getchannel("A")
+    inv = ImageOps.invert(rgba.convert("L"))  # strokes bright, disc dark, corners bright
+    norm = inv.point(_normalize)  # stroke coverage, ignoring transparency
+    alpha = ImageChops.multiply(norm, orig_alpha)  # zero out originally-transparent pixels
 
     black = Image.new("L", alpha.size, 0)
-    rgba = Image.merge("RGBA", (black, black, black, alpha))
+    out = Image.merge("RGBA", (black, black, black, alpha))
 
     bbox = alpha.getbbox()
     if bbox is not None:
-        rgba = rgba.crop(bbox)
+        out = out.crop(bbox)
 
-    w, h = rgba.size
+    w, h = out.size
     side = int(max(w, h) * (1 + 2 * PAD))
     canvas = Image.new("RGBA", (side, side), (0, 0, 0, 0))
-    canvas.paste(rgba, ((side - w) // 2, (side - h) // 2))
+    canvas.paste(out, ((side - w) // 2, (side - h) // 2))
     canvas.save(f"{DST}/{name}.mask.png")
-    print(name, rgba.size, "->", canvas.size)
+    print(name, out.size, "->", canvas.size)
 
 
 def main() -> None:
@@ -103,7 +119,7 @@ if __name__ == "__main__":
 - [ ] **Step 2: Run the script**
 
 Run: `python3 scripts/make-icon-masks.py`
-Expected: four lines like `equine-therapy (612, 640) -> (768, 768)` and four files in `public/icons/`.
+Expected: four lines like `equine-therapy (908, 902) -> (1026, 1026)` (trimmed size -> padded square) and four files in `public/icons/`.
 
 - [ ] **Step 3: Verify the masks have real transparency and opacity**
 
