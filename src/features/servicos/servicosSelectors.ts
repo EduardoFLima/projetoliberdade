@@ -7,6 +7,7 @@ interface ServiceSection {
   slug: string
   title: string
   order?: number
+  icon?: string
   body: Block[]
 }
 
@@ -36,6 +37,7 @@ export function selectServicesGrid(content: SiteContent): {
       title: s.title,
       excerpt: firstParagraph(s.body),
       to: `/servicos/${s.slug}`,
+      icon: s.icon ?? '',
     })),
   }
 }

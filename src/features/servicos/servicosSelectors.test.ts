@@ -14,12 +14,14 @@ const content = {
           slug: 'equoterapia',
           title: 'Equoterapia',
           order: 1,
+          icon: 'equine-therapy',
           body: [{ type: 'paragraph', text: 'Método terapêutico.' }],
         },
         {
           slug: 'hidroterapia',
           title: 'Hidroterapia',
           order: 6,
+          icon: 'pool',
           body: [{ type: 'paragraph', text: 'Terapia aquática.' }],
         },
         {
@@ -61,6 +63,7 @@ describe('selectServicesGrid', () => {
       title: 'Equoterapia',
       excerpt: 'Método terapêutico.',
       to: '/servicos/equoterapia',
+      icon: 'equine-therapy',
     })
   })
 })
