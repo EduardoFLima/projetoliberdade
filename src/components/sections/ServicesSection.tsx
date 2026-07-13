@@ -4,12 +4,14 @@ import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { SectionHeading } from './SectionHeading'
 import { ArrowForwardIcon } from '../ui/icons'
+import { ServiceIcon } from '../ui/ServiceIcon'
 
 export interface ServiceCardData {
   slug: string
   title: string
   excerpt: string
   to: string
+  icon: string
 }
 
 interface ServicesSectionProps {
@@ -21,9 +23,11 @@ interface ServicesSectionProps {
 }
 
 function ServiceCard({
+  icon,
+  index,
   title,
   excerpt,
-}: Pick<ServiceCardData, 'title' | 'excerpt'>) {
+}: Pick<ServiceCardData, 'title' | 'excerpt' | 'icon'> & { index: number }) {
   const excerptRef = useRef<HTMLParagraphElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [overflowing, setOverflowing] = useState(false)
@@ -36,6 +40,7 @@ function ServiceCard({
 
   return (
     <article className="flex h-full flex-col rounded-xl border border-outline-variant/30 bg-surface p-6 transition-shadow hover:shadow-level2">
+      <ServiceIcon icon={icon} index={index} className="mb-4" />
       <h3 className="mb-3 font-display text-headline-sm text-on-surface">
         {title}
       </h3>
@@ -73,9 +78,11 @@ export function ServicesSection({
       <Container>
         <SectionHeading title={heading} intro={intro} level={headingLevel} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {services.map((service, index) => (
             <ServiceCard
               key={service.slug}
+              icon={service.icon}
+              index={index}
               title={service.title}
               excerpt={service.excerpt}
             />

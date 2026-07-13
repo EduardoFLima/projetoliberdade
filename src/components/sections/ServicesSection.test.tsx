@@ -9,12 +9,14 @@ const services = [
     title: 'Equoterapia',
     excerpt: 'Método terapêutico.',
     to: '/servicos/equoterapia',
+    icon: 'equine-therapy',
   },
   {
     slug: 'equitacao-ludica',
     title: 'Equitação Lúdica',
     excerpt: 'Para crianças.',
     to: '/servicos/equitacao-ludica',
+    icon: 'playful-riding',
   },
 ]
 
@@ -95,5 +97,16 @@ describe('ServicesSection', () => {
     expect(
       screen.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
     ).toBeInTheDocument()
+  })
+
+  it('renders a service icon per card with alternating tones', () => {
+    mockOverflow(false)
+    const { container } = renderWithRouter(
+      <ServicesSection heading="Nossos Serviços" services={services} />,
+    )
+    const icons = container.querySelectorAll('[data-icon]')
+    expect(icons).toHaveLength(2)
+    expect(icons[0].getAttribute('data-tone')).toBe('green')
+    expect(icons[1].getAttribute('data-tone')).toBe('purple')
   })
 })
