@@ -4,6 +4,7 @@ import { Section } from '../components/ui/Section'
 import { Button } from '../components/ui/Button'
 import { Chip } from '../components/ui/Chip'
 import { Card } from '../components/ui/Card'
+import { ServiceIcon } from '../components/ui/ServiceIcon'
 import { BlockRenderer } from '../components/blocks/BlockRenderer'
 import { PhotoGallery } from '../components/sections/PhotoGallery'
 import { VideoEmbed } from '../components/VideoEmbed'
@@ -14,6 +15,16 @@ const swatches = [
   'bg-secondary',
   'bg-surface-container',
   'bg-error',
+]
+
+const serviceIcons = [
+  ['equine-therapy', 'Equoterapia'],
+  ['classical-equitation', 'Equitação Clássica'],
+  ['playful-riding', 'Equitação Lúdica'],
+  ['adaptive-equitation', 'Equitação Adaptada'],
+  ['pets', 'Pet Terapia'],
+  ['pool', 'Hidroterapia'],
+  ['psychology', 'Reabilitação Neurofuncional'],
 ]
 
 const typeScale = [
@@ -50,6 +61,20 @@ export function StyleGuide() {
   return (
     <Container className="py-12">
       <h1 className="font-display text-display-lg text-on-surface">Estilo</h1>
+
+      <Section className="mt-8">
+        <h2 className="font-display text-headline-md">Ícones de serviço</h2>
+        <div className="mt-4 flex flex-wrap gap-6">
+          {serviceIcons.map(([icon, label], i) => (
+            <div key={icon} className="flex w-28 flex-col items-center gap-2">
+              <ServiceIcon icon={icon} index={i} />
+              <span className="text-center text-label-sm text-on-surface-variant">
+                {label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       <Section className="mt-8">
         <h2 className="font-display text-headline-md">Cores</h2>
