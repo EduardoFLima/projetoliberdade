@@ -134,6 +134,41 @@ test('/servicos/hippussuit highlights the Hippussuit section and scrolls to it',
   await expect(page.locator('article.border-cta')).toHaveCount(0)
 })
 
+test('Hippussuit is reachable from the header Serviços submenu', async ({
+  page,
+}) => {
+  await page.goto('/')
+
+  await page.getByRole('link', { name: 'Serviços' }).first().hover()
+  const submenuLink = page.getByRole('link', { name: 'Hippussuit' })
+  await expect(submenuLink).toBeVisible()
+  await submenuLink.click()
+
+  await expect(page).toHaveURL(/\/servicos\/hippussuit$/)
+  await expect(
+    page.getByRole('heading', { level: 2, name: 'Hippussuit' }),
+  ).toBeInViewport()
+})
+
+test.describe('mobile drawer', () => {
+  test.use({ viewport: { width: 390, height: 844 } })
+
+  test('Hippussuit is reachable from the drawer menu', async ({ page }) => {
+    await page.goto('/')
+
+    await page.getByRole('button', { name: 'Abrir menu' }).click()
+    const drawer = page.getByTestId('mobile-drawer')
+    await expect(drawer).toBeVisible()
+
+    await drawer.getByRole('link', { name: 'Hippussuit' }).click()
+
+    await expect(page).toHaveURL(/\/servicos\/hippussuit$/)
+    await expect(
+      page.getByRole('heading', { level: 2, name: 'Hippussuit' }),
+    ).toBeInViewport()
+  })
+})
+
 test('clicking Ver mais on a featured service card on homepage navigates to /servicos/:slug and expands it', async ({
   page,
 }) => {

@@ -27,7 +27,14 @@
     {
       "slug": "servicos",
       "label": "Serviços",
-      "order": 2
+      "order": 2,
+      "submenu": [
+        {
+          "slug": "hippussuit",
+          "label": "Hippussuit",
+          "order": 1
+        }
+      ]
     },
     {
       "slug": "momentos",
