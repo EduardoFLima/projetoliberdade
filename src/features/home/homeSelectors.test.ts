@@ -48,6 +48,7 @@ const content = {
         {
           slug: 'equoterapia',
           title: 'Equoterapia',
+          icon: 'equine-therapy',
           body: [{ type: 'paragraph', text: 'Método.' }],
         },
         {
@@ -95,6 +96,7 @@ describe('homeSelectors', () => {
       title: 'Equoterapia',
       excerpt: 'Método.',
       to: '/servicos/equoterapia',
+      icon: 'equine-therapy',
     })
   })
 })

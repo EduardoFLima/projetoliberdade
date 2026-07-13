@@ -12,6 +12,7 @@ export { selectMvv }
 interface NamedSection {
   slug: string
   title: string
+  icon?: string
   body: Block[]
 }
 
@@ -65,6 +66,7 @@ export function selectServices(content: SiteContent): {
       title: s.title,
       excerpt: firstParagraph(s.body),
       to: `/servicos/${s.slug}`,
+      icon: s.icon ?? '',
     }))
   return {
     heading: 'Nossos Serviços',
