@@ -1,3 +1,5 @@
+import { useLayoutEffect, useRef } from 'react'
+import { cn } from '../../lib/cn'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
 import { CheckCircleIcon } from '../ui/icons'
@@ -17,6 +19,7 @@ export interface HippussuitContent {
 interface HippussuitSectionProps {
   hippussuit: HippussuitContent
   tone?: 'surface' | 'muted'
+  isActive?: boolean
 }
 
 function CheckList({
@@ -45,7 +48,16 @@ function CheckList({
 export function HippussuitSection({
   hippussuit,
   tone = 'surface',
+  isActive = false,
 }: HippussuitSectionProps) {
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    if (isActive && panelRef.current) {
+      panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [isActive])
+
   const {
     title,
     image,
@@ -61,7 +73,13 @@ export function HippussuitSection({
   return (
     <Section tone={tone}>
       <Container>
-        <div className="space-y-12 rounded-xl bg-surface-container-low p-6 md:p-12">
+        <div
+          ref={panelRef}
+          className={cn(
+            'space-y-12 rounded-xl border bg-surface-container-low p-6 transition-all duration-300 md:p-12',
+            isActive ? 'border-cta ring-2 ring-cta/20' : 'border-transparent',
+          )}
+        >
           <div className="flex flex-col gap-8 md:flex-row md:items-start">
             <div className="w-full md:w-1/2">
               <div className="overflow-hidden rounded-xl border border-outline-variant/30 shadow-level1">

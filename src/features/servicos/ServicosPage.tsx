@@ -21,7 +21,10 @@ export function ServicosPage() {
         headingLevel="h1"
         activeSlug={slug}
       />
-      <HippussuitSection hippussuit={hippussuit} />
+      <HippussuitSection
+        hippussuit={hippussuit}
+        isActive={slug === 'hippussuit'}
+      />
       <ContactCta
         tone="surface"
         heading="Agende uma Avaliação"

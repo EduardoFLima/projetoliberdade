@@ -1,6 +1,10 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { HippussuitSection, type HippussuitContent } from './HippussuitSection'
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 const hippussuit: HippussuitContent = {
   title: 'Hippussuit',
@@ -42,5 +46,22 @@ describe('HippussuitSection', () => {
     expect(screen.getAllByRole('listitem')).toHaveLength(5)
     const img = screen.getByRole('img', { name: 'Hippussuit' })
     expect(img).toHaveAttribute('src', '/images/hippussuit.jpg')
+  })
+
+  it('is not highlighted by default', () => {
+    const { container } = render(<HippussuitSection hippussuit={hippussuit} />)
+    expect(container.querySelector('.border-cta')).toBeNull()
+  })
+
+  it('highlights and scrolls into view when active', () => {
+    const scrollIntoViewMock = vi.fn()
+    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+
+    const { container } = render(
+      <HippussuitSection hippussuit={hippussuit} isActive />,
+    )
+
+    expect(container.querySelector('.border-cta')).not.toBeNull()
+    expect(scrollIntoViewMock).toHaveBeenCalled()
   })
 })

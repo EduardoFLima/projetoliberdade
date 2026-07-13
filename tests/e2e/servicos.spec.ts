@@ -17,17 +17,6 @@ test('servicos page renders all services, hippussuit and contact CTA', async ({
       name: 'Reabilitação Neurofuncional',
     }),
   ).toBeVisible()
-  const verMais = page.getByRole('button', { name: /Ver mais/ })
-  await expect(verMais).toHaveCount(5)
-
-  const reabilitacaoCard = page
-    .locator('article')
-    .filter({ hasText: 'Reabilitação Neurofuncional' })
-  await reabilitacaoCard.getByRole('button', { name: /Ver mais/ }).click()
-  await expect(verMais).toHaveCount(4)
-  await expect(
-    page.getByText(/Como métodos de atendimento utilizamos/),
-  ).toBeVisible()
 
   await expect(
     page.getByRole('heading', { level: 2, name: 'Hippussuit' }),
@@ -48,6 +37,55 @@ test('servicos is reachable from the header nav', async ({ page }) => {
   ).toBeVisible()
 })
 
+test('clicking Ver mais on /servicos selects the card: path changes and the card expands highlighted', async ({
+  page,
+}) => {
+  await page.goto('/servicos')
+
+  const verMais = page.getByRole('link', { name: /Ver mais/ })
+  await expect(verMais).toHaveCount(5)
+
+  const reabilitacaoCard = page
+    .locator('article')
+    .filter({ hasText: 'Reabilitação Neurofuncional' })
+  await reabilitacaoCard.getByRole('link', { name: /Ver mais/ }).click()
+
+  // Same page, new path
+  await expect(page).toHaveURL(/\/servicos\/reabilitacao-neurofuncional$/)
+  await expect(
+    page.getByRole('heading', { level: 1, name: 'Nossos Serviços' }),
+  ).toBeVisible()
+
+  // Card is expanded (full text visible, its Ver mais is gone) and highlighted
+  await expect(verMais).toHaveCount(4)
+  await expect(
+    page.getByText(/Como métodos de atendimento utilizamos/),
+  ).toBeVisible()
+  await expect(reabilitacaoCard).toHaveClass(/border-cta/)
+})
+
+test('clicking a card body on /servicos highlights it and updates the path', async ({
+  page,
+}) => {
+  await page.goto('/servicos')
+
+  const equoterapiaCard = page
+    .locator('article')
+    .filter({ hasText: 'Equoterapia' })
+  await equoterapiaCard.getByRole('heading', { level: 3 }).click()
+
+  await expect(page).toHaveURL(/\/servicos\/equoterapia$/)
+  await expect(equoterapiaCard).toHaveClass(/border-cta/)
+
+  // Selecting another card moves the highlight
+  const petCard = page.locator('article').filter({ hasText: 'Pet Terapia' })
+  await petCard.getByRole('heading', { level: 3 }).click()
+
+  await expect(page).toHaveURL(/\/servicos\/pet-terapia$/)
+  await expect(petCard).toHaveClass(/border-cta/)
+  await expect(equoterapiaCard).not.toHaveClass(/border-cta/)
+})
+
 test('direct access to a service detail route (/servicos/:slug) expands the matching card', async ({
   page,
 }) => {
@@ -64,7 +102,7 @@ test('direct access to a service detail route (/servicos/:slug) expands the matc
 
   // It should be expanded automatically, so its "Ver mais" is not visible
   await expect(
-    equoterapiaCard.getByRole('button', { name: /Ver mais/ }),
+    equoterapiaCard.getByRole('link', { name: /Ver mais/ }),
   ).not.toBeVisible()
 
   // Full text should be visible
@@ -74,6 +112,26 @@ test('direct access to a service detail route (/servicos/:slug) expands the matc
 
   // The card should have visual highlight styling (the border-cta class)
   await expect(equoterapiaCard).toHaveClass(/border-cta/)
+})
+
+test('/servicos/hippussuit highlights the Hippussuit section and scrolls to it', async ({
+  page,
+}) => {
+  await page.goto('/servicos/hippussuit')
+
+  const hippussuitHeading = page.getByRole('heading', {
+    level: 2,
+    name: 'Hippussuit',
+  })
+  await expect(hippussuitHeading).toBeInViewport()
+
+  const panel = page
+    .locator('div.border-cta')
+    .filter({ has: hippussuitHeading })
+  await expect(panel).toBeVisible()
+
+  // No service card is highlighted
+  await expect(page.locator('article.border-cta')).toHaveCount(0)
 })
 
 test('clicking Ver mais on a featured service card on homepage navigates to /servicos/:slug and expands it', async ({
@@ -97,7 +155,7 @@ test('clicking Ver mais on a featured service card on homepage navigates to /ser
 
   // On the services page, it is expanded automatically and highlighted
   await expect(
-    equoterapiaCard.getByRole('button', { name: /Ver mais/ }),
+    equoterapiaCard.getByRole('link', { name: /Ver mais/ }),
   ).not.toBeVisible()
 
   await expect(

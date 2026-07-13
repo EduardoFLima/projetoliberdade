@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router'
+import type { MouseEvent } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router'
 import { cn } from '../../lib/cn'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
@@ -26,7 +27,7 @@ interface ServicesSectionProps {
 
 interface ServiceCardProps extends ServiceCardData {
   index: number
-  isInitiallyExpanded?: boolean
+  isActive?: boolean
 }
 
 function ServiceCard({
@@ -35,21 +36,15 @@ function ServiceCard({
   title,
   excerpt,
   to,
-  isInitiallyExpanded = false,
+  isActive = false,
 }: ServiceCardProps) {
   const cardRef = useRef<HTMLElement>(null)
   const excerptRef = useRef<HTMLParagraphElement>(null)
-  const [expanded, setExpanded] = useState(isInitiallyExpanded)
-  const [prevIsInitiallyExpanded, setPrevIsInitiallyExpanded] =
-    useState(isInitiallyExpanded)
   const [overflowing, setOverflowing] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
   const isServicesPage = location.pathname.startsWith('/servicos')
-
-  if (isInitiallyExpanded !== prevIsInitiallyExpanded) {
-    setPrevIsInitiallyExpanded(isInitiallyExpanded)
-    setExpanded(isInitiallyExpanded)
-  }
+  const showVerMais = isServicesPage ? overflowing && !isActive : true
 
   useLayoutEffect(() => {
     const el = excerptRef.current
@@ -58,19 +53,28 @@ function ServiceCard({
   }, [excerpt])
 
   useLayoutEffect(() => {
-    if (isInitiallyExpanded && cardRef.current) {
+    if (isActive && cardRef.current) {
       cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-  }, [isInitiallyExpanded])
+  }, [isActive])
+
+  function handleCardClick(event: MouseEvent<HTMLElement>) {
+    if (!isServicesPage || isActive) return
+    // Let the inner "Ver mais" Link handle its own click.
+    if ((event.target as HTMLElement).closest('a')) return
+    navigate(to, { preventScrollReset: true })
+  }
 
   return (
     <article
       ref={cardRef}
+      onClick={handleCardClick}
       className={cn(
         'flex h-full flex-col rounded-xl border p-6 transition-all duration-300 hover:shadow-level2',
-        isInitiallyExpanded
+        isActive
           ? 'border-cta bg-cta/5 ring-2 ring-cta/20'
           : 'border-outline-variant/30 bg-surface',
+        isServicesPage && !isActive && 'cursor-pointer',
       )}
     >
       <ServiceIcon icon={icon} index={index} className="mb-4" />
@@ -81,26 +85,19 @@ function ServiceCard({
         ref={excerptRef}
         className={cn(
           'mb-6 flex-grow font-sans text-body-md text-on-surface-variant text-justify',
-          expanded ? undefined : 'line-clamp-10',
+          isActive ? undefined : 'line-clamp-10',
         )}
       >
         {excerpt}
       </p>
-      {!isServicesPage ? (
+      {showVerMais ? (
         <Link
           to={to}
+          preventScrollReset={isServicesPage}
           className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta cursor-pointer"
         >
           Ver mais <ArrowForwardIcon className="h-4 w-4" />
         </Link>
-      ) : overflowing && !expanded ? (
-        <button
-          type="button"
-          onClick={() => setExpanded(true)}
-          className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta cursor-pointer"
-        >
-          Ver mais <ArrowForwardIcon className="h-4 w-4" />
-        </button>
       ) : null}
     </article>
   )
@@ -128,7 +125,7 @@ export function ServicesSection({
               title={service.title}
               excerpt={service.excerpt}
               to={service.to}
-              isInitiallyExpanded={service.slug === activeSlug}
+              isActive={service.slug === activeSlug}
             />
           ))}
         </div>

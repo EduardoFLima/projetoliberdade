@@ -1,7 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen } from '@testing-library/react'
+import { useLocation } from 'react-router'
 import { renderWithRouter } from '../../test/render'
 import { ServicesSection } from './ServicesSection'
+
+function LocationProbe() {
+  const location = useLocation()
+  return <output data-testid="pathname">{location.pathname}</output>
+}
 
 const services = [
   {
@@ -47,29 +53,64 @@ describe('ServicesSection', () => {
     expect(screen.getByText('Método terapêutico.')).toBeInTheDocument()
   })
 
-  it('shows a "Ver mais" button only when the excerpt overflows, and expanding it reveals the full text', () => {
+  it('on /servicos shows "Ver mais" as a Link to the service path only when the excerpt overflows', () => {
     mockOverflow(true)
     renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
       { route: '/servicos' },
     )
-    const buttons = screen.getAllByRole('button', { name: /Ver mais/ })
-    expect(buttons).toHaveLength(2)
-
-    fireEvent.click(buttons[0])
-
-    expect(screen.getAllByRole('button', { name: /Ver mais/ })).toHaveLength(1)
+    const links = screen.getAllByRole('link', { name: /Ver mais/ })
+    expect(links).toHaveLength(2)
+    expect(links[0]).toHaveAttribute('href', '/servicos/equoterapia')
   })
 
-  it('does not show a "Ver mais" button when the excerpt fits', () => {
+  it('does not show "Ver mais" on /servicos when the excerpt fits', () => {
     mockOverflow(false)
     renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
       { route: '/servicos' },
     )
     expect(
-      screen.queryByRole('button', { name: /Ver mais/ }),
+      screen.queryByRole('link', { name: /Ver mais/ }),
     ).not.toBeInTheDocument()
+  })
+
+  it('clicking a card on /servicos navigates to the service path', () => {
+    mockOverflow(false)
+    renderWithRouter(
+      <>
+        <ServicesSection heading="Nossos Serviços" services={services} />
+        <LocationProbe />
+      </>,
+      { route: '/servicos' },
+    )
+
+    const card = screen
+      .getByRole('heading', { name: 'Equitação Lúdica' })
+      .closest('article')!
+    fireEvent.click(card)
+
+    expect(screen.getByTestId('pathname')).toHaveTextContent(
+      '/servicos/equitacao-ludica',
+    )
+  })
+
+  it('clicking a card outside /servicos does not navigate', () => {
+    mockOverflow(false)
+    renderWithRouter(
+      <>
+        <ServicesSection heading="Nossos Serviços" services={services} />
+        <LocationProbe />
+      </>,
+      { route: '/' },
+    )
+
+    const card = screen
+      .getByRole('heading', { name: 'Equitação Lúdica' })
+      .closest('article')!
+    fireEvent.click(card)
+
+    expect(screen.getByTestId('pathname')).toHaveTextContent(/^\/$/)
   })
 
   it('renders a "Ver mais" Link to the detail page on the home page (/)', () => {
@@ -97,10 +138,11 @@ describe('ServicesSection', () => {
       { route: '/servicos/equoterapia' },
     )
 
-    // equoterapia is activeSlug, so it is already expanded. Therefore, only
-    // equitacao-ludica should show a "Ver mais" button.
-    const buttons = screen.getAllByRole('button', { name: /Ver mais/ })
-    expect(buttons).toHaveLength(1)
+    // equoterapia is active, so it is already expanded and hides its
+    // "Ver mais" link; only equitacao-ludica keeps one.
+    const links = screen.getAllByRole('link', { name: /Ver mais/ })
+    expect(links).toHaveLength(1)
+    expect(links[0]).toHaveAttribute('href', '/servicos/equitacao-ludica')
 
     // Verify that scrollIntoView was called for the active card
     expect(scrollIntoViewMock).toHaveBeenCalled()
