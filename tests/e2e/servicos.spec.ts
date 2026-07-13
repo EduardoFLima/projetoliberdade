@@ -42,8 +42,9 @@ test('clicking Ver mais on /servicos selects the card: path changes and the card
 }) => {
   await page.goto('/servicos')
 
+  // All 7 grid cards (hippussuit excluded) offer "Ver mais"
   const verMais = page.getByRole('link', { name: /Ver mais/ })
-  await expect(verMais).toHaveCount(5)
+  await expect(verMais).toHaveCount(7)
 
   const reabilitacaoCard = page
     .locator('article')
@@ -57,7 +58,7 @@ test('clicking Ver mais on /servicos selects the card: path changes and the card
   ).toBeVisible()
 
   // Card is expanded (full text visible, its Ver mais is gone) and highlighted
-  await expect(verMais).toHaveCount(4)
+  await expect(verMais).toHaveCount(6)
   await expect(
     page.getByText(/Como métodos de atendimento utilizamos/),
   ).toBeVisible()
@@ -112,6 +113,28 @@ test('direct access to a service detail route (/servicos/:slug) expands the matc
 
   // The card should have visual highlight styling (the border-cta class)
   await expect(equoterapiaCard).toHaveClass(/border-cta/)
+})
+
+test('a card that loads expanded regains its "Ver mais" link after another card is selected', async ({
+  page,
+}) => {
+  await page.goto('/servicos/pet-terapia')
+
+  const petCard = page.locator('article').filter({ hasText: 'Pet Terapia' })
+  await expect(petCard).toHaveClass(/border-cta/)
+  await expect(
+    petCard.getByRole('link', { name: /Ver mais/ }),
+  ).not.toBeVisible()
+
+  await page
+    .locator('article')
+    .filter({ hasText: 'Hidroterapia' })
+    .getByRole('heading', { level: 3 })
+    .click()
+
+  await expect(page).toHaveURL(/\/servicos\/hidroterapia$/)
+  await expect(petCard).not.toHaveClass(/border-cta/)
+  await expect(petCard.getByRole('link', { name: /Ver mais/ })).toBeVisible()
 })
 
 test('/servicos/hippussuit highlights the Hippussuit section and scrolls to it', async ({

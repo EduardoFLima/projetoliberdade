@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { fireEvent, screen } from '@testing-library/react'
 import { useLocation } from 'react-router'
 import { renderWithRouter } from '../../test/render'
@@ -26,20 +26,20 @@ const services = [
   },
 ]
 
-function mockOverflow(isOverflowing: boolean) {
-  vi.spyOn(Element.prototype, 'scrollHeight', 'get').mockReturnValue(
-    isOverflowing ? 200 : 100,
-  )
-  vi.spyOn(Element.prototype, 'clientHeight', 'get').mockReturnValue(100)
-}
+// jsdom does not implement scrollIntoView
+const scrollIntoViewMock = vi.fn()
+
+beforeEach(() => {
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+})
 
 afterEach(() => {
+  scrollIntoViewMock.mockClear()
   vi.restoreAllMocks()
 })
 
 describe('ServicesSection', () => {
   it('renders one card per service', () => {
-    mockOverflow(false)
     renderWithRouter(
       <ServicesSection
         heading="Nossos Serviços"
@@ -53,33 +53,38 @@ describe('ServicesSection', () => {
     expect(screen.getByText('Método terapêutico.')).toBeInTheDocument()
   })
 
-  it('on /servicos shows "Ver mais" as a Link to the service path only when the excerpt overflows', () => {
-    mockOverflow(true)
+  it('always renders a "Ver mais" Link to the detail page', () => {
     renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
-      { route: '/servicos' },
     )
     const links = screen.getAllByRole('link', { name: /Ver mais/ })
     expect(links).toHaveLength(2)
     expect(links[0]).toHaveAttribute('href', '/servicos/equoterapia')
   })
 
-  it('does not show "Ver mais" on /servicos when the excerpt fits', () => {
-    mockOverflow(false)
+  it('when selectable, hides "Ver mais" only on the active card', () => {
     renderWithRouter(
-      <ServicesSection heading="Nossos Serviços" services={services} />,
-      { route: '/servicos' },
+      <ServicesSection
+        heading="Nossos Serviços"
+        services={services}
+        activeSlug="equoterapia"
+        selectable
+      />,
+      { route: '/servicos/equoterapia' },
     )
-    expect(
-      screen.queryByRole('link', { name: /Ver mais/ }),
-    ).not.toBeInTheDocument()
+    const links = screen.getAllByRole('link', { name: /Ver mais/ })
+    expect(links).toHaveLength(1)
+    expect(links[0]).toHaveAttribute('href', '/servicos/equitacao-ludica')
   })
 
-  it('clicking a card on /servicos navigates to the service path', () => {
-    mockOverflow(false)
+  it('when selectable, clicking a card navigates to the service path', () => {
     renderWithRouter(
       <>
-        <ServicesSection heading="Nossos Serviços" services={services} />
+        <ServicesSection
+          heading="Nossos Serviços"
+          services={services}
+          selectable
+        />
         <LocationProbe />
       </>,
       { route: '/servicos' },
@@ -95,8 +100,7 @@ describe('ServicesSection', () => {
     )
   })
 
-  it('clicking a card outside /servicos does not navigate', () => {
-    mockOverflow(false)
+  it('without selectable, clicking a card does not navigate', () => {
     renderWithRouter(
       <>
         <ServicesSection heading="Nossos Serviços" services={services} />
@@ -113,49 +117,36 @@ describe('ServicesSection', () => {
     expect(screen.getByTestId('pathname')).toHaveTextContent(/^\/$/)
   })
 
-  it('renders a "Ver mais" Link to the detail page on the home page (/)', () => {
-    mockOverflow(true)
-    renderWithRouter(
-      <ServicesSection heading="Nossos Serviços" services={services} />,
-      { route: '/' },
-    )
-    const links = screen.getAllByRole('link', { name: /Ver mais/ })
-    expect(links).toHaveLength(2)
-    expect(links[0]).toHaveAttribute('href', '/servicos/equoterapia')
-  })
-
-  it('automatically expands, highlights, and scrolls to the active card based on activeSlug', () => {
-    mockOverflow(true)
-    const scrollIntoViewMock = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
-
+  it('expands, highlights, marks aria-current, and scrolls to the active card', () => {
     renderWithRouter(
       <ServicesSection
         heading="Nossos Serviços"
         services={services}
         activeSlug="equoterapia"
+        selectable
       />,
       { route: '/servicos/equoterapia' },
     )
 
-    // equoterapia is active, so it is already expanded and hides its
-    // "Ver mais" link; only equitacao-ludica keeps one.
-    const links = screen.getAllByRole('link', { name: /Ver mais/ })
-    expect(links).toHaveLength(1)
-    expect(links[0]).toHaveAttribute('href', '/servicos/equitacao-ludica')
-
-    // Verify that scrollIntoView was called for the active card
     expect(scrollIntoViewMock).toHaveBeenCalled()
 
-    // Verify visual highlight
     const equoterapiaCard = screen
       .getByRole('heading', { name: 'Equoterapia' })
-      .closest('article')
-    expect(equoterapiaCard?.getAttribute('class')).toContain('border-cta')
+      .closest('article')!
+    expect(equoterapiaCard.getAttribute('class')).toContain('border-cta')
+    expect(equoterapiaCard).toHaveAttribute('aria-current', 'true')
+    // The active card drops the clamp so the full text shows
+    expect(
+      equoterapiaCard.querySelector('p')?.getAttribute('class'),
+    ).not.toContain('line-clamp')
+
+    const otherCard = screen
+      .getByRole('heading', { name: 'Equitação Lúdica' })
+      .closest('article')!
+    expect(otherCard).not.toHaveAttribute('aria-current')
   })
 
   it('renders the heading as level 2 by default', () => {
-    mockOverflow(false)
     renderWithRouter(
       <ServicesSection
         heading="Nossos Serviços"
@@ -169,7 +160,6 @@ describe('ServicesSection', () => {
   })
 
   it('renders the heading as level 1 when headingLevel="h1"', () => {
-    mockOverflow(false)
     renderWithRouter(
       <ServicesSection
         heading="Nossos Serviços"
@@ -184,7 +174,6 @@ describe('ServicesSection', () => {
   })
 
   it('renders a service icon per card with alternating tones', () => {
-    mockOverflow(false)
     const { container } = renderWithRouter(
       <ServicesSection heading="Nossos Serviços" services={services} />,
     )

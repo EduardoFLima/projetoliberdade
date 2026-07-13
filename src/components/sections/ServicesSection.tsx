@@ -1,6 +1,6 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import type { MouseEvent } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { cn } from '../../lib/cn'
 import { Container } from '../ui/Container'
 import { Section } from '../ui/Section'
@@ -23,11 +23,13 @@ interface ServicesSectionProps {
   tone?: 'surface' | 'muted'
   headingLevel?: 'h1' | 'h2'
   activeSlug?: string
+  selectable?: boolean
 }
 
-interface ServiceCardProps extends ServiceCardData {
+interface ServiceCardProps extends Omit<ServiceCardData, 'slug'> {
   index: number
   isActive?: boolean
+  selectable?: boolean
 }
 
 function ServiceCard({
@@ -37,20 +39,10 @@ function ServiceCard({
   excerpt,
   to,
   isActive = false,
+  selectable = false,
 }: ServiceCardProps) {
   const cardRef = useRef<HTMLElement>(null)
-  const excerptRef = useRef<HTMLParagraphElement>(null)
-  const [overflowing, setOverflowing] = useState(false)
-  const location = useLocation()
   const navigate = useNavigate()
-  const isServicesPage = location.pathname.startsWith('/servicos')
-  const showVerMais = isServicesPage ? overflowing && !isActive : true
-
-  useLayoutEffect(() => {
-    const el = excerptRef.current
-    if (!el) return
-    setOverflowing(el.scrollHeight > el.clientHeight + 1)
-  }, [excerpt])
 
   useLayoutEffect(() => {
     if (isActive && cardRef.current) {
@@ -59,7 +51,7 @@ function ServiceCard({
   }, [isActive])
 
   function handleCardClick(event: MouseEvent<HTMLElement>) {
-    if (!isServicesPage || isActive) return
+    if (!selectable || isActive) return
     // Let the inner "Ver mais" Link handle its own click.
     if ((event.target as HTMLElement).closest('a')) return
     navigate(to, { preventScrollReset: true })
@@ -69,12 +61,13 @@ function ServiceCard({
     <article
       ref={cardRef}
       onClick={handleCardClick}
+      aria-current={isActive || undefined}
       className={cn(
         'flex h-full flex-col rounded-xl border p-6 transition-all duration-300 hover:shadow-level2',
         isActive
           ? 'border-cta bg-cta/5 ring-2 ring-cta/20'
           : 'border-outline-variant/30 bg-surface',
-        isServicesPage && !isActive && 'cursor-pointer',
+        selectable && !isActive && 'cursor-pointer',
       )}
     >
       <ServiceIcon icon={icon} index={index} className="mb-4" />
@@ -82,7 +75,6 @@ function ServiceCard({
         {title}
       </h3>
       <p
-        ref={excerptRef}
         className={cn(
           'mb-6 flex-grow font-sans text-body-md text-on-surface-variant text-justify',
           isActive ? undefined : 'line-clamp-10',
@@ -90,11 +82,11 @@ function ServiceCard({
       >
         {excerpt}
       </p>
-      {showVerMais ? (
+      {!isActive ? (
         <Link
           to={to}
-          preventScrollReset={isServicesPage}
-          className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta cursor-pointer"
+          preventScrollReset={selectable}
+          className="mt-auto inline-flex items-center gap-1 rounded-sm text-label-md text-link transition-colors hover:text-cta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
         >
           Ver mais <ArrowForwardIcon className="h-4 w-4" />
         </Link>
@@ -110,6 +102,7 @@ export function ServicesSection({
   tone = 'surface',
   headingLevel = 'h2',
   activeSlug,
+  selectable = false,
 }: ServicesSectionProps) {
   return (
     <Section tone={tone}>
@@ -121,11 +114,11 @@ export function ServicesSection({
               key={service.slug}
               icon={service.icon}
               index={index}
-              slug={service.slug}
               title={service.title}
               excerpt={service.excerpt}
               to={service.to}
               isActive={service.slug === activeSlug}
+              selectable={selectable}
             />
           ))}
         </div>

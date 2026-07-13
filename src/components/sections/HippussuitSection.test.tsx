@@ -1,9 +1,16 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { HippussuitSection, type HippussuitContent } from './HippussuitSection'
 
+// jsdom does not implement scrollIntoView
+const scrollIntoViewMock = vi.fn()
+
+beforeEach(() => {
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
+})
+
 afterEach(() => {
-  vi.restoreAllMocks()
+  scrollIntoViewMock.mockClear()
 })
 
 const hippussuit: HippussuitContent = {
@@ -54,9 +61,6 @@ describe('HippussuitSection', () => {
   })
 
   it('highlights and scrolls into view when active', () => {
-    const scrollIntoViewMock = vi.fn()
-    window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock
-
     const { container } = render(
       <HippussuitSection hippussuit={hippussuit} isActive />,
     )

@@ -20,6 +20,7 @@ export function ServicosPage() {
         services={grid.services}
         headingLevel="h1"
         activeSlug={slug}
+        selectable
       />
       <HippussuitSection
         hippussuit={hippussuit}
