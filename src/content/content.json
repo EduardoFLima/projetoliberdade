@@ -156,6 +156,7 @@
         {
           "slug": "equoterapia",
           "title": "Equoterapia",
+          "icon": "equine-therapy",
           "order": 1,
           "body": [
             {
@@ -171,6 +172,7 @@
         {
           "slug": "equitacao-classica",
           "title": "Equitação Clássica",
+          "icon": "classical-equitation",
           "order": 2,
           "body": [
             {
@@ -182,6 +184,7 @@
         {
           "slug": "equitacao-ludica",
           "title": "Equitação Lúdica",
+          "icon": "playful-riding",
           "order": 3,
           "body": [
             {
@@ -193,6 +196,7 @@
         {
           "slug": "equitacao-adaptada",
           "title": "Equitação Adaptada",
+          "icon": "adaptive-equitation",
           "order": 4,
           "body": [
             {
@@ -204,6 +208,7 @@
         {
           "slug": "pet-terapia",
           "title": "Pet Terapia",
+          "icon": "pets",
           "order": 5,
           "body": [
             {
@@ -215,6 +220,7 @@
         {
           "slug": "hidroterapia",
           "title": "Hidroterapia",
+          "icon": "pool",
           "order": 6,
           "body": [
             {
@@ -238,6 +244,7 @@
         {
           "slug": "reabilitacao-neurofuncional",
           "title": "Reabilitação Neurofuncional",
+          "icon": "psychology",
           "order": 7,
           "body": [
             {
