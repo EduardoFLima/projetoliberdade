@@ -37,18 +37,22 @@ export function ServiceIcon({ icon, index, className }: ServiceIconProps) {
       data-icon={icon}
       aria-hidden="true"
       className={cn(
-        'inline-flex h-18 w-18 items-center justify-center rounded-full',
+        'inline-flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-full',
         toneClass,
         className,
       )}
     >
       {materialPath ? (
-        <svg viewBox="0 -960 960 960" fill="currentColor" className="h-9 w-9">
+        <svg
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          className="h-[1.8rem] w-[1.8rem]"
+        >
           <path d={materialPath} />
         </svg>
       ) : (
         <span
-          className="h-12 w-12 bg-current"
+          className="h-[2.4rem] w-[2.4rem] bg-current"
           style={{
             maskImage: `url(${maskSrc})`,
             WebkitMaskImage: `url(${maskSrc})`,
