@@ -61,7 +61,7 @@ Each page route module exports a `meta` function deriving `<title>`, description
 ### 5. Scripts, testing & verification
 
 - Scripts: `dev` → `react-router dev`; `build` → `react-router typegen && tsc -b && react-router build`; `preview` → `sirv-cli` serving `build/client` with `--single` SPA fallback (the tool React Router's SPA-mode docs recommend). `tsconfig` gains the generated-types wiring (`.react-router/types`, `rootDirs`).
-- Unit tests: `renderWithRouter` (MemoryRouter) keeps working for pages and components. `SiteLayout.test` switches to `createRoutesStub` to supply loader data.
+- Unit tests: `renderWithRouter` (MemoryRouter) keeps working for pages and components. Tests that mount `SiteLayout` use a shared `renderWithSiteLayout` helper (`createMemoryRouter` with the layout's `loader` and a `HydrateFallback`), replacing the router setup duplicated across five test files.
 - Playwright config points at the new dev command.
 - Verification adds a build-output check: prerendered HTML files (e.g. `build/client/historia/index.html`) must contain real page content and the correct `<title>`.
 
