@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { HippussuitSection, type HippussuitContent } from './HippussuitSection'
 
 // jsdom does not implement scrollIntoView
@@ -60,12 +60,13 @@ describe('HippussuitSection', () => {
     expect(container.querySelector('.border-cta')).toBeNull()
   })
 
-  it('highlights and scrolls into view when active', () => {
+  it('highlights and scrolls into view when active', async () => {
     const { container } = render(
       <HippussuitSection hippussuit={hippussuit} isActive />,
     )
 
     expect(container.querySelector('.border-cta')).not.toBeNull()
-    expect(scrollIntoViewMock).toHaveBeenCalled()
+    // Deferred to the next animation frame; see HippussuitSection.tsx.
+    await waitFor(() => expect(scrollIntoViewMock).toHaveBeenCalled())
   })
 })
