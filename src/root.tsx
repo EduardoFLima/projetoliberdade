@@ -23,8 +23,8 @@ export function Layout({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
         <ScrollRestoration />
+        {children}
         <Scripts />
       </body>
     </html>
