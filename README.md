@@ -119,7 +119,7 @@ The content model is locked in [`docs/design/content-model.md`](./docs/design/co
 
 ### Prerequisites
 
-- **Node.js** 20+ (Vite 8 / React 19 baseline)
+- **Node.js** >=22.22.0 (react-router / @react-router/dev 8.2 baseline)
 - **pnpm** — install with `corepack enable` or `npm install -g pnpm`
 
 ### Running the app
