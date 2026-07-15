@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router'
 import type { NavItem, Site } from '../content/types'
@@ -8,6 +8,23 @@ import { ContactButton } from './ui/ContactButton'
 import { MobileDrawer } from './MobileDrawer'
 import { MenuIcon } from './ui/icons'
 
+const noopSubscribe = () => () => {}
+
+/**
+ * The drawer portals into document.body, which doesn't exist during
+ * prerendering. useSyncExternalStore lets the client's snapshot (true) differ
+ * from the server snapshot (false) on the very first client render, so
+ * hydration doesn't mismatch — unlike a `typeof document !== 'undefined'`
+ * check, which is already true on the client's first render pass.
+ */
+function useMounted() {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  )
+}
+
 export function Header({
   site,
   navigation,
@@ -16,6 +33,7 @@ export function Header({
   navigation: NavItem[]
 }) {
   const [open, setOpen] = useState(false)
+  const mounted = useMounted()
   const burgerRef = useRef<HTMLButtonElement>(null)
 
   const closeDrawer = () => {
@@ -56,7 +74,7 @@ export function Header({
           <ContactButton />
         </div>
       </Container>
-      {typeof document !== 'undefined' &&
+      {mounted &&
         createPortal(
           <MobileDrawer items={navigation} open={open} onClose={closeDrawer} />,
           document.body,

@@ -6,7 +6,7 @@ import {
   RouterProvider,
   type RouteObject,
 } from 'react-router'
-import { SiteLayout } from '../layouts/SiteLayout'
+import SiteLayout, { loader as siteLayoutLoader } from '../layouts/SiteLayout'
 
 export function renderWithRouter(ui: ReactElement, { route = '/' } = {}) {
   return render(<MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>)
@@ -18,7 +18,15 @@ export function renderWithSiteLayout(
   { route = '/' } = {},
 ) {
   const router = createMemoryRouter(
-    [{ path: '/', Component: SiteLayout, children }],
+    [
+      {
+        path: '/',
+        Component: SiteLayout,
+        loader: siteLayoutLoader,
+        HydrateFallback: () => null,
+        children,
+      },
+    ],
     { initialEntries: [route] },
   )
   return render(<RouterProvider router={router} />)

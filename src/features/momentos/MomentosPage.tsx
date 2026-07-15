@@ -14,7 +14,12 @@ import {
 export function MomentosPage() {
   const content = useOutletContext<SiteContent>()
   const { pathname } = useLocation()
-  const view: 'videos' | 'fotos' = pathname.endsWith('/fotos')
+  // Trailing-slash tolerant: React Router's prerenderer requests each HTML
+  // page with a trailing slash appended (e.g. `/momentos/fotos/`), while
+  // real browser navigation never has one (`/momentos/fotos`). Matching only
+  // the exact suffix would silently prerender this page with the videos
+  // view instead of photos.
+  const view: 'videos' | 'fotos' = /\/fotos\/?$/.test(pathname)
     ? 'fotos'
     : 'videos'
 
