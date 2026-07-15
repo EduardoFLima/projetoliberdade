@@ -39,3 +39,5 @@ export function HistoriaPage() {
     </>
   )
 }
+
+export default HistoriaPage

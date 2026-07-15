@@ -1,21 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import { createMemoryRouter, RouterProvider } from 'react-router'
-import { SiteLayout } from '../../layouts/SiteLayout'
+import { screen, waitFor } from '@testing-library/react'
+import { renderWithSiteLayout } from '../../test/render'
 import { HistoriaPage } from './HistoriaPage'
 
 function renderHistoria() {
-  const router = createMemoryRouter(
-    [
-      {
-        path: '/',
-        Component: SiteLayout,
-        children: [{ path: 'historia', Component: HistoriaPage }],
-      },
-    ],
-    { initialEntries: ['/historia'] },
-  )
-  return render(<RouterProvider router={router} />)
+  return renderWithSiteLayout([{ path: 'historia', Component: HistoriaPage }], {
+    route: '/historia',
+  })
 }
 
 describe('HistoriaPage', () => {

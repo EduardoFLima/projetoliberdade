@@ -34,3 +34,5 @@ export function ServicosPage() {
     </>
   )
 }
+
+export default ServicosPage

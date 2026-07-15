@@ -43,3 +43,5 @@ export function MomentosPage() {
     </>
   )
 }
+
+export default MomentosPage

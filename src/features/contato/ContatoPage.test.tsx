@@ -1,21 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import { createMemoryRouter, RouterProvider } from 'react-router'
-import { SiteLayout } from '../../layouts/SiteLayout'
+import { screen, waitFor } from '@testing-library/react'
+import { renderWithSiteLayout } from '../../test/render'
 import { ContatoPage } from './ContatoPage'
 
 function renderContato() {
-  const router = createMemoryRouter(
-    [
-      {
-        path: '/',
-        Component: SiteLayout,
-        children: [{ path: 'contato', Component: ContatoPage }],
-      },
-    ],
-    { initialEntries: ['/contato'] },
-  )
-  return render(<RouterProvider router={router} />)
+  return renderWithSiteLayout([{ path: 'contato', Component: ContatoPage }], {
+    route: '/contato',
+  })
 }
 
 describe('ContatoPage', () => {

@@ -1,12 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import {
-  createMemoryRouter,
-  RouterProvider,
-  useOutletContext,
-} from 'react-router'
+import { screen, waitFor } from '@testing-library/react'
+import { useOutletContext } from 'react-router'
 import type { SiteContent } from '../content/types'
-import { SiteLayout } from './SiteLayout'
+import { renderWithSiteLayout } from '../test/render'
 
 function ContextProbe() {
   const content = useOutletContext<SiteContent>()
@@ -14,17 +10,7 @@ function ContextProbe() {
 }
 
 function renderLayout() {
-  const router = createMemoryRouter(
-    [
-      {
-        path: '/',
-        Component: SiteLayout,
-        children: [{ index: true, Component: ContextProbe }],
-      },
-    ],
-    { initialEntries: ['/'] },
-  )
-  return render(<RouterProvider router={router} />)
+  return renderWithSiteLayout([{ index: true, Component: ContextProbe }])
 }
 
 describe('SiteLayout', () => {

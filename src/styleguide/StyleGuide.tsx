@@ -128,3 +128,5 @@ export function StyleGuide() {
     </Container>
   )
 }
+
+export default StyleGuide
