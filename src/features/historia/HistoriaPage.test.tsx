@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { screen, waitFor } from '@testing-library/react'
 import { renderWithSiteLayout } from '../../test/render'
-import { HistoriaPage } from './HistoriaPage'
+import { contentRepository } from '../../content/content'
+import { HistoriaPage, meta } from './HistoriaPage'
 
 function renderHistoria() {
   return renderWithSiteLayout([{ path: 'historia', Component: HistoriaPage }], {
@@ -35,5 +36,16 @@ describe('HistoriaPage', () => {
     expect(
       screen.queryByRole('heading', { level: 2, name: 'História' }),
     ).not.toBeInTheDocument()
+  })
+})
+
+describe('HistoriaPage meta', () => {
+  it('derives the title from the page content', async () => {
+    const content = await contentRepository.getContent()
+    const tags = meta({
+      matches: [undefined, { loaderData: content }],
+      params: {},
+    } as unknown as Parameters<typeof meta>[0])
+    expect(tags).toContainEqual({ title: 'História — Projeto Liberdade' })
   })
 })

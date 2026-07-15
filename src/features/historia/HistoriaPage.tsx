@@ -3,11 +3,20 @@ import type { SiteContent } from '../../content/types'
 import { PageHero } from '../../components/sections/PageHero'
 import { HistoriaSection } from '../../components/sections/HistoriaSection'
 import { MissionVisionValues } from '../../components/sections/MissionVisionValues'
+import type { Route } from './+types/HistoriaPage'
+import { heroSubtitle, pageMeta } from '../../lib/meta'
 import {
   selectHistoriaHero,
   selectHistoriaNarrative,
   selectMvv,
 } from './historiaSelectors'
+
+export function meta({ matches }: Route.MetaArgs) {
+  const content = matches[1]?.loaderData
+  if (!content) return pageMeta('Projeto Liberdade')
+  const page = content.pages.historia
+  return pageMeta(`${page.title} — ${content.site.name}`, heroSubtitle(page))
+}
 
 export function HistoriaPage() {
   const content = useOutletContext<SiteContent>()

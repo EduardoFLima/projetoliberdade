@@ -5,11 +5,17 @@ import { Section } from '../../components/ui/Section'
 import { MediaToggle } from '../../components/MediaToggle'
 import { VideoGallery } from '../../components/sections/VideoGallery'
 import { PhotoGallery } from '../../components/sections/PhotoGallery'
+import type { Route } from './+types/MomentosPage'
 import {
+  momentosMeta,
   selectMomentosHeader,
   selectPhotos,
   selectVideos,
 } from './momentosSelectors'
+
+export function meta({ matches }: Route.MetaArgs) {
+  return momentosMeta(matches[1]?.loaderData)
+}
 
 export function MomentosPage() {
   const content = useOutletContext<SiteContent>()

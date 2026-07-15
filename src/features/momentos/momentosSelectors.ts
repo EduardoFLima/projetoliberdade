@@ -1,4 +1,6 @@
+import type { MetaDescriptor } from 'react-router'
 import type { Photo, SiteContent } from '../../content/types'
+import { pageMeta } from '../../lib/meta'
 import {
   embedUrl,
   getYouTubeId,
@@ -48,4 +50,14 @@ export function selectVideos(content: SiteContent): VideoCardVm[] {
 export function selectPhotos(content: SiteContent): Photo[] {
   const { featured, items } = content.pages.momentos.photos
   return [featured, ...items]
+}
+
+export function momentosMeta(
+  content: SiteContent | undefined,
+): MetaDescriptor[] {
+  if (!content) return pageMeta('Projeto Liberdade')
+  return pageMeta(
+    `${content.pages.momentos.title} — ${content.site.name}`,
+    selectMomentosHeader(content).subtitle,
+  )
 }

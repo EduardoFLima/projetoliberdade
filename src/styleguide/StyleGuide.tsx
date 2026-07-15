@@ -8,6 +8,11 @@ import { ServiceIcon } from '../components/ui/ServiceIcon'
 import { BlockRenderer } from '../components/blocks/BlockRenderer'
 import { PhotoGallery } from '../components/sections/PhotoGallery'
 import { VideoEmbed } from '../components/VideoEmbed'
+import { pageMeta } from '../lib/meta'
+
+export function meta() {
+  return pageMeta('Guia de Estilo — Projeto Liberdade')
+}
 
 const swatches = [
   'bg-primary',
