@@ -5,7 +5,7 @@
 
 ## Summary
 
-Add the repository's first GitHub Actions workflow: `.github/workflows/tests.yml`. It runs on every push to `master` (which includes PR merges) and executes two parallel jobs — `unit` (lint, format check, Vitest) and `e2e` (production build + Playwright against `vite preview`). Two small supporting changes: `playwright.config.ts` becomes CI-conditional so e2e tests the production bundle in CI, and `package.json` gains a `packageManager` field to pin pnpm.
+Add the repository's first GitHub Actions workflow: `.github/workflows/tests.yml`. It runs on every push to `master` (which includes PR merges) and executes two parallel jobs — `unit` (lint, format check, Vitest) and `e2e` (production build + Playwright against `vite preview`). Supporting changes: `playwright.config.ts` becomes CI-conditional so e2e tests the production bundle in CI, `package.json` gains a `packageManager` field to pin pnpm, and `README.md` documents the CI setup (README is the repo's source of truth for tooling — no dedicated CI doc).
 
 ## Goals
 
@@ -15,6 +15,7 @@ Add the repository's first GitHub Actions workflow: `.github/workflows/tests.yml
 - Static verification (ESLint, Prettier check, `tsc -b` via the build) runs as part of the same workflow.
 - CI uses the **same pnpm version as local development** (11.9.0), with store caching for speed.
 - On e2e failure, the Playwright HTML report (traces/screenshots) is available as a workflow artifact.
+- The CI setup is documented in `README.md` (the repo's source of truth for tooling and commands).
 
 ## Non-goals
 
@@ -92,6 +93,18 @@ export default defineConfig({
 ### 3. `package.json` (modified)
 
 Add `"packageManager": "pnpm@11.9.0"` (the version in local use). `pnpm/action-setup@v6` reads this field, so the workflow never hardcodes a pnpm version.
+
+### 4. `README.md` (modified) — documentation
+
+Per the repo rule that README owns tooling and commands, CI is documented in README rather than a dedicated file:
+
+- **New subsection `### Continuous Integration`** under **Development**, after **Testing**, covering:
+  - Trigger: every push to `master` (including PR merges), workflow file `.github/workflows/tests.yml`.
+  - The two parallel jobs and what each runs (`unit`: lint, format check, Vitest; `e2e`: build, Playwright vs the production bundle).
+  - Where to find failure forensics: the `playwright-report` artifact on the workflow run page (kept 30 days).
+  - How to reproduce each job locally (the same command sequences listed under Verification below).
+- **Testing section note:** `CI=1 pnpm test:e2e` runs Playwright the way CI does — against the production build via `pnpm preview` on port 4173 (requires `pnpm build` first); without `CI`, e2e uses the dev server on 5173.
+- **Prerequisites touch-up:** mention that pnpm is pinned via the `packageManager` field, so `corepack enable` picks the right version automatically.
 
 ## Error handling / failure modes
 
