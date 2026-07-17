@@ -21,6 +21,7 @@ Hand-rolled (renderToString or headless-browser scripts), no meta API, fragile, 
 ### Compatibility verified
 
 - `@react-router/dev@8.2.0` peer-depends on `vite: ^7.0.0 || ^8.0.0` (project is on Vite 8.1) and `typescript ^5.1 || ^6.0` (project is on TS 6.0).
+- react-router 8.2 declares `engines.node >=22.22.0` — stricter than the repo's previous `^20.19.0 || >=22.12.0`; with `.npmrc` `engine-strict=true` this requires bumping the repo `engines` (and the README Node prerequisite) as part of the migration.
 - React 19 is supported.
 
 ## Key constraint discovered
@@ -60,9 +61,9 @@ Each page route module exports a `meta` function deriving `<title>`, description
 
 ### 5. Scripts, testing & verification
 
-- Scripts: `dev` → `react-router dev`; `build` → `react-router typegen && tsc -b && react-router build`; `preview` → `sirv-cli` serving `build/client` with `--single` SPA fallback (the tool React Router's SPA-mode docs recommend). `tsconfig` gains the generated-types wiring (`.react-router/types`, `rootDirs`).
+- Scripts: `dev` → `react-router dev`; `build` → `react-router typegen && tsc -b && react-router build`; `preview` → `sirv-cli` serving `build/client` with `--single __spa-fallback.html` (the tool and fallback file React Router's docs prescribe when `/` is prerendered — plain `--single` would serve the prerendered home HTML for unknown paths). `tsconfig` gains the generated-types wiring (`.react-router/types`, `rootDirs`).
 - Unit tests: `renderWithRouter` (MemoryRouter) keeps working for pages and components. Tests that mount `SiteLayout` use a shared `renderWithSiteLayout` helper (`createMemoryRouter` with the layout's `loader` and a `HydrateFallback`), replacing the router setup duplicated across five test files.
-- Playwright config points at the new dev command.
+- Playwright config needs no change: its `webServer` already runs `pnpm dev`, which maps to the new `react-router dev` script on the same port (5173).
 - Verification adds a build-output check: prerendered HTML files (e.g. `build/client/historia/index.html`) must contain real page content and the correct `<title>`.
 
 ## Error handling

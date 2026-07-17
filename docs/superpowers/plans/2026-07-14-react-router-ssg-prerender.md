@@ -12,14 +12,15 @@
 
 ## Global Constraints
 
-- Node `^20.19.0 || >=22.12.0` (engines already enforce this).
+- Package manager is **pnpm** (`pnpm-lock.yaml` is the only lockfile; `.npmrc` sets `engine-strict=true`). Use `pnpm` for every install and script command — never npm.
+- react-router 8.2 requires Node `>=22.22.0` (its `engines` field), which is stricter than the repo's previous `^20.19.0 || >=22.12.0`; Task 1 bumps the repo `engines` to match, and Task 6 updates the README prerequisite.
 - `react-router` and `@react-router/dev` at `^8.2.0`; `@react-router/dev` peer-supports `vite ^7.0.0 || ^8.0.0` (project is on Vite 8.1) and `typescript ^5.1 || ^6.0` (project is on TS 6.0).
 - No new **runtime** dependencies. New dev dependencies only: `@react-router/dev`, `sirv-cli`.
 - Public URLs must not change: `/`, `/historia`, `/servicos`, `/servicos/:slug`, `/momentos`, `/momentos/videos`, `/momentos/fotos`, `/contato`, `/estilo`, plus client-side 404 for unknown paths.
 - Dependency rule (README): files under `features`, `components`, `layouts` never import `content.json` or reference Firebase directly. The `SiteLayout` route module's loader becomes the single repository touchpoint. Build config (`react-router.config.ts`) may read `content.json` — the rule does not govern build config.
 - RTDB↔SSG interaction is out of scope (deferred to the roadmap step-5 brainstorm).
 - Code style: Prettier defaults — no semicolons, single quotes, trailing commas. English keys, Portuguese copy.
-- Every task ends green: `npm run lint`, `npm test`, and (from Task 4 on) `npm run build` must pass before each commit.
+- Every task ends green: `pnpm run lint`, `pnpm test`, and (from Task 4 on) `pnpm run build` must pass before each commit.
 
 ---
 
@@ -37,14 +38,22 @@ The React Router Vite plugin (added in Task 4) cannot run under Vitest, so Vites
 - Consumes: nothing.
 - Produces: `vitest.config.ts` used automatically by `vitest` (it takes precedence over `vite.config.ts`); packages `@react-router/dev@^8.2.0`, `sirv-cli`, `react-router@^8.2.0` available for later tasks.
 
-- [ ] **Step 1: Install dependencies**
+- [ ] **Step 1: Install dependencies and bump engines**
 
 ```bash
-npm install react-router@^8.2.0
-npm install -D @react-router/dev@^8.2.0 sirv-cli
+pnpm add react-router@^8.2.0
+pnpm add -D @react-router/dev@^8.2.0 sirv-cli
 ```
 
 Expected: `package.json` shows `"react-router": "^8.2.0"` under dependencies, `"@react-router/dev": "^8.2.0"` and `"sirv-cli"` under devDependencies. Peer-dependency warnings about optional peers (`wrangler`, `@vitejs/plugin-rsc`, etc.) are fine.
+
+react-router 8.2 declares `engines.node >=22.22.0` and the repo has `engine-strict=true`, so update the `engines` field in `package.json` to match:
+
+```json
+  "engines": {
+    "node": ">=22.22.0"
+  },
+```
 
 - [ ] **Step 2: Create `vitest.config.ts`**
 
@@ -94,7 +103,7 @@ Change the `include` line:
 - [ ] **Step 5: Verify everything is still green**
 
 ```bash
-npm run lint && npm test && npm run build
+pnpm run lint && pnpm test && pnpm run build
 ```
 
 Expected: lint clean, all existing Vitest suites pass (Vitest picks up `vitest.config.ts`), `tsc -b && vite build` succeeds.
@@ -102,7 +111,7 @@ Expected: lint clean, all existing Vitest suites pass (Vitest picks up `vitest.c
 - [ ] **Step 6: Commit**
 
 ```bash
-git add package.json package-lock.json vitest.config.ts vite.config.ts tsconfig.node.json
+git add package.json pnpm-lock.yaml vitest.config.ts vite.config.ts tsconfig.node.json
 git commit -m "chore: add @react-router/dev + sirv-cli, split vitest config out of vite config"
 ```
 
@@ -174,7 +183,7 @@ describe('heroSubtitle', () => {
 - [ ] **Step 2: Run the test to verify it fails**
 
 ```bash
-npx vitest run src/lib/meta.test.ts
+pnpm vitest run src/lib/meta.test.ts
 ```
 
 Expected: FAIL — `Cannot find module './meta'` (or equivalent resolve error).
@@ -222,7 +231,7 @@ export function heroSubtitle(page: Page): string | undefined {
 - [ ] **Step 4: Run the test to verify it passes**
 
 ```bash
-npx vitest run src/lib/meta.test.ts
+pnpm vitest run src/lib/meta.test.ts
 ```
 
 Expected: PASS (5 tests).
@@ -482,7 +491,7 @@ In `eslint.config.js`, change the ignores line and add a `rules` block to the ex
 - [ ] **Step 7: Verify green**
 
 ```bash
-npm run lint && npm test && npm run build
+pnpm run lint && pnpm test && pnpm run build
 ```
 
 Expected: all pass. Test count unchanged from Task 2.
@@ -510,7 +519,7 @@ The atomic switch: config, document shell, route config, layout loader, entry/ho
 - Produces:
   - `SiteLayout` route module at `src/layouts/SiteLayout.tsx`: **default** component export (no more named export), plus `loader(): Promise<SiteContent>`, `clientLoader` (same function), `HydrateFallback`, `ErrorBoundary`. Task 5's `meta` functions read this loader's data via `matches[1].loaderData`.
   - Build output at `build/client/` with one `index.html` per prerendered path and `__spa-fallback.html`.
-  - Scripts: `npm run dev` (`react-router dev`, port 5173), `npm run build`, `npm run preview` (sirv on port 4173).
+  - Scripts: `pnpm run dev` (`react-router dev`, port 5173), `pnpm run build`, `pnpm run preview` (sirv on port 4173).
 
 - [ ] **Step 1: Create `react-router.config.ts`** (repo root)
 
@@ -589,6 +598,8 @@ export default function Root() {
 ```
 
 Note: no hardcoded `<title>` — the root `meta` provides the default and page `meta` exports (Task 5) override it; `<Meta />` renders the tag. `ScrollRestoration` moves here from `SiteLayout`.
+
+Caution: moving `ScrollRestoration` after `{children}` reverses its layout-effect order relative to page components, so its scroll-to-top now runs *after* any `scrollIntoView` a section fires on navigation (e.g. `HippussuitSection`/`ServicesSection`) and cancels it. Wrap those `scrollIntoView` calls in `requestAnimationFrame(() => …)` so they run after ScrollRestoration, and spot-check the servicos card scroll behavior in the dev smoke test below.
 
 - [ ] **Step 3: Replace `src/routes.tsx` with `src/routes.ts`**
 
@@ -718,7 +729,7 @@ export default defineConfig({
 ```json
     "dev": "react-router dev",
     "build": "react-router typegen && tsc -b && react-router build",
-    "preview": "sirv build/client --single --port 4173",
+    "preview": "sirv build/client --single __spa-fallback.html --port 4173",
 ```
 
 (All other scripts unchanged; `playwright.config.ts` needs no change — `react-router dev` serves on 5173 like Vite did.)
@@ -760,7 +771,7 @@ import SiteLayout, { loader as siteLayoutLoader } from '../layouts/SiteLayout'
 - [ ] **Step 11: Build and inspect the prerendered output**
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Expected: typegen + `tsc -b` clean; build reports prerendered paths. Then:
@@ -779,7 +790,7 @@ Expected: all files listed, `HISTORIA-OK`, `HOME-OK`, and the `Carregando` count
 - [ ] **Step 12: Run unit tests and lint**
 
 ```bash
-npm test && npm run lint
+pnpm test && pnpm run lint
 ```
 
 Expected: all suites pass (layout/page tests now feed content through the route loader), lint clean.
@@ -787,16 +798,16 @@ Expected: all suites pass (layout/page tests now feed content through the route 
 - [ ] **Step 13: Smoke-test dev and preview**
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Expected: serves on http://localhost:5173; `/`, `/historia`, `/servicos/equoterapia`, `/momentos/fotos` render with header/footer; an unknown URL like `/nada` renders the 404 inside the site chrome. Stop the server, then:
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
-Expected: http://localhost:4173 serves the prerendered site. Stop the server.
+Expected: http://localhost:4173 serves the prerendered site, and an unknown URL like http://localhost:4173/nada serves the SPA fallback (default `<title>Projeto Liberdade</title>`, not the prerendered home HTML) and renders the 404 inside the site chrome — this exercises the `--single __spa-fallback.html` flag and the layout `clientLoader`. Stop the server.
 
 - [ ] **Step 14: Commit**
 
@@ -819,7 +830,7 @@ Each page route module exports a `meta` function deriving title/description/OG t
 - Consumes: `pageMeta`/`heroSubtitle` (Task 2); `SiteLayout` loader data shape `SiteContent` (Task 4); selectors `selectServicesGrid`, `selectHippussuit`, `selectMomentosHeader`.
 - Produces: `meta` exports on every page route module; `momentosMeta(content: SiteContent | undefined): MetaDescriptor[]` in `momentosSelectors.ts` shared by the three momentos routes.
 
-Meta test pattern (used in every step below): build the args object by hand and cast, since `Route.MetaArgs` is a generated type:
+Meta test pattern (some files use a local `args` helper, others inline the cast): build the args object by hand and cast, since `Route.MetaArgs` is a generated type:
 
 ```tsx
 const args = (content: SiteContent, params: Record<string, string> = {}) =>
@@ -945,7 +956,7 @@ describe('ContatoPage meta', () => {
 - [ ] **Step 2: Run tests to verify they fail**
 
 ```bash
-npx vitest run src/features
+pnpm vitest run src/features
 ```
 
 Expected: FAIL — `meta` / `momentosMeta` are not exported.
@@ -1091,13 +1102,13 @@ export function meta() {
 Run typegen so `./+types/*` resolve for the editor and `tsc`:
 
 ```bash
-npx react-router typegen
+pnpm react-router typegen
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
 
 ```bash
-npx vitest run src/features && npm run lint
+pnpm vitest run src/features && pnpm run lint
 ```
 
 Expected: PASS, lint clean (the `allowExportNames` rule from Task 3 permits `meta`).
@@ -1105,7 +1116,7 @@ Expected: PASS, lint clean (the `allowExportNames` rule from Task 3 permits `met
 - [ ] **Step 5: Verify titles in the prerendered HTML**
 
 ```bash
-npm run build
+pnpm run build
 grep -o '<title>[^<]*</title>' build/client/index.html
 grep -o '<title>[^<]*</title>' build/client/historia/index.html
 grep -o '<title>[^<]*</title>' build/client/servicos/equoterapia/index.html
@@ -1132,7 +1143,7 @@ git commit -m "feat(seo): per-page meta exports — title, description, Open Gra
 ### Task 6: Documentation + full verification
 
 **Files:**
-- Modify: `README.md`
+- Modify: `README.md`, `src/features/README.md`
 - No source changes.
 
 **Interfaces:**
@@ -1183,22 +1194,27 @@ New: `4. ~~SEO prerender~~ — done via React Router framework-mode prerendering
 
 In the "Swapping to Firebase RTDB" section, append one sentence to the intro: "How a runtime data source interacts with build-time prerendering (rebuild-on-change vs. client revalidation) is an open design question for that step."
 
+- [ ] **Step 5b: Fix the remaining stale references**
+
+- README prerequisites: change "Node.js 20+" to "Node.js 22.22+" (matches the `engines` bump from Task 1).
+- `src/features/README.md`: it says features read content "ONLY via `useContent`" — update to "only via the router `Outlet` context (provided by the `SiteLayout` route module's loader)".
+
 - [ ] **Step 6: Full verification suite**
 
 ```bash
-npm run format && npm run format:check
-npm run lint
-npm test
-npm run build
-npm run test:e2e
+pnpm run format:check
+pnpm run lint
+pnpm test
+pnpm run build
+pnpm run test:e2e
 ```
 
-Expected: all green. For e2e, Playwright starts the dev server itself (`webServer` in `playwright.config.ts`); if browsers are missing, run `npx playwright install chromium` once. All five existing specs (historia, momentos, scroll-restoration, servicos, smoke) must pass — scroll-restoration exercises the `ScrollRestoration` that moved to `root.tsx`.
+Expected: all green. If `format:check` fails, run `pnpm run format` and include the reformatted files in the commit. For e2e, Playwright starts the dev server itself (`webServer` in `playwright.config.ts`); if browsers are missing, run `pnpm exec playwright install chromium` once. All five existing specs (historia, momentos, scroll-restoration, servicos, smoke) must pass — scroll-restoration exercises the `ScrollRestoration` that moved to `root.tsx`.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add README.md
+git add -A
 git commit -m "docs: README — framework-mode architecture, commands, roadmap item 4 done"
 ```
 
