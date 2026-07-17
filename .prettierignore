@@ -3,5 +3,6 @@ dist
 pnpm-lock.yaml
 docs
 .superpowers
+.claude
 test-results
 playwright-report
