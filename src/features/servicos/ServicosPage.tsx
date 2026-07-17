@@ -18,7 +18,7 @@ export function meta({ params, matches }: Route.MetaArgs) {
     service?.title ?? hippussuit?.title ?? content.pages.servicos.title
   return pageMeta(
     `${title} — ${content.site.name}`,
-    service?.excerpt ?? grid.intro,
+    service?.excerpt ?? hippussuit?.intro ?? grid.intro,
   )
 }
 

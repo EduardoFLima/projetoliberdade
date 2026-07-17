@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "react-router dev",
     "build": "react-router typegen && tsc -b && react-router build",
-    "preview": "sirv build/client --single --port 4173",
+    "preview": "sirv build/client --single __spa-fallback.html --port 4173",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
