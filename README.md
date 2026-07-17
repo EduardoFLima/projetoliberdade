@@ -159,7 +159,7 @@ Every push to `master` (including PR merges) triggers the [`.github/workflows/te
 - **`unit`** — `pnpm lint`, `pnpm format:check`, then `pnpm test` (Vitest).
 - **`e2e`** — `pnpm build`, then `pnpm test:e2e` (Playwright, chromium) against the production bundle served by `pnpm preview`.
 
-When an e2e run fails, the Playwright HTML report — with traces and failure screenshots — is uploaded as a `playwright-report` artifact on the workflow run page (retained 30 days). Reproduce either job locally with the commands in [Testing](#testing).
+The Playwright HTML report — with traces and failure screenshots — is uploaded as a `playwright-report` artifact on every non-cancelled run (pass or fail) and kept on the workflow run page for 30 days; it's the first place to look when an e2e run fails. Reproduce either job locally with the commands in [Testing](#testing).
 
 ## Roadmap
 
