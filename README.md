@@ -20,6 +20,7 @@ The UI is a single-page React application with five public pages — **home**, *
   - [Prerequisites](#prerequisites)
   - [Running the app](#running-the-app)
   - [Testing](#testing)
+  - [Continuous integration](#continuous-integration)
 - [Roadmap](#roadmap)
   - [Swapping to Firebase RTDB](#swapping-to-firebase-rtdb)
 - [License](#license)
@@ -121,7 +122,7 @@ The content model is locked in [`docs/design/content-model.md`](./docs/design/co
 ### Prerequisites
 
 - **Node.js** 20+ (Vite 8 / React 19 baseline)
-- **pnpm** — install with `corepack enable` or `npm install -g pnpm`
+- **pnpm** — run `corepack enable`; the version is pinned via the `packageManager` field in `package.json`, so Corepack selects the right one automatically
 
 ### Running the app
 
@@ -148,6 +149,17 @@ pnpm test:e2e    # Playwright end-to-end tests
 ```
 
 Vitest covers the content layer, selectors, pure utils, and component behavior (jsdom); Playwright specs live under `tests/e2e/` and cover page behavior in a real browser.
+
+By default `pnpm test:e2e` runs Playwright against the dev server on port 5173. To reproduce CI locally, run `pnpm build` then `CI=1 pnpm test:e2e` — this serves the production build via `pnpm preview` on port 4173 and writes an HTML report to `playwright-report/`.
+
+### Continuous integration
+
+Every push to `master` (including PR merges) triggers the [`.github/workflows/tests.yml`](./.github/workflows/tests.yml) workflow, which runs two parallel jobs:
+
+- **`unit`** — `pnpm lint`, `pnpm format:check`, then `pnpm test` (Vitest).
+- **`e2e`** — `pnpm build`, then `pnpm test:e2e` (Playwright, chromium) against the production bundle served by `pnpm preview`.
+
+When an e2e run fails, the Playwright HTML report — with traces and failure screenshots — is uploaded as a `playwright-report` artifact on the workflow run page (retained 30 days). Reproduce either job locally with the commands in [Testing](#testing).
 
 ## Roadmap
 
