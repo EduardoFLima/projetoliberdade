@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import { useLocation } from 'react-router'
 import { renderWithRouter } from '../../test/render'
 import { ServicesSection } from './ServicesSection'
@@ -117,7 +117,7 @@ describe('ServicesSection', () => {
     expect(screen.getByTestId('pathname')).toHaveTextContent(/^\/$/)
   })
 
-  it('expands, highlights, marks aria-current, and scrolls to the active card', () => {
+  it('expands, highlights, marks aria-current, and scrolls to the active card', async () => {
     renderWithRouter(
       <ServicesSection
         heading="Nossos Serviços"
@@ -128,7 +128,8 @@ describe('ServicesSection', () => {
       { route: '/servicos/equoterapia' },
     )
 
-    expect(scrollIntoViewMock).toHaveBeenCalled()
+    // Deferred to the next animation frame; see ServicesSection.tsx.
+    await waitFor(() => expect(scrollIntoViewMock).toHaveBeenCalled())
 
     const equoterapiaCard = screen
       .getByRole('heading', { name: 'Equoterapia' })

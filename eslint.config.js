@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import prettier from 'eslint-config-prettier'
 
 export default tseslint.config([
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'build', '.react-router'] },
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,6 +18,28 @@ export default tseslint.config([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      // Route modules export meta/loader/etc. alongside their component.
+      'react-refresh/only-export-components': [
+        'error',
+        {
+          allowConstantExport: true,
+          allowExportNames: [
+            'meta',
+            'links',
+            'headers',
+            'handle',
+            'loader',
+            'clientLoader',
+            'action',
+            'clientAction',
+            'ErrorBoundary',
+            'HydrateFallback',
+            'shouldRevalidate',
+          ],
+        },
+      ],
     },
   },
   prettier,

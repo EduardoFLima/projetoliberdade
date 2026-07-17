@@ -53,9 +53,13 @@ export function HippussuitSection({
   const panelRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    if (isActive && panelRef.current) {
-      panelRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+    if (!isActive || !panelRef.current) return
+    // Deferred to the next frame so it runs after ScrollRestoration's own
+    // layout effect, regardless of their relative position in root.tsx.
+    const frame = requestAnimationFrame(() => {
+      panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
+    return () => cancelAnimationFrame(frame)
   }, [isActive])
 
   const {

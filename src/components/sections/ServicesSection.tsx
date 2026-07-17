@@ -45,9 +45,13 @@ function ServiceCard({
   const navigate = useNavigate()
 
   useLayoutEffect(() => {
-    if (isActive && cardRef.current) {
-      cardRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
+    if (!isActive || !cardRef.current) return
+    // Deferred to the next frame so it runs after ScrollRestoration's own
+    // layout effect, regardless of their relative position in root.tsx.
+    const frame = requestAnimationFrame(() => {
+      cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    })
+    return () => cancelAnimationFrame(frame)
   }, [isActive])
 
   function handleCardClick(event: MouseEvent<HTMLElement>) {

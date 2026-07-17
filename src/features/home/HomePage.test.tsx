@@ -1,21 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import { createMemoryRouter, RouterProvider } from 'react-router'
-import { SiteLayout } from '../../layouts/SiteLayout'
-import { HomePage } from './HomePage'
+import { screen, waitFor } from '@testing-library/react'
+import { renderWithSiteLayout } from '../../test/render'
+import { contentRepository } from '../../content/content'
+import { HomePage, meta } from './HomePage'
 
 function renderHome() {
-  const router = createMemoryRouter(
-    [
-      {
-        path: '/',
-        Component: SiteLayout,
-        children: [{ index: true, Component: HomePage }],
-      },
-    ],
-    { initialEntries: ['/'] },
-  )
-  return render(<RouterProvider router={router} />)
+  return renderWithSiteLayout([{ index: true, Component: HomePage }])
 }
 
 describe('HomePage', () => {
@@ -56,5 +46,23 @@ describe('HomePage', () => {
     expect(
       screen.getByRole('heading', { level: 3, name: 'Equitação Adaptada' }),
     ).toBeInTheDocument()
+  })
+})
+
+describe('HomePage meta', () => {
+  it('derives title and description from content', async () => {
+    const content = await contentRepository.getContent()
+    const tags = meta({
+      matches: [undefined, { loaderData: content }],
+      params: {},
+    } as unknown as Parameters<typeof meta>[0])
+    expect(tags).toContainEqual({
+      title: 'Projeto Liberdade — Reabilitação e Equoterapia',
+    })
+    expect(tags).toContainEqual({
+      name: 'description',
+      content:
+        'Promovendo qualidade de vida e desenvolvimento biopsicossocial através da relação com o cavalo.',
+    })
   })
 })

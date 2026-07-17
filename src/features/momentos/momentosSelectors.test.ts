@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import type { SiteContent } from '../../content/types'
+import { contentRepository } from '../../content/content'
 import {
+  momentosMeta,
   selectMomentosHeader,
   selectPhotos,
   selectVideos,
@@ -74,5 +76,19 @@ describe('selectPhotos', () => {
     expect(photos[0].src).toBe('/images/momentos/destaque.jpg')
     expect(photos[1].alt).toBe('um')
     expect(photos[2].alt).toBe('dois')
+  })
+})
+
+describe('momentosMeta', () => {
+  it('derives title and description from content', async () => {
+    const content = await contentRepository.getContent()
+    const tags = momentosMeta(content)
+    expect(tags).toContainEqual({ title: 'Momentos — Projeto Liberdade' })
+  })
+
+  it('falls back to the site title without content', () => {
+    expect(momentosMeta(undefined)).toContainEqual({
+      title: 'Projeto Liberdade',
+    })
   })
 })

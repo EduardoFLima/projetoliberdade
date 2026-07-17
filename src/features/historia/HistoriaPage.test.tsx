@@ -1,21 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
-import { createMemoryRouter, RouterProvider } from 'react-router'
-import { SiteLayout } from '../../layouts/SiteLayout'
-import { HistoriaPage } from './HistoriaPage'
+import { screen, waitFor } from '@testing-library/react'
+import { renderWithSiteLayout } from '../../test/render'
+import { contentRepository } from '../../content/content'
+import { HistoriaPage, meta } from './HistoriaPage'
 
 function renderHistoria() {
-  const router = createMemoryRouter(
-    [
-      {
-        path: '/',
-        Component: SiteLayout,
-        children: [{ path: 'historia', Component: HistoriaPage }],
-      },
-    ],
-    { initialEntries: ['/historia'] },
-  )
-  return render(<RouterProvider router={router} />)
+  return renderWithSiteLayout([{ path: 'historia', Component: HistoriaPage }], {
+    route: '/historia',
+  })
 }
 
 describe('HistoriaPage', () => {
@@ -44,5 +36,16 @@ describe('HistoriaPage', () => {
     expect(
       screen.queryByRole('heading', { level: 2, name: 'História' }),
     ).not.toBeInTheDocument()
+  })
+})
+
+describe('HistoriaPage meta', () => {
+  it('derives the title from the page content', async () => {
+    const content = await contentRepository.getContent()
+    const tags = meta({
+      matches: [undefined, { loaderData: content }],
+      params: {},
+    } as unknown as Parameters<typeof meta>[0])
+    expect(tags).toContainEqual({ title: 'História — Projeto Liberdade' })
   })
 })

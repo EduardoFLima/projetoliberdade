@@ -4,12 +4,21 @@ import { Hero } from '../../components/sections/Hero'
 import { HistoriaSection } from '../../components/sections/HistoriaSection'
 import { MissionVisionValues } from '../../components/sections/MissionVisionValues'
 import { ServicesSection } from '../../components/sections/ServicesSection'
+import type { Route } from './+types/HomePage'
+import { pageMeta } from '../../lib/meta'
 import {
   selectHero,
   selectHistoria,
   selectMvv,
   selectServices,
 } from './homeSelectors'
+
+export function meta({ matches }: Route.MetaArgs) {
+  const content = matches[1]?.loaderData
+  if (!content) return pageMeta('Projeto Liberdade')
+  const { hero } = content.pages.home
+  return pageMeta(`${content.site.name} — ${hero.title}`, hero.subtitle)
+}
 
 export function HomePage() {
   const content = useOutletContext<SiteContent>()
@@ -46,3 +55,5 @@ export function HomePage() {
     </>
   )
 }
+
+export default HomePage
